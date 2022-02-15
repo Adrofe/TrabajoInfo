@@ -1,0 +1,13 @@
+﻿  EsferaPulsante.cpp
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\EsferaPulsante.cpp(17,18): warning C4244: '=': conversión de 'float' a 'Byte'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\EsferaPulsante.cpp(18,16): warning C4244: '=': conversión de 'float' a 'Byte'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\EsferaPulsante.cpp(19,16): warning C4244: '=': conversión de 'float' a 'Byte'; posible pérdida de datos
+  Mundo.cpp
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\Mundo.cpp(35,28): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\Mundo.cpp(110,50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\Mundo.cpp(110,48): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\Mundo.cpp(110,45): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\src\Mundo.cpp(110,42): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  Pang.cpp
+  Generando código...
+  Pang.vcxproj -> D:\PROGRAMACION\PRACTICAS\PRACTICA 6\tema4inicial_VS19x64\bin\Pang.exe
