@@ -1,5 +1,7 @@
 #include "ListaDisparos.h"
 
+//Hola
+
 ListaDisparos::ListaDisparos()
 {
 	numero = 0;
