@@ -1,7 +1,6 @@
 #include "Caja.h"
 #include "Hombre.h"
 #include "Esfera.h"
-#include "Bonus.h"
 #include "Disparo.h"
 #include "ListaEsferas.h"
 #include "ListaDisparos.h"
@@ -18,7 +17,6 @@ private:
 public:
 	Hombre hombre;
 	Caja caja;
-	Bonus bonus;
 	Pared plataforma;	
 	EsferaPulsante esferaPulsante;
 	DisparoEspecial disparo_Especial;
