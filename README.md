@@ -7,6 +7,7 @@ LISTA DE COSAS POR HACER
 - Sistema de coordenadas (abcde... 12345...)
 - Piezas
 - Movimiento de las piezas (cualquiera)
+- Movimiento centrado en la casilla
 - Movimiento legal de las piezas
 - Movimientos especiales (enroque, el peon llega al final, peón al paso, comer al peon si ha avanzado 2)
 - Turnos
