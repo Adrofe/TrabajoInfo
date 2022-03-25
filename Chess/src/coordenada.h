@@ -12,8 +12,8 @@ class coordenada
 	int numero;
 public:
 
-	coordenada(string letra, int numero);
 	coordenada();
+	coordenada(string letra, int numero);
 	void toChess(vector2D vector);
 	vector2D toVector();
 

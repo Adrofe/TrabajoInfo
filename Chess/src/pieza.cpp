@@ -6,6 +6,13 @@ pieza::pieza(color color, coordenada coord)
 	this->coord = coord;
 }
 
+pieza::pieza()
+{
+	coordenada icoord;
+	coord = icoord;
+	icolor = BLANCO;
+}
+
 pieza::~pieza()
 {
 }

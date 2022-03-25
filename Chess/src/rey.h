@@ -4,6 +4,9 @@
 class rey : public pieza
 {
 public:
+	rey(color color, coordenada coord);
+	rey();
+
 	void dibuja();
 	bool movimientoLegal(coordenada destino);
 };

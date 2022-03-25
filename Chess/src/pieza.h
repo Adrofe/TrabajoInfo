@@ -1,5 +1,6 @@
 #pragma once
 #include "coordenada.h"
+#include "vector2D.h"
 #include "freeglut.h"
 #include "ETSIDI.h"
 
@@ -7,13 +8,14 @@ enum color {NEGRO, BLANCO};
 
 
 class pieza
-{
-	float altura = 6.0f, ancho = 4.0f;
+{	
 	coordenada coord;
 	color icolor;
 
 public:
+	float altura = 6.0f, ancho = 4.0f;
 	pieza(color color, coordenada coord);
+	pieza();
 	~pieza();
 	color getColor();
 	coordenada getCoordenada();

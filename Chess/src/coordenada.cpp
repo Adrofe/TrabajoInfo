@@ -6,6 +6,12 @@
 
 
 
+coordenada::coordenada()
+{
+	letra = "a";
+	numero = 1;
+}
+
 coordenada::coordenada(string letra, int numero)
 {
 	this->letra = letra;

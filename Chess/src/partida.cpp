@@ -30,4 +30,5 @@ void partida::dibuja()
 	glEnable(GL_LIGHTING);
 
 	tablero.dibuja();
+	irey.dibuja();
 }
