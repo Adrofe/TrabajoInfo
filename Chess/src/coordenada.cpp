@@ -20,39 +20,61 @@ void coordenada::toChess(vector2D vector)
 	case 0:
 		letra = 'a';
 		break;
-	case 1:
+	case 8:
 		letra = 'b';
 		break;
-	case 2:
+	case 16:
 		letra = 'c';
 		break;
-	case 3:
+	case 24:
 		letra = 'd';
 		break;
-	case 4:
+	case 32:
 		letra = 'e';
 		break;
-	case 5:
+	case 40:
 		letra = 'f';
 		break;
-	case 6:
+	case 48:
 		letra = 'g';
 		break;
-	case 7:
+	case 56:
 		letra = 'h';
 		break;
 	default:
 		break;
 	}
 
-	for (int i = 0; i < 8;i++) {
+	for (int i = 0; i < 64;i=i+8) {
 		if ((int)vector.y == i) {
-			numero = i;
+			numero = i/8+1;
 		}
 	}
 	
 
 
+}
+
+vector2D coordenada::toVector()
+{
+	float x, y;
+
+	if (letra == "a") x = 0.0f;
+	else if (letra == "b") x = 8.0f;
+	else if (letra == "c") x = 16.0f;
+	else if (letra == "d") x = 24.0f;
+	else if (letra == "e") x = 32.0f;
+	else if (letra == "f") x = 40.0f;
+	else if (letra == "g") x = 48.0f;
+	else if (letra == "h") x = 56.0f;
+
+	for (int i = 1; i < 9; i++) {
+		if (numero == i) {
+			y = i * 8 - 8;
+		}
+	}
+	vector2D vector(x, y);
+	return vector;
 }
 
 

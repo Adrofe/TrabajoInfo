@@ -1,6 +1,6 @@
 #include "tablero.h"
 #include "freeglut.h"
-#include "ETSIDI.h"
+
 
 void tablero::dibuja()
 {
