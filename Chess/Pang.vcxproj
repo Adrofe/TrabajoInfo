@@ -22,12 +22,14 @@
     <ClCompile Include="src\Chess.cpp" />
     <ClCompile Include="src\coordenada.cpp" />
     <ClCompile Include="src\partida.cpp" />
+    <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\coordenada.h" />
     <ClInclude Include="src\partida.h" />
+    <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\vector2D.h" />
   </ItemGroup>

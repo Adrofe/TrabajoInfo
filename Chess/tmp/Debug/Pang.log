@@ -1,9 +1,5 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   Chess.cpp
-  coordenada.cpp
-  partida.cpp
-C:\Users\Adrian\Desktop\TrabajoInfo\Chess\src\partida.cpp(7,14): warning C4305: '=': truncamiento de 'double' a 'float'
-  tablero.cpp
-  vector2D.cpp
-  Generando código...
-  Pang.vcxproj -> C:\Users\Adrian\Desktop\TrabajoInfo\Chess\bin\Chess.exe
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\Chess.cpp(23,45): error C2664: 'int glutCreateSubWindow(int,int,int,int,int)': el argumento 1 no puede convertirse de 'const char [6]' a 'int'
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\Chess.cpp(23,22): message : No existe un contexto en el que sea posible realizar esta conversión
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\lib\freeglut.h(429,26): message : vea la declaración de 'glutCreateSubWindow'
