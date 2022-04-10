@@ -1,7 +1,7 @@
 #include "rey.h"
 
 
-rey::rey(color color, coordenada coord) : pieza(color,coord)
+rey::rey(bool color, coordenada coord) : pieza(color,coord)
 {
 }
 
@@ -21,7 +21,7 @@ void rey::dibuja()
 
 	//Textura
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/reyNegro.png").id);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/rey.png").id);
 
 	glDisable(GL_LIGHTING);
 	glColor3ub(255, 255, 255);

@@ -3,14 +3,18 @@
 #include "pieza.h"
 #include "rey.h"
 #include "coordenada.h"
+#include "stdlib.h"
 
 using namespace std;
+string a = "c";
+coordenada pos(a, 4);
 
 class partida
 {
 public:
 	tablero tablero;
-	rey irey;
+	
+	rey irey(0,pos);
 
 	void tecla(unsigned char key);
 	void inicializa();

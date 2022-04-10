@@ -4,20 +4,20 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 
-enum color {NEGRO, BLANCO};
+//enum color {NEGRO, BLANCO}; 0 -> negro  1-> blanco
 
 
 class pieza
 {	
 	coordenada coord;
-	color icolor;
+	bool icolor;
 
 public:
 	float altura = 6.0f, ancho = 4.0f;
-	pieza(color color, coordenada coord);
+	pieza(bool color, coordenada coord);
 	pieza();
 	~pieza();
-	color getColor();
+	bool getColor();
 	coordenada getCoordenada();
 	virtual bool movimientoLegal(coordenada destino) = 0;
 	virtual void dibuja() = 0;
