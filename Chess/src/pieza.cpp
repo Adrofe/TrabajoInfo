@@ -1,6 +1,6 @@
 #include "pieza.h"
 
-pieza::pieza(bool color, coordenada coord)
+pieza::pieza(color color, coordenada coord)
 {
 	this->icolor = color;
 	this->coord = coord;
@@ -10,14 +10,14 @@ pieza::pieza()
 {
 	coordenada icoord;
 	coord = icoord;
-	icolor = 1;
+	icolor = BLANCO;
 }
 
 pieza::~pieza()
 {
 }
 
-bool pieza::getColor()
+color pieza::getColor()
 {
 	return icolor;
 }

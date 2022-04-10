@@ -6,15 +6,12 @@
 #include "stdlib.h"
 
 using namespace std;
-string a = "c";
-coordenada pos(a, 4);
 
 class partida
 {
 public:
 	tablero tablero;
-	
-	rey irey(0,pos);
+	rey irey;
 
 	void tecla(unsigned char key);
 	void inicializa();

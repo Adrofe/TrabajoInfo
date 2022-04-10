@@ -1,7 +1,7 @@
 #include "rey.h"
 
 
-rey::rey(bool color, coordenada coord) : pieza(color,coord)
+rey::rey(color color, coordenada coord) : pieza(color,coord)
 {
 }
 

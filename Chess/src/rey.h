@@ -4,7 +4,7 @@
 class rey : public pieza
 {
 public:
-	rey(bool color, coordenada coord);
+	rey(color color, coordenada coord);
 	rey();
 
 	void dibuja();
