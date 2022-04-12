@@ -16,6 +16,7 @@ public:
 	coordenada(string letra, int numero);
 	void toChess(vector2D vector);
 	vector2D toVector();
+	string tostring(int numero);
 
 
 };

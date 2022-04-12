@@ -1,12 +1,3 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   Chess.cpp
-  coordenada.cpp
-D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\coordenada.cpp(79,14): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  partida.cpp
-D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\partida.cpp(7,14): warning C4305: '=': truncamiento de 'double' a 'float'
-  pieza.cpp
-  rey.cpp
-  tablero.cpp
-  vector2D.cpp
-  Generando código...
-  Pang.vcxproj -> D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\bin\Chess.exe
+  Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe

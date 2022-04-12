@@ -7,7 +7,7 @@ void partida::inicializa()
 	x_ojo = 31.9;
 	y_ojo = 100;
 	z_ojo = 32;
-	coordenada a("f", 6);
+	coordenada a("c", 8);
 	irey.icolor = BLANCO;
 	irey.coord = a;
 

@@ -83,4 +83,39 @@ vector2D coordenada::toVector()
 	return vector;
 }
 
+string coordenada::tostring(int numero)
+{
+	string letra2;
+	switch (numero) {
+	case 1:
+		letra2 = 'a';
+		break;
+	case 2:
+		letra2 = 'b';
+		break;
+	case 3:
+		letra2 = 'c';
+		break;
+	case 4:
+		letra2 = 'd';
+		break;
+	case 5:
+		letra2 = 'e';
+		break;
+	case 6:
+		letra2 = 'f';
+		break;
+	case 7:
+		letra2 = 'g';
+		break;
+	case 8:
+		letra2 = 'h';
+		break;
+	default:
+		letra2 = 'a';
+		break;
+	}
+	return letra2;
+}
+
 
