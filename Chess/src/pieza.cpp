@@ -26,3 +26,13 @@ coordenada pieza::getCoordenada()
 {
 	return coord;
 }
+
+void pieza::setColumna(int columna)
+{
+	coord.setCol(columna);
+}
+
+void pieza::setFila(int fila)
+{
+	coord.setFil(fila);
+}

@@ -4,12 +4,12 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 
-enum color {NEGRO, BLANCO}; //0 -> negro  1-> blanco
+enum  color {NEGRO, BLANCO}; //0 -> negro  1-> blanco
 
 
 class pieza
 {	
-public:
+private:
 	coordenada coord;
 	color icolor;
 
@@ -20,6 +20,9 @@ public:
 	~pieza();
 	color getColor();
 	coordenada getCoordenada();
+	void setColumna(int columna);
+	void setFila(int fila);
+
 	virtual bool movimientoLegal(coordenada destino) = 0;
 	virtual void dibuja() = 0;
 

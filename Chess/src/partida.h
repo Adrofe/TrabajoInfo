@@ -5,6 +5,7 @@
 #include "coordenada.h"
 #include "stdlib.h"
 
+
 using namespace std;
 
 class partida
@@ -13,10 +14,13 @@ public:
 	tablero tablero;
 	rey irey;
 
+
 	void tecla(unsigned char key);
 	void inicializa();
 	void mover();
 	void dibuja();
+	void mouse(int button, int state, int x, int y);
+	void getColFilMouse(int x, int y, int &columna,int &fila);
 
 	float x_ojo;
 	float y_ojo;

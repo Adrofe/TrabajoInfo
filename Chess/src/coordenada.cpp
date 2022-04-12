@@ -63,7 +63,7 @@ void coordenada::toChess(vector2D vector)
 
 vector2D coordenada::toVector()
 {
-	float x, y;
+	float x=0, y=0;
 
 	if (letra == "a") x = 0.0f;
 	else if (letra == "b") x = 8.0f;
@@ -83,7 +83,7 @@ vector2D coordenada::toVector()
 	return vector;
 }
 
-string coordenada::tostring(int numero)
+string coordenada::toLetraCol(int numero)
 {
 	string letra2;
 	switch (numero) {
@@ -116,6 +116,41 @@ string coordenada::tostring(int numero)
 		break;
 	}
 	return letra2;
+}
+
+int coordenada::getFila()
+{
+	
+	return numero;
+}
+
+int coordenada::getColumna()
+{
+
+	int columna = 0;
+
+	if (letra == "a") columna = 1;
+	else if (letra == "b") columna = 2;
+	else if (letra == "c") columna = 3;
+	else if (letra == "d") columna = 4;
+	else if (letra == "e") columna = 5;
+	else if (letra == "f") columna = 6;
+	else if (letra == "g") columna = 7;
+	else if (letra == "h") columna = 8;
+
+	return columna;
+}
+
+void coordenada::setCol(int columna)
+{
+	
+	this->letra = toLetraCol(columna);
+}
+
+void coordenada::setFil(int fila)
+{
+
+	this->numero = fila ;
 }
 
 
