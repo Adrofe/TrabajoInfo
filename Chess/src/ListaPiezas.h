@@ -20,6 +20,8 @@ public:
 	void eliminar(int index);
 	void eliminar(pieza* pieza);
 	void borrarContenido();
+	pieza* buscarPieza(int fila, int columna);
+	void moverPieza(pieza*, int fila, int columna);
 
 };
 

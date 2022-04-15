@@ -81,7 +81,7 @@ void OnTimer(int value)
 }
 void Mouse(int button, int state, int x, int y) {
 
-	//iPartida.mouse(button, state, x, y);
+	iPartida.mouse(button, state, x, y);
 	//no borrar
 	glutPostRedisplay();
 }

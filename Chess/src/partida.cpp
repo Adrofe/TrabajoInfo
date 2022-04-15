@@ -40,36 +40,28 @@ void partida::dibuja()
 	
 }
 
-/*
+
 void partida::mouse(int button, int state, int x, int y)
 {
     printf_s("%d, %d\n", button, state);
 
     static int columna = 0;
     static int fila = 0;
-    static bool mismaFil = FALSE;
-    static bool mismaCol = FALSE;
+    static pieza* aux;
 
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN )) {
-        getColFilMouse(x, y, columna, fila);
-
-        if (fila == irey.getCoordenada().getColumna()) {
-            mismaCol = TRUE;
-        }
-        else (mismaCol = FALSE);
-
-        if (columna == irey.getCoordenada().getFila()) {
-            mismaFil = TRUE;
-        }
-        else(mismaFil = FALSE);
+        getColFilMouse(x, y, fila, columna);
+        aux = piezas.buscarPieza(fila, columna);
 
 
     }
 
     
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_UP)) {
-        getColFilMouse(x, y, columna, fila);
-
+        getColFilMouse(x, y, fila, columna);
+        piezas.moverPieza(aux, fila, columna);
+        
+        /*
         if ((mismaCol == TRUE) && (mismaFil==TRUE)) {
             irey.setColumna(fila);
             irey.setFila(columna);
@@ -79,12 +71,12 @@ void partida::mouse(int button, int state, int x, int y)
             if (((columna % 2 != 0) && (fila % 2 != 0)) || ((columna % 2 == 0) && (fila % 2 == 0))) fondo = false;
             else fondo = true;
         }
-
+        */
     }
 }
-*/
 
-void partida::getColFilMouse(int x, int y, int &columna, int &fila)
+
+void partida::getColFilMouse(int x, int y, int &fila, int &columna)
 {
     int x0 = 0, y0 = 0; // ESTE ES EL NUEVO 0,0 QUE SE DEFINE MAS ABAJO
     int c, f;

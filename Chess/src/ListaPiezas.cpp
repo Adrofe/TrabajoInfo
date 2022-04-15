@@ -76,3 +76,42 @@ void ListaPiezas::borrarContenido()
 		delete listaPiezas[i];
 	}
 }
+
+pieza* ListaPiezas::buscarPieza(int fila, int columna)
+{
+	static bool mismaCol= FALSE, mismaFil = FALSE;
+	for (int i = 0; i < nPiezas; i++) {
+		
+		if (columna == listaPiezas[i]->getCoordenada().getColumna()) {
+			mismaCol = TRUE;
+		}
+		else (mismaCol = FALSE);
+
+		if (fila == listaPiezas[i]->getCoordenada().getFila()) {
+			mismaFil = TRUE;
+		}
+		else(mismaFil = FALSE);
+
+		if ((mismaCol == TRUE) && (mismaFil == TRUE)) {
+			return listaPiezas[i];
+		}
+	}
+
+	return nullptr;
+}
+
+void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
+{
+	int index = -1;
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i] == pieza) {
+			index = i;
+		}
+	}
+
+	if (index != -1) {
+		listaPiezas[index]->setFila(fila);
+		listaPiezas[index]->setColumna(columna);
+	}
+
+}

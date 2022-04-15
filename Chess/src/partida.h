@@ -19,8 +19,8 @@ public:
 	void inicializa();
 	void mover();
 	void dibuja();
-	//void mouse(int button, int state, int x, int y);
-	void getColFilMouse(int x, int y, int &columna, int &fila);
+	void mouse(int button, int state, int x, int y);
+	void getColFilMouse(int x, int y, int &fila, int &columna);
 
 	float x_ojo;
 	float y_ojo;
