@@ -5,6 +5,7 @@
 enum{};
 using namespace std;
 class vector2D;
+enum color{NEGRO, BLANCO};
 
 class coordenada
 {
@@ -21,6 +22,7 @@ public:
 	int getColumna();
 	void setCol(int columna);
 	void setFil(int fila);
+	color getColorCasilla();
 
 };
 

@@ -153,4 +153,16 @@ void coordenada::setFil(int fila)
 	this->numero = fila ;
 }
 
+color coordenada::getColorCasilla()
+{
+	int columna = getColumna();
+	int fila = getFila();
+	if (((fila % 2 != 0) && (columna % 2 != 0)) || ((fila % 2 == 0) && (columna % 2 == 0))) {
+		return NEGRO;
+	}
+	else {
+		return BLANCO;
+	}
+}
+
 

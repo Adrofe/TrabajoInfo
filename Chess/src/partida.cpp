@@ -7,6 +7,9 @@ void partida::inicializa()
 	x_ojo = 31.9f;
 	y_ojo = 100.0f;
 	z_ojo = 32.0f;
+
+
+
 }
 
 void partida::dibuja()
@@ -33,23 +36,11 @@ void partida::dibuja()
    // glBindTexture(GL_TEXTURE_2D, 0);
 
 	tablero.dibuja();
-    if (fondo == false) {
-        unsigned int r = 129;
-        unsigned int g = 96;
-        unsigned int b = 79;
-        glColor3ub(r, g, b);
-        irey.dibuja();
-    }
-    else {
-        unsigned int r = 195;
-        unsigned int  g = 159;
-        unsigned int b = 129;
-        glColor3ub(r, g, b);
-        irey.dibuja();
-    }
+    piezas.dibuja();
 	
 }
 
+/*
 void partida::mouse(int button, int state, int x, int y)
 {
     printf_s("%d, %d\n", button, state);
@@ -91,6 +82,7 @@ void partida::mouse(int button, int state, int x, int y)
 
     }
 }
+*/
 
 void partida::getColFilMouse(int x, int y, int &columna, int &fila)
 {

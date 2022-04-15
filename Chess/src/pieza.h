@@ -4,8 +4,6 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 
-enum  color {NEGRO, BLANCO}; //0 -> negro  1-> blanco
-
 
 class pieza
 {	
@@ -24,7 +22,7 @@ public:
 	void setFila(int fila);
 
 	virtual bool movimientoLegal(coordenada destino) = 0;
-	virtual void dibuja() = 0;
+	virtual void dibuja();
 
 
 };

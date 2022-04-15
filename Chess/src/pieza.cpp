@@ -36,3 +36,20 @@ void pieza::setFila(int fila)
 {
 	coord.setFil(fila);
 }
+
+void pieza::dibuja(){
+
+	if (coord.getColorCasilla() == NEGRO) {
+		unsigned int r = 129;
+		unsigned int g = 96;
+		unsigned int b = 79;
+		glColor3ub(r, g, b);
+	}
+	else {
+		unsigned int r = 195;
+		unsigned int  g = 159;
+		unsigned int b = 129;
+		glColor3ub(r, g, b);
+	}
+
+}

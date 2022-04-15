@@ -1,7 +1,6 @@
 #pragma once
+#include "ListaPiezas.h"
 #include "tablero.h"
-#include "pieza.h"
-#include "rey.h"
 #include "coordenada.h"
 #include "stdlib.h"
 
@@ -12,7 +11,7 @@ class partida
 {
 public:
 	tablero tablero;
-	rey irey;
+	ListaPiezas piezas;
 	bool fondo = false; //FALSE = COLOR CLARO Y TRUE COLOR OSCURO
 
 
@@ -20,7 +19,7 @@ public:
 	void inicializa();
 	void mover();
 	void dibuja();
-	void mouse(int button, int state, int x, int y);
+	//void mouse(int button, int state, int x, int y);
 	void getColFilMouse(int x, int y, int &columna, int &fila);
 
 	float x_ojo;

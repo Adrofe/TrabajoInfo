@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Chess.cpp" />
     <ClCompile Include="src\coordenada.cpp" />
+    <ClCompile Include="src\ListaPiezas.cpp" />
     <ClCompile Include="src\partida.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\rey.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\coordenada.h" />
+    <ClInclude Include="src\ListaPiezas.h" />
     <ClInclude Include="src\partida.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\rey.h" />
