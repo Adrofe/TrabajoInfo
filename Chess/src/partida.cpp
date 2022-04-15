@@ -16,11 +16,11 @@ void partida::dibuja()
 		32.0, 0.0, 32.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
+	//glEnable(GL_TEXTURE_2D);
+  //  glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
 
 	glDisable(GL_LIGHTING);
-	glColor3ub(255, 255, 255);
+	glColor3ub(0, 0, 0);
 	glBegin(GL_POLYGON);
 	glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
 	glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
@@ -29,51 +29,64 @@ void partida::dibuja()
 	glEnd();
 	glEnable(GL_LIGHTING);
 
+    //Liberar memoria de la textura
+   // glBindTexture(GL_TEXTURE_2D, 0);
+
 	tablero.dibuja();
-	irey.dibuja();
+    if (fondo == false) {
+        unsigned int r = 129;
+        unsigned int g = 96;
+        unsigned int b = 79;
+        glColor3ub(r, g, b);
+        irey.dibuja();
+    }
+    else {
+        unsigned int r = 195;
+        unsigned int  g = 159;
+        unsigned int b = 129;
+        glColor3ub(r, g, b);
+        irey.dibuja();
+    }
+	
 }
 
 void partida::mouse(int button, int state, int x, int y)
 {
     printf_s("%d, %d\n", button, state);
-    printf_s("x: %d y: %d\n", x, y); // te dice en que coordenadas has hecho clik exactamente con el (0,0) en la esquina de arriba de la ventana 
 
     static int columna = 0;
     static int fila = 0;
     static bool mismaFil = FALSE;
     static bool mismaCol = FALSE;
 
-    if (button == GLUT_LEFT_BUTTON && (state == GLUT_DOWN )) {
+    if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN )) {
         getColFilMouse(x, y, columna, fila);
-        printf_s("columna: %d, fila: %d \n", columna, fila); //te dice la columna y la fila que has hecho click
-
-        /*if (columna == irey.getCoordenada().getColumna()) {
-            if (fila == irey.getCoordenada().getFila()) {
-                comprueba = TRUE;
-            }
-            else(comprueba = FALSE);
-        }
-        else (comprueba = FALSE);*/
-
 
         if (fila == irey.getCoordenada().getColumna()) {
             mismaCol = TRUE;
         }
         else (mismaCol = FALSE);
+
         if (columna == irey.getCoordenada().getFila()) {
             mismaFil = TRUE;
         }
         else(mismaFil = FALSE);
+
+
     }
 
     
-    if (button == GLUT_LEFT_BUTTON && (state == GLUT_UP)) {
+    if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_UP)) {
         getColFilMouse(x, y, columna, fila);
+
         if ((mismaCol == TRUE) && (mismaFil==TRUE)) {
             irey.setColumna(fila);
             irey.setFila(columna);
             mismaFil = FALSE;
             mismaCol = FALSE;
+
+            if (((columna % 2 != 0) && (fila % 2 != 0)) || ((columna % 2 == 0) && (fila % 2 == 0))) fondo = false;
+            else fondo = true;
         }
 
     }
@@ -81,35 +94,33 @@ void partida::mouse(int button, int state, int x, int y)
 
 void partida::getColFilMouse(int x, int y, int &columna, int &fila)
 {
-    int x0 = 0, y0 = 0;
+    int x0 = 0, y0 = 0; // ESTE ES EL NUEVO 0,0 QUE SE DEFINE MAS ABAJO
     int c, f;
-    //Prueba movimiento de la pieza lo inicializa todo desde aqui para el cambio de posicion
 
-
-       //te dice en que coordenadas has hecho clik exactamente con el (0,0) en la esquina de abajo del tablero
+//te dice en que coordenadas has hecho clik exactamente con el (0,0) en la esquina de abajo del tablero (LAS X TIENES SENTIDO POSITIVO Y LAS Y NEGATIVO, SE TRABAJA EN EL CUARTO CUADRANTE)
     x0 = x - 170;
     y0 = y - 657;
     printf_s("x0: %d y0: %d\n", x0, y0);
     c = 0;
     f = 0;
-    if (((x0 > -1) && (x0 < 660)) && ((y0 < 1) && (y0 > -620))) {
+    if (((x0 > -1) && (x0 < 661)) && ((y0 < 1) && (y0 > -620))) {
         for (int i = 1; i < 9; i++) {
 
-            if ((x0 > c) && (x0 < (c + 80))) {
+            if ((x0 > c) && (x0 < (c + 82))) {
 
-                columna = i; //te estable la columna por un intervalo 
+                columna = i; //te estable la columna un intervalo 
 
             }
 
 
             if ((y0 < -f) && (y0 > -(f + 75))) {
 
-                fila = i; // te establece la fila por un intervalo
+                fila = i; // te establece la fila un intervalo
             }
 
             //esto varia si se cambian las dimensiones de la ventada creada por freeglut
-            c = c + 80;
-            f = f + 75;
+            c = c + 82; //82 son los pixeles que ocupa una casilla en x
+            f = f + 77; //82 son los pixeles que ocupa una casilla en y
         }
         printf_s("columna: %d, fila: %d \n", columna, fila); //te dice la columna y la fila que has hecho click
     }

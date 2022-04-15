@@ -13,6 +13,7 @@ class partida
 public:
 	tablero tablero;
 	rey irey;
+	bool fondo = false; //FALSE = COLOR CLARO Y TRUE COLOR OSCURO
 
 
 	void tecla(unsigned char key);
@@ -20,7 +21,7 @@ public:
 	void mover();
 	void dibuja();
 	void mouse(int button, int state, int x, int y);
-	void getColFilMouse(int x, int y, int &columna,int &fila);
+	void getColFilMouse(int x, int y, int &columna, int &fila);
 
 	float x_ojo;
 	float y_ojo;

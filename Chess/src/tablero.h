@@ -5,5 +5,6 @@ class tablero
 {
 public:
 	void dibuja();
+	void PintarMovPosibles(int casillas []);
 };
 

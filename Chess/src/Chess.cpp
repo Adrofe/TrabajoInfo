@@ -33,6 +33,7 @@ int main(int argc,char* argv[])
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective( 40.0, 800/600.0f, 0.1, 150);
 
+
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25,OnTimer,0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()

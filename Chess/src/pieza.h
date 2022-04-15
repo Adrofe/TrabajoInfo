@@ -14,7 +14,7 @@ private:
 	color icolor;
 
 public:
-	float altura = 6.0f, ancho = 4.0f;
+	
 	pieza(color color, coordenada coord);
 	pieza();
 	~pieza();
