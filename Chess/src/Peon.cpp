@@ -60,7 +60,7 @@ bool Peon::movimientoLegal(coordenada destino)
 			return true;
 		}
 	}
-	if ((coordInicio.getFila()) == ((2) || (7))) {
+	if ((coordInicio.getFila()) == (2) || ((coordInicio.getFila()) == (7))) {
 		if (pieza::getColor() == BLANCO) {
 			if ((((coordInicio.getFila()) - (destino.getFila())) == (-2)) && ((coordInicio.getColumna()) == (destino.getColumna()))) {
 
@@ -74,5 +74,5 @@ bool Peon::movimientoLegal(coordenada destino)
 			}
 		}
 	}
-	else return false;
+	return false;
 }
