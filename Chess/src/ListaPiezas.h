@@ -2,6 +2,8 @@
 #include "pieza.h"
 #include "rey.h"
 #include "reina.h"
+#include "caballo.h"
+#include "Peon.h"
 
 
 #define MAX_PIEZAS 100

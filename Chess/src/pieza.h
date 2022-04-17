@@ -4,7 +4,6 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 
-
 class pieza
 {	
 private:

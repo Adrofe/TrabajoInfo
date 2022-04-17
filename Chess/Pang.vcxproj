@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\caballo.cpp" />
     <ClCompile Include="src\Chess.cpp" />
     <ClCompile Include="src\coordenada.cpp" />
     <ClCompile Include="src\ListaPiezas.cpp" />
     <ClCompile Include="src\partida.cpp" />
+    <ClCompile Include="src\Peon.cpp" />
     <ClCompile Include="src\pieza.cpp" />
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
@@ -30,9 +32,11 @@
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\coordenada.h" />
     <ClInclude Include="src\ListaPiezas.h" />
     <ClInclude Include="src\partida.h" />
+    <ClInclude Include="src\Peon.h" />
     <ClInclude Include="src\pieza.h" />
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />

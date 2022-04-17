@@ -61,17 +61,6 @@ void partida::mouse(int button, int state, int x, int y)
         getColFilMouse(x, y, fila, columna);
         piezas.moverPieza(aux, fila, columna);
         
-        /*
-        if ((mismaCol == TRUE) && (mismaFil==TRUE)) {
-            irey.setColumna(fila);
-            irey.setFila(columna);
-            mismaFil = FALSE;
-            mismaCol = FALSE;
-
-            if (((columna % 2 != 0) && (fila % 2 != 0)) || ((columna % 2 == 0) && (fila % 2 == 0))) fondo = false;
-            else fondo = true;
-        }
-        */
     }
 }
 
