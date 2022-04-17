@@ -19,6 +19,12 @@ coordenada::coordenada(string letra, int numero)
 
 }
 
+coordenada::coordenada(int fila, int columna)
+{
+	setFil(fila);
+	setCol(columna);
+}
+
 void coordenada::toChess(vector2D vector)
 {
 	

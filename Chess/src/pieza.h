@@ -10,9 +10,11 @@ class pieza
 private:
 	coordenada coord;
 	color icolor;
+	float altura = 8.0f, ancho = 6.0f;
 
 public:
 	
+
 	pieza(color color, coordenada coord);
 	pieza();
 	~pieza();
@@ -24,6 +26,7 @@ public:
 	virtual bool movimientoLegal(coordenada destino) = 0;
 	virtual void dibuja();
 
-
+	float getAltura() { return altura; }
+	float getAncho() { return ancho; }
 };
 

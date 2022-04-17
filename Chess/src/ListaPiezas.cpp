@@ -2,11 +2,18 @@
 
 ListaPiezas::ListaPiezas()
 {
+	
+
+
 	coordenada c1("b", 6);
 	coordenada c2("f", 5);
+	coordenada c3("c", 2);
+	coordenada c4("e", 3);
 	rey* rey1 = new rey();
 	rey* rey2 = new rey(BLANCO,c1);
 	rey* rey3 = new rey(BLANCO, c2);
+	reina* reina1 = new reina(BLANCO, c3);
+	reina* reina2 = new reina(NEGRO, c4);
 	nPiezas = 0;
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 		listaPiezas[i] = 0;
@@ -14,6 +21,8 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(rey1);
 	agregarPieza(rey2);
 	agregarPieza(rey3);
+	agregarPieza(reina1);
+	agregarPieza(reina2);
 }
 
 ListaPiezas::~ListaPiezas()
@@ -102,6 +111,34 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 
 void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 {
+	//Buscamos la pieza en el array
+	int index = -1;
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i] == pieza) {
+			index = i;
+		}
+	}
+
+	//Si encontramos la pieza cambiamos su fila y columna
+	if (index != -1) {
+		//Comprobamos si el movimiento es legal
+		if (movimientoLegal(pieza, fila, columna)) {
+			listaPiezas[index]->setFila(fila);
+			listaPiezas[index]->setColumna(columna);
+		}
+		else {
+			std::cout << "Movimiento ilegal de la pieza" << endl;
+		}
+		
+	}
+
+}
+
+bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
+{
+	coordenada coordDestino(fila, columna);
+
+	//Buscamos la pieza en el array
 	int index = -1;
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza) {
@@ -110,8 +147,12 @@ void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 	}
 
 	if (index != -1) {
-		listaPiezas[index]->setFila(fila);
-		listaPiezas[index]->setColumna(columna);
+		if (listaPiezas[index]->movimientoLegal(coordDestino)) {
+			return true;
+		}
+		else return false;
 	}
 
+
+	return false;
 }

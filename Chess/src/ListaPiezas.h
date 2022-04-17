@@ -1,6 +1,7 @@
 #pragma once
 #include "pieza.h"
 #include "rey.h"
+#include "reina.h"
 
 
 #define MAX_PIEZAS 100
@@ -21,7 +22,8 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 	pieza* buscarPieza(int fila, int columna);
-	void moverPieza(pieza*, int fila, int columna);
+	void moverPieza(pieza* pieza, int fila, int columna);
+	bool movimientoLegal(pieza* pieza, int fila, int columna);
 
 };
 
