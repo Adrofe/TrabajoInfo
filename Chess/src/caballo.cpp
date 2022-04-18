@@ -34,10 +34,17 @@ void caballo::dibuja()
 
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
-	glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
+	//sin bordes
+	/*glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
 	glTexCoord2d(1, 1); glVertex3f(y, 0.1f, x + getAncho());
 	glTexCoord2d(1, 0); glVertex3f(y + getAltura(), 0.1f, x + getAncho());
-	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);
+	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);*/
+	//con bordes
+	glTexCoord2d(0, 1); glVertex3f(y + 0.2f, 0.2f, x + 0.2f);
+	glTexCoord2d(1, 1); glVertex3f(y + 0.2f, 0.2f, x + getAncho() - 0.2f);
+	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2, 0.2f, x + getAncho() - 0.2f);
+	glTexCoord2d(0, 0); glVertex3f(y - 0.2f + getAltura(), 0.2f, x + 0.2f);
+	//
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -57,7 +64,7 @@ bool caballo::movimientoLegal(coordenada destino)
 	}
 
 	//movimiento en L hacia abajo o arriba
-	else if ((abs((coordInicio.getColumna()) - (destino.getColumna())) == ( (1))) && (abs((coordInicio.getFila()) - (destino.getFila())) == ( 2 ))) {
+	else if ((abs((coordInicio.getColumna()) - (destino.getColumna())) == ( ( 1 ))) && (abs((coordInicio.getFila()) - (destino.getFila())) == ( 2 ))) {
 
 		return true;
 	}

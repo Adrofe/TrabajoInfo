@@ -1,10 +1,11 @@
 #pragma once
 #include "ETSIDI.h"
+#include "coordenada.h"
 
 class tablero
 {
 public:
 	void dibuja();
-	void PintarMovPosibles(int casillas []);
+	void PintarMovPosibles(coordenada coord[]);
 };
 

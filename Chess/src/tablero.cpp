@@ -33,10 +33,69 @@ void tablero::dibuja()
 			glTexCoord2d(0, 0); glVertex3f(B + 8.0f, 0.0f,A);
 			glEnd();
 			glEnable(GL_LIGHTING);
+
+			//con bordes
+			/*glDisable(GL_LIGHTING);
+			glColor3ub(r, g, b);
+			glBegin(GL_POLYGON);
+			glTexCoord2d(0, 1); glVertex3f(B+0.2f, 0.0f, A+0.2f);
+			glTexCoord2d(1, 1); glVertex3f(B+0.2f, 0.0f, A + 8.0f-0.2f);
+			glTexCoord2d(1, 0); glVertex3f(B + 8.0f-0.2, 0.0f, A + 8.0f-0.2f);
+			glTexCoord2d(0, 0); glVertex3f(B-0.2f + 8.0f, 0.0f, A+0.2f);
+			glEnd();
+			glEnable(GL_LIGHTING);*/
 			A = A + 8.0f;
 
 		}
 		A = 0.0f;
 		B = B + 8.0f;
 	}
+}
+
+void tablero::PintarMovPosibles(coordenada coord[])
+{
+	int fil = 0;
+	int col = 0;
+	int a = 1;
+	unsigned int r, g, b;
+
+		for (int i = 1; i < 64; i++) {
+			fil = coord[a].getFila()-1;
+			col = (coord[a].getColumna()-1);
+			a++;
+			
+			if ((fil == -1) || (col == -1)) {
+
+				i=64;
+				break;
+
+			}
+			if (((col % 2 != 0) && (fil % 2 != 0)) || ((col % 2 == 0) && (fil % 2 == 0))) {
+
+				r = 120;
+				g = 120;
+				b = 120;
+			}
+			else {
+
+				r = 180;
+				g = 180;
+				b = 180;
+			}
+			glDisable(GL_LIGHTING);
+			glColor3ub(r, g, b);
+			glBegin(GL_POLYGON);
+			
+			glTexCoord2d(0, 1); glVertex3f(fil * 8, 0.1f, col * 8);
+			glTexCoord2d(1, 1); glVertex3f(fil * 8, 0.1f, (col * 8) + 8.0f);
+			glTexCoord2d(1, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, (col * 8) + 8.0f);
+			glTexCoord2d(0, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, col * 8);
+			/*
+			glTexCoord2d(0, 1); glVertex3f((fil * 8) + 0.2f, 0.1f, (col * 8) + 0.2f);
+			glTexCoord2d(1, 1); glVertex3f((fil * 8) + 0.2f, 0.1f, (col * 8) + 8.0f - 0.2f);
+			glTexCoord2d(1, 0); glVertex3f((fil * 8) + 8.0f - 0.2, 0.1f, (col * 8) + 8.0f - 0.2f);
+			glTexCoord2d(0, 0); glVertex3f((fil * 8) - 0.2f + 8.0f, 0.1f, (col * 8) + 0.2f);*/
+			glEnd();
+			glEnable(GL_LIGHTING);
+		}
 }

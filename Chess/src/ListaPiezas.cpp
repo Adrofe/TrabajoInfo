@@ -13,6 +13,7 @@ ListaPiezas::ListaPiezas()
 	coordenada c6("a", 3);
 	coordenada c7("b", 2);
 	coordenada c8("g", 7);
+
 	rey* rey1 = new rey();
 	rey* rey2 = new rey(BLANCO,c1);
 	rey* rey3 = new rey(BLANCO, c2);
@@ -22,9 +23,12 @@ ListaPiezas::ListaPiezas()
 	caballo* caballo2 = new caballo(BLANCO, c6);
 	Peon* peon1 = new Peon(BLANCO, c7);
 	Peon* peon2 = new Peon(NEGRO, c8);
+
 	for (int i = 0; i < MAX_PIEZAS; i++) {
+
 		listaPiezas[i] = 0;
 	}
+
 	agregarPieza(rey1);
 	agregarPieza(rey2);
 	agregarPieza(rey3);
@@ -167,3 +171,4 @@ bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
 
 	return false;
 }
+

@@ -11,8 +11,9 @@ class partida
 {
 public:
 	tablero tablero;
+	coordenada coordenadaPintar[64];
 	ListaPiezas piezas;
-	bool fondo = false; //FALSE = COLOR CLARO Y TRUE COLOR OSCURO
+	bool si = false;
 
 
 	void tecla(unsigned char key);
@@ -21,6 +22,7 @@ public:
 	void dibuja();
 	void mouse(int button, int state, int x, int y);
 	void getColFilMouse(int x, int y, int &fila, int &columna);
+	void movPosibles(pieza* aux);
 
 	float x_ojo;
 	float y_ojo;

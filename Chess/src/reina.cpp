@@ -34,12 +34,19 @@ void reina::dibuja()
 
 
 	glDisable(GL_LIGHTING);
-	//
 	glBegin(GL_POLYGON);
-	glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
+	//
+	//sin bordes
+	/*glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
 	glTexCoord2d(1, 1); glVertex3f(y, 0.1f, x + getAncho());
 	glTexCoord2d(1, 0); glVertex3f(y + getAltura(), 0.1f, x + getAncho());
-	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);
+	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);*/
+	//con bordes
+	glTexCoord2d(0, 1); glVertex3f(y + 0.2f, 0.2f, x + 0.2f);
+	glTexCoord2d(1, 1); glVertex3f(y + 0.2f, 0.2f, x + getAncho() - 0.2f);
+	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2, 0.2f, x + getAncho() - 0.2f);
+	glTexCoord2d(0, 0); glVertex3f(y - 0.2f + getAltura(), 0.2f, x + 0.2f);
+	//
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -51,8 +58,9 @@ void reina::dibuja()
 bool reina::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
+	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
 	//Movimiento en la misma fila
-	if (coordInicio.getFila() == destino.getFila()) {
+	else if (coordInicio.getFila() == destino.getFila()) {
 		return true;
 	}
 	//Movimiento en la misma columna
