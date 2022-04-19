@@ -56,8 +56,10 @@ bool Alfil::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 
+	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
+
 	//Movimiento en diagonal hacia la derecha
-	if ((destino.getColumna() - coordInicio.getColumna()) == (destino.getFila() - coordInicio.getFila())) {
+	else if ((destino.getColumna() - coordInicio.getColumna()) == (destino.getFila() - coordInicio.getFila())) {
 		return true;
 	}
 	//Movimiento en diagonal hacia la izquierda
