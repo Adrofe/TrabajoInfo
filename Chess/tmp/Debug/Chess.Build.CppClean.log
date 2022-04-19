@@ -1,21 +1,28 @@
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\vc142.pdb
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\vc142.idb
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\vector2d.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\tablero.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\rey.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\pieza.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\partida.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\coordenada.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\bin\chess.exe
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.ilk
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\bin\chess.pdb
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\a.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\main.obj
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\bin\chess.ilk
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\cl.command.1.tlog
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\cl.read.1.tlog
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\cl.write.1.tlog
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\link.command.1.tlog
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\link.read.1.tlog
-c:\users\usuario\documents\informatica industrial\trabajoinfo\chess\tmp\debug\chess.tlog\link.write.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\vc142.pdb
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\vc142.idb
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\vector2d.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\tablero.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\rey.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\reina.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\pieza.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\peon.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\partida.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\listapiezas.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\coordenada.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\caballo.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\alfil.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\torre.obj
+c:\users\alonso\documents\github\trabajoinfo\chess\bin\chess.exe
+c:\users\alonso\documents\github\trabajoinfo\chess\bin\chess.ilk
+c:\users\alonso\documents\github\trabajoinfo\chess\bin\chess.pdb
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.obj.enc
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\coordenada.obj.enc
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.ilk
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\cl.command.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\cl.read.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\cl.write.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\link.command.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\link.delete.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\link.read.1.tlog
+c:\users\alonso\documents\github\trabajoinfo\chess\tmp\debug\chess.tlog\link.write.1.tlog

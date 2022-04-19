@@ -14,7 +14,7 @@ ListaPiezas::ListaPiezas()
 	coordenada c7("b", 2);
 	coordenada c8("g", 7);
 	coordenada c9("d", 1);
-	coordenada c10("d", 2);
+	coordenada c10("h", 2);
 
 
 	rey* rey1 = new rey();
@@ -27,7 +27,7 @@ ListaPiezas::ListaPiezas()
 	Peon* peon1 = new Peon(BLANCO, c7);
 	Peon* peon2 = new Peon(NEGRO, c8);
 	Alfil* alfil1 = new Alfil(BLANCO, c9);
-	Alfil* alfil2 = new Alfil(NEGRO, c10);
+	Torre* torre1 = new Torre(NEGRO, c10);
 
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
@@ -44,7 +44,7 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(peon1);
 	agregarPieza(peon2);
 	agregarPieza(alfil1);
-	agregarPieza(alfil2);
+	agregarPieza(torre1);
 }
 
 ListaPiezas::~ListaPiezas()

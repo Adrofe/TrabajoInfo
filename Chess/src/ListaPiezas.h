@@ -5,6 +5,7 @@
 #include "caballo.h"
 #include "Peon.h"
 #include "Alfil.h"
+#include "Torre.h"
 
 
 #define MAX_PIEZAS 100

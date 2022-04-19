@@ -52,5 +52,24 @@ void rey::dibuja()
 
 bool rey::movimientoLegal(coordenada destino)
 {
-	return false;
+	coordenada coordInicio = getCoordenada();
+
+	//NO movimiento a la misma casilla
+
+	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) {
+		return false;
+	}
+
+	//columna derecha
+	else if (((destino.getColumna() - coordInicio.getColumna()) == 1) && ((destino.getFila() - coordInicio.getFila()) == 1)) {
+		return true;
+	}
+	else if (((destino.getColumna() - coordInicio.getColumna()) == 1) && (destino.getFila() - coordInicio.getFila()) == 0) {
+		return true;
+	}
+	else if (((destino.getFila() - coordInicio.getFila()) == 1) && (destino.getColumna() - coordInicio.getColumna() == 1))
+
+
+	else return false;
 }
+

@@ -1,4 +1,4 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  Alfil.cpp
-C:\Users\alonso\Documents\GitHub\TrabajoInfo\Chess\src\Alfil.cpp(45,49): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-  Pang.vcxproj -> C:\Users\alonso\Documents\GitHub\TrabajoInfo\Chess\bin\Chess.exe
+  rey.cpp
+C:\Users\alonso\Documents\GitHub\TrabajoInfo\Chess\src\rey.cpp(43,49): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\alonso\Documents\GitHub\TrabajoInfo\Chess\src\rey.cpp(73,2): error C2181: 'else' no válido sin el correspondiente 'if'

@@ -30,6 +30,7 @@
     <ClCompile Include="src\reina.cpp" />
     <ClCompile Include="src\rey.cpp" />
     <ClCompile Include="src\tablero.cpp" />
+    <ClCompile Include="src\Torre.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +44,7 @@
     <ClInclude Include="src\reina.h" />
     <ClInclude Include="src\rey.h" />
     <ClInclude Include="src\tablero.h" />
+    <ClInclude Include="src\Torre.h" />
     <ClInclude Include="src\vector2D.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

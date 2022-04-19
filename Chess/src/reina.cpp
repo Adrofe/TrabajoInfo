@@ -58,7 +58,9 @@ void reina::dibuja()
 bool reina::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
+
 	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
+
 	//Movimiento en la misma fila
 	else if (coordInicio.getFila() == destino.getFila()) {
 		return true;
