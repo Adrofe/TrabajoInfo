@@ -4,6 +4,7 @@
 #include "reina.h"
 #include "caballo.h"
 #include "Peon.h"
+#include "Alfil.h"
 
 
 #define MAX_PIEZAS 100

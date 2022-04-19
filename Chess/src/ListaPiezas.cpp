@@ -13,6 +13,9 @@ ListaPiezas::ListaPiezas()
 	coordenada c6("a", 3);
 	coordenada c7("b", 2);
 	coordenada c8("g", 7);
+	coordenada c9("d", 1);
+	coordenada c10("d", 2);
+
 
 	rey* rey1 = new rey();
 	rey* rey2 = new rey(BLANCO,c1);
@@ -23,6 +26,8 @@ ListaPiezas::ListaPiezas()
 	caballo* caballo2 = new caballo(BLANCO, c6);
 	Peon* peon1 = new Peon(BLANCO, c7);
 	Peon* peon2 = new Peon(NEGRO, c8);
+	Alfil* alfil1 = new Alfil(BLANCO, c9);
+	Alfil* alfil2 = new Alfil(NEGRO, c10);
 
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
@@ -38,6 +43,8 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(caballo2);
 	agregarPieza(peon1);
 	agregarPieza(peon2);
+	agregarPieza(alfil1);
+	agregarPieza(alfil2);
 }
 
 ListaPiezas::~ListaPiezas()
