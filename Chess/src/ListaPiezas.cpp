@@ -243,12 +243,23 @@ bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
 		}
 	}
 
+
 	if (index != -1) {
 		if (listaPiezas[index]->movimientoLegal(coordDestino)) {
+			for (int a = 0; a < 32; a++) {
+				if ((coordDestino.getColumna() == listaPiezas[a]->getCoordenada().getColumna()) && (coordDestino.getFila() == listaPiezas[a]->getCoordenada().getFila())) {
+					if (listaPiezas[index]->getColor() == listaPiezas[a]->getColor()) {
+						return false;
+					}
+				} 
+				
+			
+			}
 			return true;
 		}
 		else return false;
 	}
+
 
 
 	return false;

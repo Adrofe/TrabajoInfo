@@ -44,7 +44,7 @@ void reina::dibuja()
 	//con bordes
 	glTexCoord2d(0, 1); glVertex3f(y + 0.2f, 0.2f, x + 0.2f);
 	glTexCoord2d(1, 1); glVertex3f(y + 0.2f, 0.2f, x + getAncho() - 0.2f);
-	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2, 0.2f, x + getAncho() - 0.2f);
+	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2f, 0.2f, x + getAncho() - 0.2f);
 	glTexCoord2d(0, 0); glVertex3f(y - 0.2f + getAltura(), 0.2f, x + 0.2f);
 	//
 	glEnd();

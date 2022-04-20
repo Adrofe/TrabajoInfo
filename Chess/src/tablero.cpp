@@ -86,7 +86,7 @@ void tablero::PintarMovPosibles(coordenada coord[])
 			glColor3ub(r, g, b);
 			glBegin(GL_POLYGON);
 			
-			glTexCoord2d(0, 1); glVertex3f(fil * 8, 0.1f, col * 8);
+			glTexCoord2d(0, 1); glVertex3f(fil * 8, 0.1f, col * 8.0f);
 			glTexCoord2d(1, 1); glVertex3f(fil * 8, 0.1f, (col * 8) + 8.0f);
 			glTexCoord2d(1, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, (col * 8) + 8.0f);
 			glTexCoord2d(0, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, col * 8);

@@ -82,7 +82,7 @@ vector2D coordenada::toVector()
 
 	for (int i = 1; i < 9; i++) {
 		if (numero == i) {
-			y = i * 8 - 8;
+			y = i * 8.0f - 8.0f;
 		}
 	}
 	vector2D vector(x, y);
