@@ -23,11 +23,16 @@ void rey::dibuja()
 	float y = vector.y;
 
 
-	//Textura
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/reydef2.png").id);
 
-
+	//textura
+	if (getColor() == BLANCO) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/reyBlanco.png").id);
+	}
+	else {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/reyNegro.png").id);
+	}
 
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);

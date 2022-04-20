@@ -19,7 +19,7 @@ ListaPiezas::ListaPiezas()
 
 	rey* rey1 = new rey();
 	rey* rey2 = new rey(BLANCO,c1);
-	rey* rey3 = new rey(BLANCO, c2);
+	rey* rey3 = new rey(NEGRO, c2);
 	reina* reina1 = new reina(BLANCO, c3);
 	reina* reina2 = new reina(NEGRO, c4);
 	caballo* caballo1 = new caballo(NEGRO, c5);
