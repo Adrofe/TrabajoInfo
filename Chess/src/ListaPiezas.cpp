@@ -5,29 +5,83 @@ ListaPiezas::ListaPiezas()
 	
 
 
-	coordenada c1("b", 6);
-	coordenada c2("f", 5);
+	coordenada c1("a", 2);
+	coordenada c2("b", 2);
 	coordenada c3("c", 2);
-	coordenada c4("e", 3);
-	coordenada c5("e", 5);
-	coordenada c6("a", 3);
-	coordenada c7("b", 2);
-	coordenada c8("g", 7);
-	coordenada c9("d", 1);
-	coordenada c10("h", 2);
+	coordenada c4("d", 2);
+	coordenada c5("e", 2);
+	coordenada c6("f", 2);
+	coordenada c7("g", 2);
+	coordenada c8("h", 2);
+	coordenada c9("a", 1);
+	coordenada c10("b", 1);
+	coordenada c11("c", 1);
+	coordenada c12("d", 1);
+	coordenada c13("e", 1);
+	coordenada c14("f", 1);
+	coordenada c15("g", 1);
+	coordenada c16("h", 1);
+
+	coordenada c17("a", 7);
+	coordenada c18("b", 7);
+	coordenada c19("c", 7);
+	coordenada c20("d", 7);
+	coordenada c21("e", 7);
+	coordenada c22("f", 7);
+	coordenada c23("g", 7);
+	coordenada c24("h", 7);
+	coordenada c25("a", 8);
+	coordenada c26("b", 8);
+	coordenada c27("c", 8);
+	coordenada c28("d", 8);
+	coordenada c29("e", 8);
+	coordenada c30("f", 8);
+	coordenada c31("g", 8);
+	coordenada c32("h", 8);
 
 
-	rey* rey1 = new rey();
-	rey* rey2 = new rey(BLANCO,c1);
-	rey* rey3 = new rey(NEGRO, c2);
-	reina* reina1 = new reina(BLANCO, c3);
-	reina* reina2 = new reina(NEGRO, c4);
-	caballo* caballo1 = new caballo(NEGRO, c5);
-	caballo* caballo2 = new caballo(BLANCO, c6);
-	Peon* peon1 = new Peon(BLANCO, c7);
-	Peon* peon2 = new Peon(NEGRO, c8);
-	Alfil* alfil1 = new Alfil(BLANCO, c9);
-	Torre* torre1 = new Torre(NEGRO, c10);
+
+	rey* rey1 = new rey(BLANCO,c13);
+	rey* rey2 = new rey(NEGRO,c29);
+	
+	reina* reina1 = new reina(BLANCO, c12);
+	reina* reina2 = new reina(NEGRO, c28);
+
+	caballo* caballo1 = new caballo(BLANCO, c10);
+	caballo* caballo2 = new caballo(BLANCO, c15);
+	caballo* caballo3 = new caballo(NEGRO, c26);
+	caballo* caballo4 = new caballo(NEGRO, c31);
+
+	Alfil* alfil1 = new Alfil(BLANCO, c11);
+	Alfil* alfil2 = new Alfil(BLANCO, c14);
+	Alfil* alfil3 = new Alfil(NEGRO, c27);
+	Alfil* alfil4 = new Alfil(NEGRO, c30);
+
+	Torre* torre1 = new Torre(BLANCO, c9);
+	Torre* torre2 = new Torre(BLANCO, c16);
+	Torre* torre3 = new Torre(NEGRO, c25);
+	Torre* torre4 = new Torre(NEGRO, c32);
+
+	
+	Peon* peon1 = new Peon(BLANCO, c1);
+	Peon* peon2 = new Peon(BLANCO, c2);
+	Peon* peon3 = new Peon(BLANCO, c3);
+	Peon* peon4 = new Peon(BLANCO, c4);
+	Peon* peon5 = new Peon(BLANCO, c5);
+	Peon* peon6 = new Peon(BLANCO, c6);
+	Peon* peon7 = new Peon(BLANCO, c7);
+	Peon* peon8 = new Peon(BLANCO, c8);
+	Peon* peon9 = new Peon(NEGRO, c19);
+	Peon* peon10 = new Peon(NEGRO, c20);
+	Peon* peon11 = new Peon(NEGRO, c21);
+	Peon* peon12 = new Peon(NEGRO, c22);
+	Peon* peon13 = new Peon(NEGRO, c23);
+	Peon* peon14 = new Peon(NEGRO, c24);
+	Peon* peon15 = new Peon(NEGRO, c17);
+	Peon* peon16 = new Peon(NEGRO, c18);
+
+
+
 
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
@@ -36,15 +90,36 @@ ListaPiezas::ListaPiezas()
 
 	agregarPieza(rey1);
 	agregarPieza(rey2);
-	agregarPieza(rey3);
-	agregarPieza(reina1);
-	agregarPieza(reina2);
 	agregarPieza(caballo1);
 	agregarPieza(caballo2);
+	agregarPieza(caballo3);
+	agregarPieza(caballo4);
+	agregarPieza(torre1);
+	agregarPieza(torre2);
+	agregarPieza(torre3);
+	agregarPieza(torre4);
+	agregarPieza(alfil1);
+	agregarPieza(alfil2);
+	agregarPieza(alfil3);
+	agregarPieza(alfil4);
+	agregarPieza(reina1);
+	agregarPieza(reina2);
 	agregarPieza(peon1);
 	agregarPieza(peon2);
-	agregarPieza(alfil1);
-	agregarPieza(torre1);
+	agregarPieza(peon3);
+	agregarPieza(peon4);
+	agregarPieza(peon5);
+	agregarPieza(peon6);
+	agregarPieza(peon7);
+	agregarPieza(peon8);
+	agregarPieza(peon9);
+	agregarPieza(peon10);
+	agregarPieza(peon11);
+	agregarPieza(peon12);
+	agregarPieza(peon13);
+	agregarPieza(peon14);
+	agregarPieza(peon15);
+	agregarPieza(peon16);
 }
 
 ListaPiezas::~ListaPiezas()
