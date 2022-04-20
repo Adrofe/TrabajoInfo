@@ -1,5 +1,5 @@
 #include "rey.h"
-
+#include<iostream>
 
 rey::rey( color color, coordenada coord) : pieza(color,coord)
 {
@@ -60,16 +60,20 @@ bool rey::movimientoLegal(coordenada destino)
 		return false;
 	}
 
-	//columna derecha
-	else if (((destino.getColumna() - coordInicio.getColumna()) == 1) && ((destino.getFila() - coordInicio.getFila()) == 1)) {
+	// movimiento esquinas 
+
+	else if ((abs(destino.getColumna() - coordInicio.getColumna()) == 1) && (abs(destino.getFila() - coordInicio.getFila()) == 1)) {
 		return true;
 	}
-	else if (((destino.getColumna() - coordInicio.getColumna()) == 1) && (destino.getFila() - coordInicio.getFila()) == 0) {
+
+	//movimiento columna y lateral
+	else if ((abs(destino.getColumna() - coordInicio.getColumna()) == 0) && (abs(destino.getFila() - coordInicio.getFila()) == 1)) {
 		return true;
 	}
-	else if (((destino.getFila() - coordInicio.getFila()) == 1) && (destino.getColumna() - coordInicio.getColumna() == 1))
-
-
+	else if ((abs(destino.getColumna() - coordInicio.getColumna()) == 1) && (abs(destino.getFila() - coordInicio.getFila()) == 0)) {
+		return true;
+	}
 	else return false;
 }
+
 
