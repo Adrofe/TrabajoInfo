@@ -108,20 +108,21 @@ void partida::getColFilMouse(int x, int y, int &fila, int &columna)
 void partida::movPosibles(pieza* aux)
 {
     int a = 1;
-
-    for (int i = 1; i < 9; i++) {
-        for (int j = 1; j < 9; j++) {
-            if (piezas.movimientoLegal(aux, i, j)) {
-                coordenadaPintar[a] = { i,j };
-                std::cout << i << " " << j << endl;
-                a++;
-                si = true;
+    if (piezas.comprobarTurno(aux)) {
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 9; j++) {
+                if (piezas.movimientoLegal(aux, i, j)) {
+                    coordenadaPintar[a] = { i,j };
+                    std::cout << i << " " << j << endl;
+                    a++;
+                    si = true;
+                }
             }
         }
-    }
-    
-    for (int b = a; b < 64; b++) {
-        coordenadaPintar[b] = { -1, -1 };
+
+        for (int b = a; b < 64; b++) {
+            coordenadaPintar[b] = { -1, -1 };
+        }
     }
 }
 

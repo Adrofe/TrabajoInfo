@@ -16,6 +16,7 @@ class ListaPiezas
 private: 
 	pieza* listaPiezas[MAX_PIEZAS];
 	int nPiezas;
+	color proximoTurno = BLANCO;
 
 public:
 	ListaPiezas();
@@ -28,6 +29,7 @@ public:
 	pieza* buscarPieza(int fila, int columna);
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
+	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento
 
 };
 

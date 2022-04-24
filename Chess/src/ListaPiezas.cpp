@@ -218,13 +218,25 @@ void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 
 	//Si encontramos la pieza cambiamos su fila y columna
 	if (index != -1) {
-		//Comprobamos si el movimiento es legal
-		if (movimientoLegal(pieza, fila, columna)) {
-			listaPiezas[index]->setFila(fila);
-			listaPiezas[index]->setColumna(columna);
+
+		if (comprobarTurno(pieza)){
+			//Comprobamos si el movimiento es legal
+			if (movimientoLegal(pieza, fila, columna)) {
+				listaPiezas[index]->setFila(fila);
+				listaPiezas[index]->setColumna(columna);
+				//Cambiamos el color del proximo turno
+				if (proximoTurno == BLANCO) {
+					proximoTurno = NEGRO;
+				}
+				else { proximoTurno = BLANCO; }
+				
+			}
+			else {
+				std::cout << "Movimiento ilegal de la pieza" << endl;
+			}
 		}
 		else {
-			std::cout << "Movimiento ilegal de la pieza" << endl;
+			std::cout << "No mueve este color" << endl;
 		}
 		
 	}
@@ -263,5 +275,13 @@ bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
 
 
 	return false;
+}
+
+bool ListaPiezas::comprobarTurno(pieza* pieza)
+{
+	if (pieza->getColor() == proximoTurno) {
+		return true;
+	}
+	else return false;
 }
 
