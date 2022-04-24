@@ -53,7 +53,7 @@ void caballo::dibuja()
 
 }
 
-bool caballo::movimientoLegal(coordenada destino)
+bool caballo::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 

@@ -15,10 +15,16 @@ class ListaPiezas
 {
 private: 
 	pieza* listaPiezas[MAX_PIEZAS];
+	
 	int nPiezas;
 	color proximoTurno = BLANCO;
+	
 
 public:
+	coordenada coordenadaPintar[64];
+	bool matrizVacias[8][8];
+	bool si = false;
+
 	ListaPiezas();
 	~ListaPiezas();
 	bool agregarPieza(pieza* pieza);
@@ -27,9 +33,14 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 	pieza* buscarPieza(int fila, int columna);
+	void casillasVacias();
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
 	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento
+	bool comprobarColor(int index, coordenada coord);
+	void movPosibles(pieza* aux);
+
+	//friend class pieza;
 
 };
 

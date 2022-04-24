@@ -54,7 +54,7 @@ void Torre::dibuja()
 
 }
 
-bool Torre::movimientoLegal(coordenada destino)
+bool Torre::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 

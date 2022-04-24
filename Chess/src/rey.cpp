@@ -55,7 +55,7 @@ void rey::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool rey::movimientoLegal(coordenada destino)
+bool rey::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 

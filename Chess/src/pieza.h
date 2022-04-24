@@ -22,10 +22,11 @@ public:
 	void setColumna(int columna);
 	void setFila(int fila);
 
-	virtual bool movimientoLegal(coordenada destino) = 0;
+	virtual bool movimientoLegal(coordenada destino, bool matriz[8][8]) = 0;
 	virtual void dibuja();
 
 	float getAltura() { return altura; }
 	float getAncho() { return ancho; }
+
 };
 

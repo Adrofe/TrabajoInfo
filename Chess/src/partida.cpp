@@ -37,8 +37,8 @@ void partida::dibuja()
 
 	tablero.dibuja();
     piezas.dibuja();
-    if (si) {
-        tablero.PintarMovPosibles(coordenadaPintar);
+    if (piezas.si) {
+        tablero.PintarMovPosibles(piezas.coordenadaPintar);
      
     }
 }
@@ -56,7 +56,7 @@ void partida::mouse(int button, int state, int x, int y)
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN )) {
         getColFilMouse(x, y, fila, columna);
         aux = piezas.buscarPieza(fila, columna);
-        movPosibles(aux);
+        piezas.movPosibles(aux);
 
     }
 
@@ -64,7 +64,7 @@ void partida::mouse(int button, int state, int x, int y)
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_UP)) {
         getColFilMouse(x, y, fila, columna);
         piezas.moverPieza(aux, fila, columna);
-        si = false;
+        piezas.si = false;
         
     }
 }
@@ -105,24 +105,5 @@ void partida::getColFilMouse(int x, int y, int &fila, int &columna)
     else std::cout << "MOVIMIENTO INCORRECTO: FUERA DE RANGO" << endl;
 }
 
-void partida::movPosibles(pieza* aux)
-{
-    int a = 1;
-    if (piezas.comprobarTurno(aux)) {
-        for (int i = 1; i < 9; i++) {
-            for (int j = 1; j < 9; j++) {
-                if (piezas.movimientoLegal(aux, i, j)) {
-                    coordenadaPintar[a] = { i,j };
-                    std::cout << i << " " << j << endl;
-                    a++;
-                    si = true;
-                }
-            }
-        }
 
-        for (int b = a; b < 64; b++) {
-            coordenadaPintar[b] = { -1, -1 };
-        }
-    }
-}
 

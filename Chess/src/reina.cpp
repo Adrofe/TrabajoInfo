@@ -55,7 +55,7 @@ void reina::dibuja()
 
 }
 
-bool reina::movimientoLegal(coordenada destino)
+bool reina::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 

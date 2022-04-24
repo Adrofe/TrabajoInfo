@@ -7,7 +7,7 @@ public:
 	Torre();
 
 	void dibuja();
-	bool movimientoLegal(coordenada destino);
+	bool movimientoLegal(coordenada destino, bool matriz[8][8]);
 
 
 };

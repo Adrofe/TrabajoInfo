@@ -52,7 +52,7 @@ void Peon::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool Peon::movimientoLegal(coordenada destino)
+bool Peon::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 	if (pieza::getColor() == BLANCO) {

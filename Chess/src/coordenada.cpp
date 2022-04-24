@@ -171,4 +171,12 @@ color coordenada::getColorCasilla()
 	}
 }
 
+bool coordenada::operator==(coordenada coord)
+{
+	if ((getFila() == coord.getFila())&&(getColumna() == coord.getColumna())) {
+		return true;
+	}
+	return false;
+}
+
 

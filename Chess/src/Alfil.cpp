@@ -52,20 +52,41 @@ void Alfil::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool Alfil::movimientoLegal(coordenada destino)
+bool Alfil::movimientoLegal(coordenada destino, bool matriz[8][8])
 {
 	coordenada coordInicio = getCoordenada();
 
 	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
 
-	//Movimiento en diagonal hacia la derecha
-	else if ((destino.getColumna() - coordInicio.getColumna()) == (destino.getFila() - coordInicio.getFila())) {
-		return true;
+	bool obstaculo = false;
+
+
+	//Movimiento en diagonal hacia arriba la derecha
+	if ((destino.getColumna() - getCoordenada().getColumna()) == (destino.getFila() - getCoordenada().getFila())) {
+		for (int i = getCoordenada().getFila(); i < destino.getFila() && obstaculo == false; i++) {
+			for (int j = getCoordenada().getColumna(); j < destino.getColumna() && obstaculo == false; j++) {
+				if (matriz[i][j]) {
+					obstaculo = true;
+					return false;
+				}
+				else {
+					obstaculo = true;
+					return true;
+				}
+			}
+		}
 	}
+
 	//Movimiento en diagonal hacia la izquierda
 	else if ((destino.getColumna() - coordInicio.getColumna()) == (coordInicio.getFila() - destino.getFila())) {
 		return true;
 	}
-	else return false;
+	//else return false;
+
+
+	if (obstaculo == true) {
+		return false;
+	}
+	else return true;
 }
 
