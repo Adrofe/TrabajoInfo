@@ -2,11 +2,12 @@
 
 reina::reina(color color, coordenada coord) : pieza(color,coord)
 {
+	tipo = REINA;
 }
 
 reina::reina()
 {
-
+	tipo = REINA;
 }
 
 void reina::dibuja()
@@ -55,7 +56,7 @@ void reina::dibuja()
 
 }
 
-bool reina::movimientoLegal(coordenada destino, bool matriz[8][8])
+bool reina::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 

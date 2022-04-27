@@ -2,10 +2,12 @@
 
 caballo::caballo()
 {
+	tipo = CABALLO;
 }
 
 caballo::caballo(color color, coordenada coord) : pieza(color, coord)
 {
+	tipo = CABALLO;
 }
 
 void caballo::dibuja()
@@ -53,7 +55,7 @@ void caballo::dibuja()
 
 }
 
-bool caballo::movimientoLegal(coordenada destino, bool matriz[8][8])
+bool caballo::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 

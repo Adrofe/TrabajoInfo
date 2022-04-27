@@ -8,8 +8,8 @@ public:
 	Alfil();
 
 	void dibuja();
-	bool movimientoLegal(coordenada destino, bool matriz[8][8]);
-
+	//bool movimientoLegal(coordenada destino, bool matriz[7][7]);
+	bool  movimientoLegal(coordenada destino);
 
 };
 

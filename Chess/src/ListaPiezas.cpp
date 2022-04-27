@@ -191,7 +191,7 @@ void ListaPiezas::borrarContenido()
 
 pieza* ListaPiezas::buscarPieza(int fila, int columna)
 {
-	static bool mismaCol= FALSE, mismaFil = FALSE;
+	 bool mismaCol= FALSE, mismaFil = FALSE;
 	for (int i = 0; i < nPiezas; i++) {
 		
 		if (columna == listaPiezas[i]->getCoordenada().getColumna()) {
@@ -214,17 +214,22 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 
 void ListaPiezas::casillasVacias()
 {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			matrizVacias[i][j] = false;
+		}
+	}
 	coordenada aux;
-	static bool mismaCol = FALSE, mismaFil = FALSE;
-	bool siPieza = false;
+
+	int fila = 0;
+	int columna = 0;
 
 	for (int i = 0; i < nPiezas; i++) {
-		int fila = 0;
-		int columna = 0;
-		
-		fila = listaPiezas[i]->getCoordenada().getFila();
-		columna = listaPiezas[i]->getCoordenada().getColumna();
+	
+		fila = (listaPiezas[i]->getCoordenada().getFila()) -1;
+		columna = (listaPiezas[i]->getCoordenada().getColumna()) -1;
 		matrizVacias[fila][columna] = true;
+
 	}
 }
 
@@ -237,8 +242,6 @@ void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 			index = i;
 		}
 	}
-
-	//Si encontramos la pieza cambiamos su fila y columna
 	if (index != -1) {
 
 		if (comprobarTurno(pieza)){
@@ -264,6 +267,13 @@ void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 	}
 	casillasVacias();
 
+	for (int p = 8; p >= 0; p--) {
+		for (int n = 0; n < 8; n++) {
+			std::cout << matrizVacias[p][n] << " ";
+		}
+		std::cout << endl;
+	}
+
 }
 
 bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
@@ -281,11 +291,13 @@ bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
 
 	if (index != -1) {
 		if (comprobarColor(index, coordDestino)) {
-			if (listaPiezas[index]->movimientoLegal(coordDestino, matrizVacias)) {
-				return true;
+			if (listaPiezas[index]->movimientoLegal(coordDestino)) {
+				if (comprobarPieza(listaPiezas[index], fila, columna)) {
+					return true;
+				}
+				//else return false;
 			}
 			else {
-				std::cout << "Movimiento ilegal 2" << endl;
 				return false;
 			}
 		}
@@ -295,7 +307,8 @@ bool ListaPiezas::movimientoLegal(pieza* pieza, int fila, int columna)
 		}
 		
 	}
-	else return false;
+	//else return false;
+	return false;
 }
 
 bool ListaPiezas::comprobarTurno(pieza* pieza)
@@ -308,17 +321,17 @@ bool ListaPiezas::comprobarTurno(pieza* pieza)
 
 bool ListaPiezas::comprobarColor(int index, coordenada coord)
 {
-	/*
+	
 	for (int a = 0; a < nPiezas; a++) {
 		if (listaPiezas[a]->getCoordenada()==coord) {
 			if (listaPiezas[index]->getColor() == listaPiezas[a]->getColor()) {
-				return true;
-			}
+				return false;
+			}else return false;
 		}
-		else return false;
+		else return true;
 	}
-	*/
-	return true;
+	
+	//return true;
 }
 
 void ListaPiezas::movPosibles(pieza* aux)
@@ -343,44 +356,134 @@ void ListaPiezas::movPosibles(pieza* aux)
 }
 
 
-/*
 bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 {
+	coordenada destino(fila,columna);
 
-	for (int i = 0; i < 32; i++) {
-		for (int j = 0; j < 64; j++) {
-			if (listaPiezas[i]->getCoordenada() == coordenadaPintar[i]){
-
-		}
-	}
-
-
-	coordenada inicio = pieza->getCoordenada();
-	coordenada destino(fila, columna);
-
-	bool obstaculo = false;
-	
-
-	//Movimiento en diagonal hacia arriba la derecha
-	if ((destino.getColumna() - inicio.getColumna()) == (destino.getFila() - inicio.getFila())) {
-		for (int i = inicio.getFila(); i < destino.getFila() && obstaculo == false ; i++) {
-			for (int j = inicio.getColumna(); j < destino.getColumna() && obstaculo == false; j++) {
-				if (casillaVacia(i, j)) {
-					obstaculo = false;
-				}
-				else { 
-					obstaculo = true;  
+	int j = 0;
+	int i = 0;
+	int s = 0;
+	int l = 0;
+	std::cout << "Comprueba alfil" << endl;
+	if (abs(destino.getColumna() - pieza->getCoordenada().getColumna()) == abs(destino.getFila() - pieza->getCoordenada().getFila())) { //movimento en lateral
+		std::cout << "diagonal" << endl;
+		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) > 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) > 0)) { // arriba derecha
+			for (i = pieza->getCoordenada().getFila(), j = pieza->getCoordenada().getColumna() ; (i < destino.getFila()), (j < destino.getColumna()); i++, j++) {
+				if (mirarCasilla(i,j)) {
+					std::cout << "falso1" << endl;
+					return false;
 				}
 			}
+			return true;
+			std::cout << "retorno1" << endl;
 		}
-	}
 
-	//Movimiento en diagonal hacia la izquierda
-	else if ((destino.getColumna() - inicio.getColumna()) == (inicio.getFila() - destino.getFila())) {
+		else if (((destino.getColumna() - pieza->getCoordenada().getColumna()) < 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) < 0)) {//abajo izq
+			for (s = pieza->getCoordenada().getFila(), l = pieza->getCoordenada().getColumna(); (s > destino.getFila()), (l > destino.getColumna()); s--, l--) {
+				if (mirarCasilla(s, l)) {
+					
+					std::cout << "falso2" << endl;
+					return false;
+				}
+			}
+			return true;
+			std::cout << "retorno2" << endl;
+		}
 		
 	}
-	else return false;
+
+
+	//Movimiento en diagonal hacia la izquierda
+	else if ((destino.getColumna() - pieza->getCoordenada().getColumna()) == (pieza->getCoordenada().getFila() - destino.getFila())) {
+		 if (((destino.getColumna() - pieza->getCoordenada().getColumna()) < 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) > 0)) {
+			for (i = pieza->getCoordenada().getFila(), j = pieza->getCoordenada().getColumna(); (i < destino.getFila()), (j > destino.getColumna()); i++, j--) { //arriba izq
+				if (mirarCasilla(i, j)) {
+					
+					std::cout << "falso3" << endl;
+					return false;
+				}
+			}
+			return true;
+			std::cout << "retorno3" << endl;
+		 }
+
+		else if (((destino.getColumna() - pieza->getCoordenada().getColumna()) > 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) < 0)) {
+			for (s = pieza->getCoordenada().getFila(), l = pieza->getCoordenada().getColumna(); (s > destino.getFila()), (l < destino.getColumna()); s--, l++) {// abajo drcha
+				if (mirarCasilla(s, l)) {
+					
+					std::cout << "falso4" << endl;
+					return false;
+				}
+			}
+			return true;
+			std::cout << "retorno4" << endl;
+		}
+	}
+	else return true;
 
 }
-*/
+
+bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
+{
+	int ib = 0;
+	int pd = 0;
+	coordenada coordInicio = pieza->getCoordenada();
+	coordenada destino(fila,columna);
+
+	if (destino.getFila() - coordInicio.getFila() >= 0) {
+		for ( ib = coordInicio.getFila() + 1; ib <= destino.getFila(); ib++) {
+			std::cout << ib << endl;
+			if (mirarCasilla(ib, coordInicio.getColumna())) {
+				return false;
+			}
+			std::cout << ib << endl;
+		}
+
+		if (destino.getColumna() - coordInicio.getColumna() >= 0) {
+			for (pd = coordInicio.getColumna() + 1; pd <= destino.getColumna(); pd++) {
+				std::cout << pd << endl;
+				if (mirarCasilla(coordInicio.getFila(), pd)) {
+					return false;
+				}
+				std::cout << pd << endl;
+			}
+		}
+		return true;
+	}
+	/*
+	//Movimiento en la misma fila
+	else if (coordInicio.getFila() == destino.getFila()) {
+		return true;
+	}
+	//Movimiento en la misma columna
+	else if (coordInicio.getColumna() == destino.getColumna()) {
+		return true;
+	}
+	else return false;
+	*/
+	return true;
+}
+
+bool ListaPiezas::mirarCasilla(int fila, int columna)
+{
+	coordenada casilla(fila, columna);
+
+	for (int i = 0; i < nPiezas; i++) {
+
+		if (casilla == listaPiezas[i]->getCoordenada()) {
+			std::cout << "si hay ficha en: " << fila << " " << columna << endl;
+			return true;
+		}
+
+	}
+ return false;
+}
+
+bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
+{
+	
+	if (aux->getTipo() == ALFIL) return comprobarAlfil(aux, fila, columna);
+	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
+}
+
 

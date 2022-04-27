@@ -2,10 +2,12 @@
 
 Torre::Torre(color color, coordenada coord) : pieza(color, coord)
 {
+	tipo = TORRE;
 }
 
 Torre::Torre()
 {
+	tipo = TORRE;
 }
 
 void Torre::dibuja()
@@ -54,7 +56,7 @@ void Torre::dibuja()
 
 }
 
-bool Torre::movimientoLegal(coordenada destino, bool matriz[8][8])
+bool Torre::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 

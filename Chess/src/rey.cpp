@@ -3,10 +3,12 @@
 
 rey::rey( color color, coordenada coord) : pieza(color,coord)
 {
+	tipo = REY;
 }
 
 rey::rey()
 {
+	tipo = REY;
 }
 
 void rey::dibuja()
@@ -55,7 +57,7 @@ void rey::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool rey::movimientoLegal(coordenada destino, bool matriz[8][8])
+bool rey::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 

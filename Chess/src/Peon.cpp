@@ -2,10 +2,12 @@
 
 Peon::Peon()
 {
+	tipo = PEON;
 }
 
 Peon::Peon(color color, coordenada coord) : pieza(color, coord)
 {
+	tipo = PEON;
 }
 
 void Peon::dibuja()
@@ -52,7 +54,7 @@ void Peon::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool Peon::movimientoLegal(coordenada destino, bool matriz[8][8])
+bool Peon::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
 	if (pieza::getColor() == BLANCO) {

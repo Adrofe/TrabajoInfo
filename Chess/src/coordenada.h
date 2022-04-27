@@ -24,6 +24,7 @@ public:
 	void setCol(int columna);
 	void setFil(int fila);
 	color getColorCasilla();
+
 	bool operator==(coordenada coord);
 
 };

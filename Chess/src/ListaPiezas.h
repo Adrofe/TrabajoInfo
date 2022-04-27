@@ -7,6 +7,8 @@
 #include "Alfil.h"
 #include "Torre.h"
 
+#include <math.h>
+
 
 #define MAX_PIEZAS 100
 
@@ -22,7 +24,7 @@ private:
 
 public:
 	coordenada coordenadaPintar[64];
-	bool matrizVacias[8][8];
+	bool matrizVacias[7][7];
 	bool si = false;
 
 	ListaPiezas();
@@ -40,7 +42,12 @@ public:
 	bool comprobarColor(int index, coordenada coord);
 	void movPosibles(pieza* aux);
 
-	//friend class pieza;
+	bool comprobarAlfil(pieza* pieza, int fila, int columna);
+	bool comprobarTorre(pieza* pieza, int fila, int columna);
+
+	bool mirarCasilla(int fila, int columna);
+	bool comprobarPieza(pieza* aux, int fila, int columna);
+
 
 };
 

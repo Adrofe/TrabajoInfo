@@ -9,7 +9,7 @@ public:
 	caballo(color color, coordenada coord);
 
 	void dibuja();
-	bool movimientoLegal(coordenada destino, bool matriz[8][8]);
+	bool movimientoLegal(coordenada destino);
 
 };
 
