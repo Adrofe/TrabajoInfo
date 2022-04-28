@@ -26,6 +26,7 @@ public:
 	color getColorCasilla();
 
 	bool operator==(coordenada coord);
+	coordenada operator-(coordenada coord);
 
 };
 

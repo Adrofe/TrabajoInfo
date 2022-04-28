@@ -62,21 +62,16 @@ bool reina::movimientoLegal(coordenada destino)
 
 	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
 
-	//Movimiento en la misma fila
+	else if (abs(destino.getColumna() - getCoordenada().getColumna()) == abs(destino.getFila() - getCoordenada().getFila())) {
+		return true;
+	}
+
 	else if (coordInicio.getFila() == destino.getFila()) {
 		return true;
 	}
-	//Movimiento en la misma columna
 	else if (coordInicio.getColumna() == destino.getColumna()) {
 		return true;
 	}
-	//Movimiento en diagonal hacia la derecha
-	else if ((destino.getColumna() - coordInicio.getColumna()) == (destino.getFila() - coordInicio.getFila())) {
-		return true;
-	}
-	//Movimiento en diagonal hacia la izquierda
-	else if ((destino.getColumna() - coordInicio.getColumna()) == (coordInicio.getFila() - destino.getFila())) {
-		return true;
-	}
-	else return false;
+
+	return false;
 }

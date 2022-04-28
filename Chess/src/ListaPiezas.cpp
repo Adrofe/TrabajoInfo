@@ -2,12 +2,6 @@
 
 ListaPiezas::ListaPiezas()
 {
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			matrizVacias[i][j] = false;
-		}
-	}
-
 
 	coordenada c1("a", 2);
 	coordenada c2("b", 2);
@@ -125,7 +119,6 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(peon15);
 	agregarPieza(peon16);
 
-	casillasVacias();
 }
 
 ListaPiezas::~ListaPiezas()
@@ -212,26 +205,6 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 	return nullptr;
 }
 
-void ListaPiezas::casillasVacias()
-{
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			matrizVacias[i][j] = false;
-		}
-	}
-	coordenada aux;
-
-	int fila = 0;
-	int columna = 0;
-
-	for (int i = 0; i < nPiezas; i++) {
-	
-		fila = (listaPiezas[i]->getCoordenada().getFila()) -1;
-		columna = (listaPiezas[i]->getCoordenada().getColumna()) -1;
-		matrizVacias[fila][columna] = true;
-
-	}
-}
 
 void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 {
@@ -265,14 +238,7 @@ void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
 		}
 		
 	}
-	casillasVacias();
 
-	for (int p = 8; p >= 0; p--) {
-		for (int n = 0; n < 8; n++) {
-			std::cout << matrizVacias[p][n] << " ";
-		}
-		std::cout << endl;
-	}
 
 }
 
@@ -359,109 +325,162 @@ void ListaPiezas::movPosibles(pieza* aux)
 bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 {
 	coordenada destino(fila,columna);
+	coordenada restaDrcha = destino - pieza->getCoordenada();
+	coordenada restaIzq = pieza->getCoordenada() - destino;
 
 	int j = 0;
 	int i = 0;
 	int s = 0;
 	int l = 0;
-	std::cout << "Comprueba alfil" << endl;
-	if (abs(destino.getColumna() - pieza->getCoordenada().getColumna()) == abs(destino.getFila() - pieza->getCoordenada().getFila())) { //movimento en lateral
-		std::cout << "diagonal" << endl;
-		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) > 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) > 0)) { // arriba derecha
-			for (i = pieza->getCoordenada().getFila(), j = pieza->getCoordenada().getColumna() ; (i < destino.getFila()), (j < destino.getColumna()); i++, j++) {
-				if (mirarCasilla(i,j)) {
-					std::cout << "falso1" << endl;
-					return false;
-				}
-			}
-			return true;
-			std::cout << "retorno1" << endl;
-		}
 
-		else if (((destino.getColumna() - pieza->getCoordenada().getColumna()) < 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) < 0)) {//abajo izq
-			for (s = pieza->getCoordenada().getFila(), l = pieza->getCoordenada().getColumna(); (s > destino.getFila()), (l > destino.getColumna()); s--, l--) {
-				if (mirarCasilla(s, l)) {
-					
-					std::cout << "falso2" << endl;
-					return false;
-				}
+	if (((restaDrcha.getColumna() >= 0) && (restaDrcha.getFila()) >= 0)) { // arriba derecha
+		for (i = pieza->getCoordenada().getFila() + 1, j = pieza->getCoordenada().getColumna() + 1 ; (i <= destino.getFila()), (j <= destino.getColumna()); i++, j++) {
+			if (mirarCasilla(i,j)) {
+				return false;
 			}
-			return true;
-			std::cout << "retorno2" << endl;
 		}
+	}
+
+	if (((restaIzq.getColumna() >= 0) && (restaIzq.getFila()) >= 0)) {//abajo izq
+		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() - 1; (s >= destino.getFila()), (l >= destino.getColumna()); s--, l--) {
+			if (mirarCasilla(s, l)) {
+					
+				return false;
+			}
+		}
+	}
 		
-	}
+		if (((restaIzq.getColumna() >= 0) && (restaDrcha.getFila()) >= 0)) { //arriba izq
+		for (i = pieza->getCoordenada().getFila() + 1, j = pieza->getCoordenada().getColumna() - 1; (i <= destino.getFila()), (j >= destino.getColumna()); i++, j--) {
+			if (mirarCasilla(i, j)) {
 
-
-	//Movimiento en diagonal hacia la izquierda
-	else if ((destino.getColumna() - pieza->getCoordenada().getColumna()) == (pieza->getCoordenada().getFila() - destino.getFila())) {
-		 if (((destino.getColumna() - pieza->getCoordenada().getColumna()) < 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) > 0)) {
-			for (i = pieza->getCoordenada().getFila(), j = pieza->getCoordenada().getColumna(); (i < destino.getFila()), (j > destino.getColumna()); i++, j--) { //arriba izq
-				if (mirarCasilla(i, j)) {
-					
-					std::cout << "falso3" << endl;
-					return false;
-				}
+				return false;
 			}
-			return true;
-			std::cout << "retorno3" << endl;
-		 }
-
-		else if (((destino.getColumna() - pieza->getCoordenada().getColumna()) > 0) && ((destino.getFila() - pieza->getCoordenada().getFila()) < 0)) {
-			for (s = pieza->getCoordenada().getFila(), l = pieza->getCoordenada().getColumna(); (s > destino.getFila()), (l < destino.getColumna()); s--, l++) {// abajo drcha
-				if (mirarCasilla(s, l)) {
-					
-					std::cout << "falso4" << endl;
-					return false;
-				}
-			}
-			return true;
-			std::cout << "retorno4" << endl;
 		}
-	}
-	else return true;
+		}
 
+		if (((restaDrcha.getColumna() >= 0) && (restaIzq.getFila()) >= 0)) {// abajo drcha
+		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() + 1; (s >= destino.getFila()), (l <= destino.getColumna()); s--, l++) {
+			if (mirarCasilla(s, l)) {
+					
+				std::cout << "falso4" << endl;
+				return false;
+			}
+		}
+		}
+
+		return true;
 }
 
 bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 {
 	int ib = 0;
 	int pd = 0;
+	int fd = 0;
+	int px = 0;
+
 	coordenada coordInicio = pieza->getCoordenada();
 	coordenada destino(fila,columna);
 
-	if (destino.getFila() - coordInicio.getFila() >= 0) {
-		for ( ib = coordInicio.getFila() + 1; ib <= destino.getFila(); ib++) {
-			std::cout << ib << endl;
-			if (mirarCasilla(ib, coordInicio.getColumna())) {
+	
+	for ( ib = coordInicio.getFila() + 1; ib <= destino.getFila(); ib++) {
+		if (mirarCasilla(ib, coordInicio.getColumna())) {
+			return false;
+		}
+	}
+
+	if (destino.getColumna() - coordInicio.getColumna() >= 0) {
+		for (pd = coordInicio.getColumna() + 1; pd <= destino.getColumna(); pd++) {
+			if (mirarCasilla(coordInicio.getFila(), pd)) {
 				return false;
 			}
-			std::cout << ib << endl;
 		}
+	}
 
-		if (destino.getColumna() - coordInicio.getColumna() >= 0) {
-			for (pd = coordInicio.getColumna() + 1; pd <= destino.getColumna(); pd++) {
-				std::cout << pd << endl;
-				if (mirarCasilla(coordInicio.getFila(), pd)) {
-					return false;
-				}
-				std::cout << pd << endl;
+	if (coordInicio.getColumna() - destino.getColumna() >= 0) {
+		for (fd = coordInicio.getColumna() - 1; fd >= destino.getColumna(); fd--) {
+			if (mirarCasilla(coordInicio.getFila(), fd)) {
+				return false;
 			}
 		}
-		return true;
 	}
-	/*
-	//Movimiento en la misma fila
-	else if (coordInicio.getFila() == destino.getFila()) {
-		return true;
+
+	if (coordInicio.getFila() - destino.getFila() >= 0) {
+		for (px = coordInicio.getFila() - 1; px >= destino.getFila(); px--) {
+			if (mirarCasilla(px, coordInicio.getColumna())) {
+				return false;
+			}
+		}
 	}
-	//Movimiento en la misma columna
-	else if (coordInicio.getColumna() == destino.getColumna()) {
-		return true;
-	}
-	else return false;
-	*/
+
 	return true;
+	
+	
+}
+
+bool ListaPiezas::comprobarReina(pieza* pieza, int fila, int columna)
+{
+	coordenada destino(fila, columna);
+	coordenada resta = destino - pieza->getCoordenada();
+
+	if (abs(destino.getColumna() - pieza->getCoordenada().getColumna()) == abs(destino.getFila() - pieza->getCoordenada().getFila())) {
+		return comprobarAlfil(pieza, fila, columna);
+	}
+
+	if (pieza->getCoordenada().getFila() == destino.getFila()) {
+		return comprobarTorre(pieza, fila, columna);
+	}
+
+	if (pieza->getCoordenada().getColumna() == destino.getColumna()) {
+		return comprobarTorre(pieza, fila, columna);;
+	}
+
+	return true;
+
+}
+
+bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
+{
+	coordenada destino(fila, columna);
+	bool flag = false;
+
+	if (pieza->getColor() == BLANCO)
+	{
+		if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
+
+		if ((pieza->getCoordenada().getFila()) == (2))
+		{
+			if (mirarCasilla(pieza->getCoordenada().getFila() + 2, pieza->getCoordenada().getColumna())) flag = true;
+			if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
+
+			if (destino.getFila() == 3) return true;
+
+			else if (flag) return false;
+		}
+	
+		flag = false;
+		return true;
+	}
+		else {
+
+			if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
+
+			if ((pieza->getCoordenada().getFila()) == (7))
+			{
+				if (mirarCasilla(pieza->getCoordenada().getFila() - 5, pieza->getCoordenada().getColumna())) flag = true;
+				if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
+
+				if (destino.getFila() == 6) return true;
+
+				else if (flag) return false;
+			}
+
+			flag = false;
+			return true;
+		}
+	
+
+	
 }
 
 bool ListaPiezas::mirarCasilla(int fila, int columna)
@@ -471,7 +490,6 @@ bool ListaPiezas::mirarCasilla(int fila, int columna)
 	for (int i = 0; i < nPiezas; i++) {
 
 		if (casilla == listaPiezas[i]->getCoordenada()) {
-			std::cout << "si hay ficha en: " << fila << " " << columna << endl;
 			return true;
 		}
 
@@ -484,6 +502,7 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 	
 	if (aux->getTipo() == ALFIL) return comprobarAlfil(aux, fila, columna);
 	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
+	else if (aux->getTipo() == REINA) return comprobarReina(aux, fila, columna);
+	else if (aux->getTipo() == PEON) return comprobarPeon(aux, fila, columna);
+		
 }
-
-

@@ -24,7 +24,6 @@ private:
 
 public:
 	coordenada coordenadaPintar[64];
-	bool matrizVacias[7][7];
 	bool si = false;
 
 	ListaPiezas();
@@ -35,7 +34,6 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 	pieza* buscarPieza(int fila, int columna);
-	void casillasVacias();
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
 	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento
@@ -44,6 +42,8 @@ public:
 
 	bool comprobarAlfil(pieza* pieza, int fila, int columna);
 	bool comprobarTorre(pieza* pieza, int fila, int columna);
+	bool comprobarReina(pieza* pieza, int fila, int columna);
+	bool comprobarPeon(pieza* pieza, int fila, int columna);
 
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);

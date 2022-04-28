@@ -179,4 +179,12 @@ bool coordenada::operator==(coordenada coord)
 	return false;
 }
 
+coordenada coordenada::operator-(coordenada coord)
+{
+	coordenada aux;
+	aux.setFil(getFila() - (coord.getFila()));
+	aux.setCol(getColumna() - (coord.getColumna()));
+	return aux;
+}
+
 
