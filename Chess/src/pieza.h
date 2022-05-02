@@ -22,7 +22,7 @@ public:
 	pieza(color color, coordenada coord);
 	pieza();
 	~pieza();
-	color getColor();
+	virtual color getColor();
 	coordenada getCoordenada();
 	void setColumna(int columna);
 	void setFila(int fila);
@@ -34,7 +34,7 @@ public:
 	float getAltura() { return altura; }
 	float getAncho() { return ancho; }
 
-	tipo_pieza getTipo() { return tipo; }
+	virtual tipo_pieza getTipo() { return tipo; }
 
 };
 

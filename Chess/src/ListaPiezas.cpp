@@ -206,27 +206,27 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 }
 
 
-void ListaPiezas::moverPieza(pieza* pieza, int fila, int columna)
+void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 {
 	//Buscamos la pieza en el array
 	int index = -1;
 	for (int i = 0; i < nPiezas; i++) {
-		if (listaPiezas[i] == pieza) {
+		if (listaPiezas[i] == pieza1) {
 			index = i;
 		}
 	}
 	if (index != -1) {
 
-		if (comprobarTurno(pieza)){
+		if (comprobarTurno(pieza1)){
 			//Comprobamos si el movimiento es legal
-			if (movimientoLegal(pieza, fila, columna)) {
-				listaPiezas[index]->setFila(fila);
-				listaPiezas[index]->setColumna(columna);
-				//Cambiamos el color del proximo turno
-				if (proximoTurno == BLANCO) {
-					proximoTurno = NEGRO;
-				}
-				else { proximoTurno = BLANCO; }
+			if (movimientoLegal(pieza1, fila, columna)) {
+					listaPiezas[index]->setFila(fila);
+					listaPiezas[index]->setColumna(columna);
+					//Cambiamos el color del proximo turno
+					if (proximoTurno == BLANCO) {
+						proximoTurno = NEGRO;
+					}
+					else { proximoTurno = BLANCO; }
 				
 			}
 			else {
@@ -319,6 +319,7 @@ void ListaPiezas::movPosibles(pieza* aux)
 			coordenadaPintar[b] = { -1, -1 };
 		}
 	}
+
 }
 
 
@@ -343,8 +344,7 @@ bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 
 	if (((restaIzq.getColumna() >= 0) && (restaIzq.getFila()) >= 0)) {//abajo izq
 		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() - 1; (s >= destino.getFila()), (l >= destino.getColumna()); s--, l--) {
-			if (mirarCasilla(s, l)) {
-					
+			if (mirarCasilla(s, l)) {					
 				return false;
 			}
 		}
@@ -353,7 +353,6 @@ bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 		if (((restaIzq.getColumna() >= 0) && (restaDrcha.getFila()) >= 0)) { //arriba izq
 		for (i = pieza->getCoordenada().getFila() + 1, j = pieza->getCoordenada().getColumna() - 1; (i <= destino.getFila()), (j >= destino.getColumna()); i++, j--) {
 			if (mirarCasilla(i, j)) {
-
 				return false;
 			}
 		}
@@ -362,8 +361,6 @@ bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 		if (((restaDrcha.getColumna() >= 0) && (restaIzq.getFila()) >= 0)) {// abajo drcha
 		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() + 1; (s >= destino.getFila()), (l <= destino.getColumna()); s--, l++) {
 			if (mirarCasilla(s, l)) {
-					
-				std::cout << "falso4" << endl;
 				return false;
 			}
 		}
@@ -467,7 +464,7 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 
 			if ((pieza->getCoordenada().getFila()) == (7))
 			{
-				if (mirarCasilla(pieza->getCoordenada().getFila() - 5, pieza->getCoordenada().getColumna())) flag = true;
+				if (mirarCasilla(pieza->getCoordenada().getFila() - 2, pieza->getCoordenada().getColumna())) flag = true;
 				if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
 
 				if (destino.getFila() == 6) return true;
@@ -481,6 +478,58 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 	
 
 	
+}
+
+bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
+{
+	coordenada destino(fila, columna);
+	coordenada inicio(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
+	color colorReyMov = pieza->getColor();
+	int index;
+
+	for (int i = 0; i < nPiezas; i++) {
+		if ((listaPiezas[i]->getTipo() == REY)&&(listaPiezas[i]->getColor()!=colorReyMov)) {
+			index = i;
+		}
+	}
+	coordenada reyEnemigo = listaPiezas[index]->getCoordenada();
+
+
+	if (mirarCasilla(fila, columna)) {
+		return false;
+	}
+	else {
+		//Miramos las casillas del rey enemigo una a una
+		for (int i = reyEnemigo.getFila() + 1; i >= reyEnemigo.getFila() - 1; i--) {
+			for (int j = reyEnemigo.getColumna() - 1; j <= reyEnemigo.getColumna() + 1; j++) {
+				coordenada aux(i, j);
+				if (destino == aux) return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna)
+{
+	coordenada destino(fila, columna);
+	pieza* piezaDestino;
+	piezaDestino = buscarPieza(fila, columna);
+
+	//Comprobamos el color de la pieza de destino
+
+
+	if (pieza1->getColor() != piezaDestino->getColor()) {
+		//Comprobamos si no es el rey
+		if (piezaDestino->getTipo() != REY) {
+			//Borramos la pieza y permitimos el movimiento
+			eliminar(piezaDestino);
+			return true;
+		}
+	}
+	else return false;
+
 }
 
 bool ListaPiezas::mirarCasilla(int fila, int columna)
@@ -504,5 +553,6 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
 	else if (aux->getTipo() == REINA) return comprobarReina(aux, fila, columna);
 	else if (aux->getTipo() == PEON) return comprobarPeon(aux, fila, columna);
+	else if (aux->getTipo() == REY) return comprobarRey(aux, fila, columna);
 		
 }

@@ -1,5 +1,6 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   ListaPiezas.cpp
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(301): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(508): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
-  Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(301): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(533): warning C4715: 'ListaPiezas::comerPieza': no todas las rutas de acceso de control devuelven un valor
+D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(558): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
+  Pang.vcxproj -> D:\TRABAJOS SED\GitHub\TrabajoInfo\Chess\bin\Chess.exe

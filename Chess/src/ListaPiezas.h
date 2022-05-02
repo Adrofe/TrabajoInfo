@@ -44,6 +44,8 @@ public:
 	bool comprobarTorre(pieza* pieza, int fila, int columna);
 	bool comprobarReina(pieza* pieza, int fila, int columna);
 	bool comprobarPeon(pieza* pieza, int fila, int columna);
+	bool comprobarRey(pieza* pieza, int fila, int columna);
+	bool comerPieza(pieza* pieza, int fila, int columna);
 
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);
