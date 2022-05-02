@@ -23,6 +23,7 @@
     <ClCompile Include="src\caballo.cpp" />
     <ClCompile Include="src\Chess.cpp" />
     <ClCompile Include="src\coordenada.cpp" />
+    <ClCompile Include="src\Coordinador.cpp" />
     <ClCompile Include="src\ListaPiezas.cpp" />
     <ClCompile Include="src\partida.cpp" />
     <ClCompile Include="src\Peon.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="src\Alfil.h" />
     <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\coordenada.h" />
+    <ClInclude Include="src\Coordinador.h" />
     <ClInclude Include="src\ListaPiezas.h" />
     <ClInclude Include="src\partida.h" />
     <ClInclude Include="src\Peon.h" />

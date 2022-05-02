@@ -1,8 +1,9 @@
 
 #include "freeglut.h"
 #include "partida.h"
+#include "Coordinador.h"
 
-partida iPartida;
+Coordinador juego;
 
 bool o = FALSE;
 coordenada b("a", 2);
@@ -41,7 +42,7 @@ int main(int argc,char* argv[])
 	glutMouseFunc(Mouse);
 
 	//Creamos el tablero
-	iPartida.inicializa();
+	//iPartida.inicializa();
 		
 	//pasarle el control a GLUT,que llamara a los callbacks
 	glutMainLoop();	
@@ -58,7 +59,7 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);	
 	glLoadIdentity();
 
-	iPartida.dibuja();
+	juego.dibuja();
 
 	
 	//no borrar esta linea ni poner nada despues
@@ -67,6 +68,7 @@ void OnDraw(void)
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//poner aqui el código de teclado
+	juego.Tecla(key);
 
 	glutPostRedisplay();
 }
@@ -81,7 +83,7 @@ void OnTimer(int value)
 }
 void Mouse(int button, int state, int x, int y) {
 
-	iPartida.mouse(button, state, x, y);
+	juego.mouse(button, state, x, y);
 	//no borrar
 	glutPostRedisplay();
 }
