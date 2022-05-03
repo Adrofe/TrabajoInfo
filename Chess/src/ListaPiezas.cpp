@@ -216,10 +216,10 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 		}
 	}
 	if (index != -1) {
-
-		if (comprobarTurno(pieza1)){
-			//Comprobamos si el movimiento es legal
-			if (movimientoLegal(pieza1, fila, columna)) {
+		if (pieza1 != nullptr) {
+			if (comprobarTurno(pieza1)) {
+				//Comprobamos si el movimiento es legal
+				if (movimientoLegal(pieza1, fila, columna)) {
 					listaPiezas[index]->setFila(fila);
 					listaPiezas[index]->setColumna(columna);
 					//Cambiamos el color del proximo turno
@@ -227,14 +227,15 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 						proximoTurno = NEGRO;
 					}
 					else { proximoTurno = BLANCO; }
-				
+
+				}
+				else {
+					std::cout << "Movimiento ilegal de la pieza" << endl;
+				}
 			}
 			else {
-				std::cout << "Movimiento ilegal de la pieza" << endl;
+				std::cout << "No mueve este color" << endl;
 			}
-		}
-		else {
-			std::cout << "No mueve este color" << endl;
 		}
 		
 	}
@@ -303,20 +304,22 @@ bool ListaPiezas::comprobarColor(int index, coordenada coord)
 void ListaPiezas::movPosibles(pieza* aux)
 {
 	int a = 1;
-	if (comprobarTurno(aux)) {
-		for (int i = 1; i < 9; i++) {
-			for (int j = 1; j < 9; j++) {
-				if (movimientoLegal(aux, i, j)) {
-					coordenadaPintar[a] = { i,j };
-					std::cout << i << " " << j << endl;
-					a++;
-					si = true;
+	if (aux != nullptr) {
+		if (comprobarTurno(aux)) {
+			for (int i = 1; i < 9; i++) {
+				for (int j = 1; j < 9; j++) {
+					if (movimientoLegal(aux, i, j)) {
+						coordenadaPintar[a] = { i,j };
+						std::cout << i << " " << j << endl;
+						a++;
+						si = true;
+					}
 				}
 			}
-		}
 
-		for (int b = a; b < 64; b++) {
-			coordenadaPintar[b] = { -1, -1 };
+			for (int b = a; b < 64; b++) {
+				coordenadaPintar[b] = { -1, -1 };
+			}
 		}
 	}
 
