@@ -1,8 +1,9 @@
 
 #include "freeglut.h"
 #include "partida.h"
+#include "Coordinador.h"
 
-partida iPartida;
+Coordinador Chess;
 
 bool o = FALSE;
 coordenada b("a", 2);
@@ -39,9 +40,10 @@ int main(int argc,char* argv[])
 	glutTimerFunc(25,OnTimer,0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
 	glutKeyboardFunc(OnKeyboardDown);
 	glutMouseFunc(Mouse);
+	
 
 	//Creamos el tablero
-	iPartida.inicializa();
+	//partida.inicializa();
 		
 	//pasarle el control a GLUT,que llamara a los callbacks
 	glutMainLoop();	
@@ -58,7 +60,7 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);	
 	glLoadIdentity();
 
-	iPartida.dibuja();
+	Chess.dibuja();
 
 	
 	//no borrar esta linea ni poner nada despues
@@ -67,6 +69,7 @@ void OnDraw(void)
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//poner aqui el código de teclado
+	Chess.tecla(key);
 
 	glutPostRedisplay();
 }
@@ -79,9 +82,4 @@ void OnTimer(int value)
 	glutTimerFunc(25,OnTimer,0);
 	glutPostRedisplay();
 }
-void Mouse(int button, int state, int x, int y) {
 
-	iPartida.mouse(button, state, x, y);
-	//no borrar
-	glutPostRedisplay();
-}

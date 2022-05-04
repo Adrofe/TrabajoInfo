@@ -18,10 +18,11 @@ public:
 
 	void tecla(unsigned char key);
 	void inicializa();
-	void mover();
+	void mueve();
 	void dibuja();
 	void mouse(int button, int state, int x, int y);
 	void getColFilMouse(int x, int y, int &fila, int &columna);
+	void teclaEspecial(unsigned char key);
 	
 	
 
