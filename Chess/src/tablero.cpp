@@ -52,11 +52,12 @@ void tablero::dibuja()
 	}
 }
 
-void tablero::PintarMovPosibles(coordenada coord[])
+void tablero::PintarMovPosibles(coordenada coord[], coordenada coord2[])
 {
 	int fil = 0;
 	int col = 0;
 	int a = 1;
+	int b1 = 1;
 	unsigned int r, g, b;
 
 		for (int i = 1; i < 64; i++) {
@@ -98,4 +99,31 @@ void tablero::PintarMovPosibles(coordenada coord[])
 			glEnd();
 			glEnable(GL_LIGHTING);
 		}
+
+
+		
+
+		for (int j = 1; j < 8; j++) {
+			fil = coord2[b1].getFila() - 1;
+			col = (coord2[b1].getColumna() - 1);
+			b1++;
+
+			if ((fil == -1) || (col == -1)) {
+
+				j = 64;
+				break;
+
+			}
+			glDisable(GL_LIGHTING);
+			glColor3ub(100, 0, 0);
+			glBegin(GL_POLYGON);
+
+			glTexCoord2d(0, 1); glVertex3f(fil * 8, 0.1f, col * 8.0f);
+			glTexCoord2d(1, 1); glVertex3f(fil * 8, 0.1f, (col * 8) + 8.0f);
+			glTexCoord2d(1, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, (col * 8) + 8.0f);
+			glTexCoord2d(0, 0); glVertex3f((fil * 8) + 8.0f, 0.1f, col * 8);
+			glEnd();
+			glEnable(GL_LIGHTING);
+		}
+		
 }

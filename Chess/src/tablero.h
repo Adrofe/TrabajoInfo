@@ -6,6 +6,6 @@ class tablero
 {
 public:
 	void dibuja();
-	void PintarMovPosibles(coordenada coord[]);
+	void PintarMovPosibles(coordenada coord[], coordenada coord2[]);
 };
 

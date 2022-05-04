@@ -21,9 +21,12 @@ private:
 	int nPiezas;
 	color proximoTurno = BLANCO;
 	
+	bool flag1 = false;
 
 public:
 	coordenada coordenadaPintar[64];
+	coordenada coordenadaComer[8];
+
 	bool si = false;
 
 	ListaPiezas();
@@ -34,6 +37,7 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 	pieza* buscarPieza(int fila, int columna);
+
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
 	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento

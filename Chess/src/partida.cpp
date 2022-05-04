@@ -38,7 +38,7 @@ void partida::dibuja()
 	tablero.dibuja();
     piezas.dibuja();
     if (piezas.si) {
-        tablero.PintarMovPosibles(piezas.coordenadaPintar);
+        tablero.PintarMovPosibles(piezas.coordenadaPintar, piezas.coordenadaComer);
      
     }
 }
