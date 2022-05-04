@@ -62,13 +62,28 @@ bool Peon::movimientoLegal(coordenada destino)
 
 			return true;
 		}
+		if (((destino.getColumna() - coordInicio.getColumna()) == 1) && ((destino.getFila() - coordInicio.getFila()) == 1)) {
+			return true;
+		}
+		if (((destino.getColumna() - coordInicio.getColumna()) == -1) && ((destino.getFila() - coordInicio.getFila()) == 1)) {
+			return true;
+		}
 	}
 	else {
 		if ((((coordInicio.getFila()) - (destino.getFila())) == (1)) && ((coordInicio.getColumna()) == (destino.getColumna()))) {
 
 			return true;
 		}
+		if (((destino.getColumna() - coordInicio.getColumna()) == -1) && ((destino.getFila() - coordInicio.getFila()) == -1)) {
+			return true;
+		}
+		if (((destino.getColumna() - coordInicio.getColumna()) == 1) && ((destino.getFila() - coordInicio.getFila()) == -1)) {
+			return true;
+		}
 	}
+
+
+
 	if ((coordInicio.getFila()) == (2) || ((coordInicio.getFila()) == (7))) {
 
 		if (pieza::getColor() == BLANCO) {

@@ -200,9 +200,14 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 {
 	//Buscamos la pieza en el array
 	int index = -1;
+	int indexDes = -1;
+	pieza* piezaDestino = buscarPieza(fila,columna);
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza1) {
 			index = i;
+		}
+		if (listaPiezas[i] == piezaDestino) {
+			indexDes = i;
 		}
 	}
 	if (index != -1) {
@@ -211,9 +216,9 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				//Comprobamos si el movimiento es legal
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
-					comerPieza(listaPiezas[index], fila, columna);
-					listaPiezas[index]->setFila(fila);
-					listaPiezas[index]->setColumna(columna);
+					if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);;
+					pieza1->setFila(fila);
+					pieza1->setColumna(columna);
 
 					//Cambiamos el color del proximo turno
 					if (proximoTurno == BLANCO) {
@@ -473,24 +478,48 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 
 	if (pieza->getColor() == BLANCO)
 	{
+
 		if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
+
+		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == 1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == 1)) {
+			if (mirarCasilla(fila, columna)) return true;
+			else return false;
+		}
+		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == -1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == 1)) {
+			if (mirarCasilla(fila, columna)) return true;
+			else return false;
+		}
 
 		if ((pieza->getCoordenada().getFila()) == (2))
 		{
+
 			if (mirarCasilla(pieza->getCoordenada().getFila() + 2, pieza->getCoordenada().getColumna())) flag = true;
 			if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
 
 			if (destino.getFila() == 3) return true;
 
 			else if (flag) return false;
+
+			
 		}
-	
+
+		
+
 		flag = false;
 		return true;
 	}
 		else {
 
 			if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
+
+			if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == -1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == -1)) {
+				if (mirarCasilla(fila, columna)) return true;
+				else return false;
+			}
+			if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == 1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == -1)) {
+				if (mirarCasilla(fila, columna)) return true;
+				else return false;
+			}
 
 			if ((pieza->getCoordenada().getFila()) == (7))
 			{
@@ -501,6 +530,7 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 
 				else if (flag) return false;
 			}
+
 
 			flag = false;
 			return true;
@@ -526,6 +556,8 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 
 
 	if (mirarCasilla(fila, columna)) {
+		if (buscarPieza(fila, columna) != nullptr)
+			if (buscarPieza(fila, columna)->getColor() !=pieza->getColor()) return TRUE;
 		return false;
 	}
 	else {
@@ -562,7 +594,7 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 			//Comprobamos si no es el rey
 			if (listaPiezas[index]->getTipo() != REY) {
 				//Borramos la pieza y permitimos el movimiento
-				eliminar(listaPiezas[index]);
+
 				return true;
 			}
 		}
@@ -570,6 +602,7 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 	else return false;
 
 }
+
 
 bool ListaPiezas::mirarCasilla(int fila, int columna)
 {
@@ -587,7 +620,8 @@ bool ListaPiezas::mirarCasilla(int fila, int columna)
 
 bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 {
-	
+	if (buscarPieza(fila, columna) != nullptr)
+		if (buscarPieza(fila, columna)->getTipo() == REY) return FALSE;
 	if (aux->getTipo() == ALFIL) return comprobarAlfil(aux, fila, columna);
 	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
 	else if (aux->getTipo() == REINA) return comprobarReina(aux, fila, columna);
