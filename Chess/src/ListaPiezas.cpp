@@ -37,6 +37,8 @@ ListaPiezas::ListaPiezas()
 	coordenada c31("g", 8);
 	coordenada c32("h", 8);
 
+	coordenada fantasma("z", 5);
+
 
 
 	rey* rey1 = new rey(BLANCO,c13);
@@ -78,6 +80,8 @@ ListaPiezas::ListaPiezas()
 	Peon* peon15 = new Peon(NEGRO, c17);
 	Peon* peon16 = new Peon(NEGRO, c18);
 
+	Peon* peon17 = new Peon(NEGRO, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+
 
 
 
@@ -118,6 +122,7 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(peon14);
 	agregarPieza(peon15);
 	agregarPieza(peon16);
+	agregarPieza(peon17);
 
 }
 
@@ -219,7 +224,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);;
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
-
+					jaque();
 					//Cambiamos el color del proximo turno
 					if (proximoTurno == BLANCO) {
 						proximoTurno = NEGRO;
@@ -332,7 +337,7 @@ void ListaPiezas::movPosibles(pieza* aux)
 						 }
 						 else {
 							 coordenadaPintar[a] = { i,j };
-							 std::cout << i << " " << j << endl;
+							// std::cout << i << " " << j << endl;
 							 a++;
 						 }
 						si = true;
@@ -344,7 +349,7 @@ void ListaPiezas::movPosibles(pieza* aux)
 				coordenadaPintar[c] = { -1, -1 };
 			}
 			
-			for (int d = b; d < 8; d++) {
+			for (int d = b; d < 15; d++) {
 				coordenadaComer[d] = { -1, -1 };
 			}
 			
@@ -593,15 +598,49 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 		if (pieza1->getColor() != listaPiezas[index]->getColor()) {
 			//Comprobamos si no es el rey
 			if (listaPiezas[index]->getTipo() != REY) {
-				//Borramos la pieza y permitimos el movimiento
-
 				return true;
+
 			}
 		}
 	}
-	else return false;
+	 return false;
 
 }
+
+void ListaPiezas::jaque()
+{
+	pieza* aux;
+
+	for (int i = 0; i < nPiezas; i++) {
+		movPosibles(listaPiezas[i]);
+		for (int j = 0; j < 15; j++) {
+			aux = buscarPieza(coordenadaComer[j].getFila(), coordenadaComer[j].getColumna());
+			if (aux != nullptr) {
+				if (aux->getTipo() == REY) {
+					std::cout << "jaque" << endl;
+					if (aux->getColor() == BLANCO) {
+						jaqueBlanco = true;
+						std::cout << "jaque Blanco" << endl;
+					}
+					else {
+						jaqueNegro = true;
+						std::cout << "jaque Blanco" << endl;
+					}
+				}
+			}
+		}
+		if (jaqueBlanco || jaqueNegro) {
+			for (int i = 0; i < nPiezas; i++) {
+				coordenadaPintar[i];
+
+			}
+
+
+		}
+	}
+
+}
+
 
 
 bool ListaPiezas::mirarCasilla(int fila, int columna)
@@ -620,8 +659,9 @@ bool ListaPiezas::mirarCasilla(int fila, int columna)
 
 bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 {
-	if (buscarPieza(fila, columna) != nullptr)
-		if (buscarPieza(fila, columna)->getTipo() == REY) return FALSE;
+	//if (buscarPieza(fila, columna) != nullptr)
+	//	if (buscarPieza(fila, columna)->getTipo() == REY) return FALSE;
+
 	if (aux->getTipo() == ALFIL) return comprobarAlfil(aux, fila, columna);
 	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
 	else if (aux->getTipo() == REINA) return comprobarReina(aux, fila, columna);

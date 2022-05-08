@@ -20,12 +20,14 @@ private:
 	
 	int nPiezas;
 	color proximoTurno = BLANCO;
-	
-	bool flag1 = false;
+
+	bool jaqueBlanco = false;
+	bool jaqueNegro = false;
+
 
 public:
 	coordenada coordenadaPintar[64];
-	coordenada coordenadaComer[8];
+	coordenada coordenadaComer[15];
 
 	bool si = false;
 
@@ -51,6 +53,7 @@ public:
 	bool comprobarRey(pieza* pieza, int fila, int columna);
 
 	bool comerPieza(pieza* pieza, int fila, int columna);
+	void jaque();
 
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);

@@ -79,6 +79,7 @@ vector2D coordenada::toVector()
 	else if (letra == "f") x = 40.0f;
 	else if (letra == "g") x = 48.0f;
 	else if (letra == "h") x = 56.0f;
+	else if (letra == "z") x = -100.0f;
 
 	for (int i = 1; i < 9; i++) {
 		if (numero == i) {
@@ -143,6 +144,7 @@ int coordenada::getColumna()
 	else if (letra == "f") columna = 6;
 	else if (letra == "g") columna = 7;
 	else if (letra == "h") columna = 8;
+	else if (letra == "z") columna = 100;
 
 	return columna;
 }

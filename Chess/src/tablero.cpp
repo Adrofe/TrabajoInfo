@@ -103,14 +103,14 @@ void tablero::PintarMovPosibles(coordenada coord[], coordenada coord2[])
 
 		
 
-		for (int j = 1; j < 8; j++) {
+		for (int j = 1; j < 15; j++) {
 			fil = coord2[b1].getFila() - 1;
 			col = (coord2[b1].getColumna() - 1);
 			b1++;
 
 			if ((fil == -1) || (col == -1)) {
 
-				j = 64;
+				j = 15;
 				break;
 
 			}
