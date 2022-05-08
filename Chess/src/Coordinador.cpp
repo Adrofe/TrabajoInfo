@@ -1,26 +1,29 @@
 #include "Coordinador.h"
+
 Coordinador::Coordinador()
 {
 	estado = INICIO;
 }
+
 Coordinador::~Coordinador()
 {
 
 }
+
 void Coordinador::dibuja()
 {
 	if (estado == INICIO) {
-		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
-			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
-			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+		gluLookAt(0, 7.5, 30, // posicion del ojo
+				0.0, 7.5, 0.0, // hacia que punto mira (0,7.5,0)
+				0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
-		ETSIDI::printxy("Pang 1.1", -5, 8);
+		ETSIDI::setFont("fuentes/04B_31__.ttf", 16);
+		ETSIDI::printxy("Chess", -5, 8);
 		ETSIDI::setTextColor(1, 1, 1);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 12);
+		ETSIDI::setFont("fuentes/04B_31__.ttf", 12);
 		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", -5, 7);
 		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", -5, 6);
-		ETSIDI::printxy("Hernando & Rodriguez-Losada", 2, 1);
+		ETSIDI::printxy("DEFENSA PETROV", 2, 1);
 	}
 	else if (estado == JUEGO)
 	{
@@ -30,23 +33,23 @@ void Coordinador::dibuja()
 	{
 		partida.dibuja();
 		ETSIDI::setTextColor(0, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/04B_31__.ttf", 16);
 		ETSIDI::printxy("PAUSA", -2, 10);
 		ETSIDI::printxy("Pulsa C para continuar", -5, 5);
 	}
-	else if (estado == GAMEOVER)
+	else if (estado == JAQUEMATE)
 	{
 		partida.dibuja();
 		ETSIDI::setTextColor(1, 0, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/04B_31__.ttf", 16);
 		ETSIDI::printxy("JAQUE MATE: Has perdido", -5, 10);
 		ETSIDI::printxy("Pulsa -C- para continuar", -5, 5);
 	}
 	else if (estado == FIN)
 	{
 		partida.dibuja();
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
-		ETSIDI::printxy("ENHORABUENA, ¡Has ganado!", -5, 10);
+		ETSIDI::setFont("fuentes/04B_31__.ttf", 16);
+		ETSIDI::printxy("ENHORABUENA, ¡HAS VENCIDO!", -5, 10);
 		ETSIDI::printxy("Pulsa -C- para continuar", -5, 9);
 	}
 }
@@ -93,9 +96,10 @@ void Coordinador::Tecla(unsigned char key)
 	}
 	else if (estado == PAUSA)
 	{
-		estado = JUEGO;
+		if (key == 'c')
+			estado = JUEGO;
 	}
-	else if (estado == GAMEOVER)
+	else if (estado == JAQUEMATE)
 	{
 		if (key == 'c')
 			estado = INICIO;
