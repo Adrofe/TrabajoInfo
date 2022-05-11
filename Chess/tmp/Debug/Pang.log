@@ -1,7 +1,2 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  ListaPiezas.cpp
-  coordenada.cpp
-  Generando código...
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(322): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(671): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
   Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe

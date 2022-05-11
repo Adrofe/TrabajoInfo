@@ -221,15 +221,17 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				//Comprobamos si el movimiento es legal
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
-					if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);;
-					pieza1->setFila(fila);
-					pieza1->setColumna(columna);
-					jaque();
-					//Cambiamos el color del proximo turno
-					if (proximoTurno == BLANCO) {
-						proximoTurno = NEGRO;
-					}
-					else { proximoTurno = BLANCO; }
+					//if (jaquePosible(pieza1, fila, columna)) {
+						if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
+						pieza1->setFila(fila);
+						pieza1->setColumna(columna);
+						jaque();
+						//Cambiamos el color del proximo turno
+						if (proximoTurno == BLANCO) {
+							proximoTurno = NEGRO;
+						}
+						else { proximoTurno = BLANCO; }
+					//}
 
 				}
 				else {
@@ -275,12 +277,12 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 				}
 			}
 		}
-
 		if (comprobarColor(index, coordDestino)) {
 			if (listaPiezas[index]->movimientoLegal(coordDestino)) {
 				if (comprobarPieza(listaPiezas[index], fila, columna)) {
 
-					return true;
+					 return true;
+
 				}
 				//else return false;
 			}
@@ -289,7 +291,7 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 			}
 		}
 		else {
-			std::cout << "Hay una pieza del mismo color" << endl;
+			//std::cout << "Hay una pieza del mismo color" << endl;
 			return false;
 		}
 		
@@ -349,7 +351,7 @@ void ListaPiezas::movPosibles(pieza* aux)
 				coordenadaPintar[c] = { -1, -1 };
 			}
 			
-			for (int d = b; d < 15; d++) {
+			for (int d = b; d < 8; d++) {
 				coordenadaComer[d] = { -1, -1 };
 			}
 			
@@ -597,10 +599,10 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 	if (mirarCasilla(fila, columna)) {
 		if (pieza1->getColor() != listaPiezas[index]->getColor()) {
 			//Comprobamos si no es el rey
-			if (listaPiezas[index]->getTipo() != REY) {
+			//if (listaPiezas[index]->getTipo() != REY) {
 				return true;
 
-			}
+			//}
 		}
 	}
 	 return false;
@@ -610,10 +612,12 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 void ListaPiezas::jaque()
 {
 	pieza* aux;
+	jaqueBlanco = false;
+	jaqueNegro = false;
 
 	for (int i = 0; i < nPiezas; i++) {
 		movPosibles(listaPiezas[i]);
-		for (int j = 0; j < 15; j++) {
+		for (int j = 0; j < 8; j++) {
 			aux = buscarPieza(coordenadaComer[j].getFila(), coordenadaComer[j].getColumna());
 			if (aux != nullptr) {
 				if (aux->getTipo() == REY) {
@@ -629,15 +633,25 @@ void ListaPiezas::jaque()
 				}
 			}
 		}
-		if (jaqueBlanco || jaqueNegro) {
-			for (int i = 0; i < nPiezas; i++) {
-				coordenadaPintar[i];
-
-			}
-
-
-		}
+		
 	}
+
+}
+
+bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna)
+{
+	coordenada Destino(fila, columna);
+	coordenada Origen(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
+
+	pieza->setColumna(columna);
+	pieza->setFila(fila);
+	jaque();
+	if (jaqueBlanco && pieza->getColor()== BLANCO) return false;
+	if (jaqueNegro && pieza->getColor() == NEGRO) return false;
+	pieza->setColumna(Origen.getColumna());
+	pieza->setFila(Origen.getFila());
+	jaque();
+	return true;
 
 }
 

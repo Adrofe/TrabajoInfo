@@ -27,7 +27,7 @@ private:
 
 public:
 	coordenada coordenadaPintar[64];
-	coordenada coordenadaComer[15];
+	coordenada coordenadaComer[8];
 
 	bool si = false;
 
@@ -54,6 +54,8 @@ public:
 
 	bool comerPieza(pieza* pieza, int fila, int columna);
 	void jaque();
+	bool jaquePosible(pieza* pieza,int fila, int columna);
+
 
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);
