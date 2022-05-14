@@ -26,8 +26,8 @@ private:
 	int nPiezas;
 	color proximoTurno = BLANCO;
 
-	bool jaqueBlanco = false;
-	bool jaqueNegro = false;
+	 bool jaqueBlanco;
+	 bool jaqueNegro;
 
 
 	bool existeIA = false;
@@ -69,7 +69,7 @@ public:
 	bool comprobarRey(pieza* pieza, int fila, int columna);
 
 	bool comerPieza(pieza* pieza, int fila, int columna);
-	void jaque();
+	void jaque(color Color);
 	bool jaquePosible(pieza* pieza,int fila, int columna);
 
 

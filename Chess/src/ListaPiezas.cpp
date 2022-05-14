@@ -105,8 +105,8 @@ void ListaPiezas::crearPiezas()
 	Peon* peon15 = new Peon(NEGRO, c17);
 	Peon* peon16 = new Peon(NEGRO, c18);
 
-	Peon* peon17 = new Peon(NEGRO, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
-
+	Peon* FANTASMA_ABAJO = new Peon(NEGRO, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+	Peon* FANTASMA_ARRIBA = new Peon(NEGRO, fantasma);
 
 
 
@@ -115,6 +115,7 @@ void ListaPiezas::crearPiezas()
 		listaPiezas[i] = 0;
 	}
 
+	agregarPieza(FANTASMA_ARRIBA);
 	agregarPieza(rey1);
 	agregarPieza(rey2);
 	agregarPieza(caballo1);
@@ -147,7 +148,12 @@ void ListaPiezas::crearPiezas()
 	agregarPieza(peon14);
 	agregarPieza(peon15);
 	agregarPieza(peon16);
-	agregarPieza(peon17);
+	agregarPieza(FANTASMA_ABAJO);
+
+
+	// inicializamos los booleamos de jaque a false
+	jaqueBlanco = false;
+	jaqueNegro  = false;
 
 }
 
@@ -242,7 +248,8 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 						if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
 						pieza1->setFila(fila);
 						pieza1->setColumna(columna);
-						jaque();
+						jaque(BLANCO);
+						jaque(NEGRO);
 						//Cambiamos el color del proximo turno
 						if (proximoTurno == BLANCO) {
 							proximoTurno = NEGRO;
@@ -287,7 +294,7 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 	if (index != -1) {
 
 		//comprueba que el color sea diferente al sitio al que te quieres mover
-		for (int a = 0; a < 32; a++) {
+		for (int a = 0; a < nPiezas; a++) {
 			if (coordDestino == listaPiezas[a]->getCoordenada()) {
 				if (listaPiezas[index]->getColor() == listaPiezas[a]->getColor()) {
 					return false;
@@ -503,7 +510,6 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 	if (pieza->getColor() == BLANCO)
 	{
 
-		if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
 
 		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == 1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == 1)) {
 			if (mirarCasilla(fila, columna)) return true;
@@ -513,6 +519,8 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 			if (mirarCasilla(fila, columna)) return true;
 			else return false;
 		}
+
+		if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
 
 		if ((pieza->getCoordenada().getFila()) == (2))
 		{
@@ -534,7 +542,7 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 	}
 		else {
 
-			if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
+
 
 			if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == -1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == -1)) {
 				if (mirarCasilla(fila, columna)) return true;
@@ -544,6 +552,8 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 				if (mirarCasilla(fila, columna)) return true;
 				else return false;
 			}
+
+			if (mirarCasilla(pieza->getCoordenada().getFila() - 1, pieza->getCoordenada().getColumna())) return false;
 
 			if ((pieza->getCoordenada().getFila()) == (7))
 			{
@@ -626,51 +636,38 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 
 }
 
-void ListaPiezas::jaque()
+void ListaPiezas::jaque(color Color)
 {
 	pieza* aux;
-	jaqueBlanco = false;
-	jaqueNegro = false;
+	coordenada CoordRey(-1,-1);
 
 	for (int i = 0; i < nPiezas; i++) {
-		movPosibles(listaPiezas[i]);
-		for (int j = 0; j < 8; j++) {
-			aux = buscarPieza(coordenadaComer[j].getFila(), coordenadaComer[j].getColumna());
-			if (aux != nullptr) {
-				if (aux->getTipo() == REY) {
-					std::cout << "jaque" << endl;
-					if (aux->getColor() == BLANCO) {
-						jaqueBlanco = true;
-						std::cout << "jaque Blanco" << endl;
-					}
-					else {
-						jaqueNegro = true;
-						std::cout << "jaque Blanco" << endl;
-					}
-				}
-			}
+		if (listaPiezas[i]->getTipo() == REY && listaPiezas[i]->getColor() != Color) {
+			CoordRey.setCol(listaPiezas[i]->getCoordenada().getColumna());
+			CoordRey.setFil(listaPiezas[i]->getCoordenada().getFila());
 		}
-		
+	}
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (movimientoLegal(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())){
+			std::cout << " mov legar valido " << jaqueNegro << " " << jaqueBlanco << endl;
+
+					if (Color == BLANCO) { jaqueNegro = TRUE; }
+					if (Color == NEGRO) { jaqueBlanco = TRUE; }
+					std::cout << " hay jaque "<< jaqueNegro<< " " << jaqueBlanco << endl;
+		}
+
 	}
 
 }
 
 bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna)
 {
-	coordenada Destino(fila, columna);
-	coordenada Origen(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
-
-	pieza->setColumna(columna);
-	pieza->setFila(fila);
-	jaque();
-	if (jaqueBlanco && pieza->getColor()== BLANCO) return false;
-	if (jaqueNegro && pieza->getColor() == NEGRO) return false;
-	pieza->setColumna(Origen.getColumna());
-	pieza->setFila(Origen.getFila());
-	jaque();
-	return true;
+	coordenada CoordInicio(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
+	coordenada CoordFinal(fila, columna);
 
 }
+
 
 
 
@@ -749,3 +746,29 @@ coordenada ListaPiezas::coordenadaAleatoria(pieza* aux)
 	return coordenadaPintar[random];
 	
 }
+
+/* Valores matemáticos para evaluar los puntos con la ia IA*
+
+PARTES CON UNOS PUNTOS INICIALES SI PUEDES COMER SUMAS PUNTOS SI TE PUEDEN COMER LOS RESTAS.
+
+ peon:
+   * Por cada peon +10 puntos
+   * Por cada casilla que un peon avanza +1 puntos
+   * ademas de ver a quienes puede comer
+ caballo:
+   * Por cada caballo +30 puntos
+   * Si está cerca o lejos del centro del tablero +-5 puntos y si puede comer a los que mas puntos dan
+ alfil:
+   * Por cada alfil +30 puntos
+   * Añadir un punto por cada casilla a la que se pueda mover el alfil y si puede comer a los que mas puntos dan
+ torre:
+   * Por cada torre +50 puntos
+   * Añadir un punto por cada casilla a la que se pueda mover la torre y si puede comer a los que mas puntos dan
+ dama:
+   * Por cada dama +90 puntos
+   * Si está cerca o lejos del centro del tablero +-5 puntos ademas de poder comer piezas eso da puntos
+  
+
+  FALTA TODA LA INTERFAZ DE LA PANTALLA PONIENDO UN TIEMPO O PONIENDO Y DE QUIEN ES EL TURNO
+
+*/
