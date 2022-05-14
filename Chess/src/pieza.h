@@ -15,6 +15,7 @@ private:
 
 protected:
 	tipo_pieza tipo;
+	int valor;
 
 public:
 	
@@ -35,6 +36,7 @@ public:
 	float getAncho() { return ancho; }
 
 	virtual tipo_pieza getTipo() { return tipo; }
+	int getValor() { return valor; }
 
 };
 

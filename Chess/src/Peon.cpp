@@ -3,11 +3,13 @@
 Peon::Peon()
 {
 	tipo = PEON;
+	valor = 1;
 }
 
 Peon::Peon(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = PEON;
+	valor = 1;
 }
 
 void Peon::dibuja()

@@ -2,7 +2,32 @@
 
 ListaPiezas::ListaPiezas()
 {
+	crearPiezas();
+}
 
+ListaPiezas::ListaPiezas(color colorIA)
+{
+	this->colorIA = colorIA;
+	crearPiezas();
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i]->getColor() == colorIA) {
+
+		}
+	}
+
+}
+
+ListaPiezas::~ListaPiezas()
+{
+	for (int i = 0; i < MAX_PIEZAS; i++){
+		delete listaPiezas[i];
+	}
+	nPiezas = 0;
+}
+
+void ListaPiezas::crearPiezas()
+{
 	coordenada c1("a", 2);
 	coordenada c2("b", 2);
 	coordenada c3("c", 2);
@@ -41,9 +66,9 @@ ListaPiezas::ListaPiezas()
 
 
 
-	rey* rey1 = new rey(BLANCO,c13);
-	rey* rey2 = new rey(NEGRO,c29);
-	
+	rey* rey1 = new rey(BLANCO, c13);
+	rey* rey2 = new rey(NEGRO, c29);
+
 	reina* reina1 = new reina(BLANCO, c12);
 	reina* reina2 = new reina(NEGRO, c28);
 
@@ -62,7 +87,7 @@ ListaPiezas::ListaPiezas()
 	Torre* torre3 = new Torre(NEGRO, c25);
 	Torre* torre4 = new Torre(NEGRO, c32);
 
-	
+
 	Peon* peon1 = new Peon(BLANCO, c1);
 	Peon* peon2 = new Peon(BLANCO, c2);
 	Peon* peon3 = new Peon(BLANCO, c3);
@@ -124,14 +149,6 @@ ListaPiezas::ListaPiezas()
 	agregarPieza(peon16);
 	agregarPieza(peon17);
 
-}
-
-ListaPiezas::~ListaPiezas()
-{
-	for (int i = 0; i < MAX_PIEZAS; i++){
-		delete listaPiezas[i];
-	}
-	nPiezas = 0;
 }
 
 bool ListaPiezas::agregarPieza(pieza* pieza)
@@ -357,7 +374,7 @@ void ListaPiezas::movPosibles(pieza* aux)
 			
 		}
 	}
-
+	nPosibles = a;
 }
 
 
@@ -682,4 +699,53 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 	else if (aux->getTipo() == PEON) return comprobarPeon(aux, fila, columna);
 	else if (aux->getTipo() == REY) return comprobarRey(aux, fila, columna);
 		
+}
+
+void ListaPiezas::moverPiezaIA()
+{
+	int piezasIA[MAX_PIEZAS];
+	int nIA = 0;
+	srand(time(NULL));
+
+	//Creamos una lista de piezas con las piezas de la IA
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i]->getColor() == colorIA) {
+			piezasIA[nIA] = i;
+			nIA++;
+		}
+	}
+
+	int piezaAleatoria;
+
+	coordenada coordenadaRandom;
+	//do {
+	//Escogemos una pieza aleatoria
+	
+	piezaAleatoria = (rand() % nIA);
+	coordenadaRandom = coordenadaAleatoria(listaPiezas[piezasIA[piezaAleatoria]]);
+	std::cout << "IA" << endl;
+
+	//} while ((coordenadaRandom.getFila()!=-1)&&(coordenadaRandom.getColumna() != -1));
+
+	std::cout << "Tipo: " << listaPiezas[piezasIA[piezaAleatoria]]->getTipo() << " FILA: " << coordenadaRandom.getFila() << " COLUMNA: " << coordenadaRandom.getFila() << endl;
+	moverPieza(listaPiezas[piezasIA[piezaAleatoria]], coordenadaRandom.getFila(), coordenadaRandom.getColumna());
+	
+
+}
+
+coordenada ListaPiezas::coordenadaAleatoria(pieza* aux)
+{
+
+	movPosibles(aux);
+
+
+	int random;
+	srand(time(NULL));
+	if (nPosibles != 0) {
+		random = (rand() % nPosibles+1);
+	}
+	else { random = 1; }
+	
+	return coordenadaPintar[random];
+	
 }

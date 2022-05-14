@@ -119,7 +119,7 @@ string coordenada::toLetraCol(int numero)
 		letra2 = 'h';
 		break;
 	default:
-		letra2 = 'a';
+		letra2 = 'z';
 		break;
 	}
 	return letra2;

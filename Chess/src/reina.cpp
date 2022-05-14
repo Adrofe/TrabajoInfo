@@ -3,11 +3,13 @@
 reina::reina(color color, coordenada coord) : pieza(color,coord)
 {
 	tipo = REINA;
+	valor = 9;
 }
 
 reina::reina()
 {
 	tipo = REINA;
+	valor = 9;
 }
 
 void reina::dibuja()

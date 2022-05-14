@@ -8,6 +8,8 @@
 #include "Torre.h"
 
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 
 
 #define MAX_PIEZAS 100
@@ -17,6 +19,9 @@ class ListaPiezas
 {
 private: 
 	pieza* listaPiezas[MAX_PIEZAS];
+
+	//Para simplificar
+	//pieza* listaIA[MAX_PIEZAS];
 	
 	int nPiezas;
 	color proximoTurno = BLANCO;
@@ -25,14 +30,25 @@ private:
 	bool jaqueNegro = false;
 
 
+	bool existeIA = false;
+	color colorIA =	NEGRO;
+
+
 public:
 	coordenada coordenadaPintar[64];
+	int nPosibles;
 	coordenada coordenadaComer[8];
+
+	friend class IA;
 
 	bool si = false;
 
+	//Constructores
 	ListaPiezas();
+	ListaPiezas(color colorIA);
 	~ListaPiezas();
+
+	void crearPiezas();
 	bool agregarPieza(pieza* pieza);
 	void dibuja();
 	void eliminar(int index);
@@ -60,6 +76,10 @@ public:
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);
 
+
+	//IA
+	void moverPiezaIA();
+	coordenada coordenadaAleatoria(pieza* pieza);
 
 };
 

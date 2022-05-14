@@ -3,11 +3,13 @@
 Alfil::Alfil()
 {
 	tipo = ALFIL;
+	valor = 3;
 }
 
 Alfil::Alfil(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = ALFIL;
+	valor = 3;
 }
 
 void Alfil::dibuja()

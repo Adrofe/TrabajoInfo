@@ -65,6 +65,10 @@ void partida::mouse(int button, int state, int x, int y)
         getColFilMouse(x, y, fila, columna);
         piezas.moverPieza(aux, fila, columna);
         piezas.si = false;
+
+        if (existeIA) {
+            piezas.moverPiezaIA();
+        }
         
     }
 }

@@ -3,11 +3,13 @@
 caballo::caballo()
 {
 	tipo = CABALLO;
+	valor = 3;
 }
 
 caballo::caballo(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = CABALLO;
+	valor = 3;
 }
 
 void caballo::dibuja()

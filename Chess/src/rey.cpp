@@ -4,11 +4,13 @@
 rey::rey( color color, coordenada coord) : pieza(color,coord)
 {
 	tipo = REY;
+	valor = 6;
 }
 
 rey::rey()
 {
 	tipo = REY;
+	valor = 6;
 }
 
 void rey::dibuja()

@@ -12,8 +12,10 @@ class partida
 public:
 	tablero tablero;
 	ListaPiezas piezas;
-	
 
+	bool existeIA = TRUE;
+	
+	friend class IA;
 
 
 	void tecla(unsigned char key);

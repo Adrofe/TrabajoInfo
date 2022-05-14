@@ -3,11 +3,13 @@
 Torre::Torre(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = TORRE;
+	valor = 5;
 }
 
 Torre::Torre()
 {
 	tipo = TORRE;
+	valor = 5;
 }
 
 void Torre::dibuja()
