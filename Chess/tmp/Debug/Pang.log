@@ -1,7 +1,9 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (tmp\Debug\) contiene archivos compartidos de otro proyecto (Pang.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  ListaPiezas.cpp
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(708,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(743,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(341): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(702): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
+﻿  ListaPiezas.cpp
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(641,9): warning C4101: 'aux': variable local sin referencia
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(705,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(740,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  vector2D.cpp
+  Generando código...
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(348): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(699): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
   Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe

@@ -665,7 +665,7 @@ bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna)
 {
 	coordenada CoordInicio(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
 	coordenada CoordFinal(fila, columna);
-
+	return true;
 }
 
 
