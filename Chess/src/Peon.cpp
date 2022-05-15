@@ -114,3 +114,20 @@ int Peon::getValorPos(int fila, int columna)
 		return puntPosNegras[fila][columna];
 	}
 }
+
+void Peon::guardarHistorial(int fila, int columna)
+{
+	ofstream archivo;
+
+	coordenada aux;
+	string col = aux.toLetraCol(columna);
+	archivo.open("Historial.txt", ios::app);
+	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
+		cout << "no se pudo abrir el archivo";
+		exit(1);
+	}
+	archivo << fila << col << " ";
+	archivo.close();
+	
+
+}

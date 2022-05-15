@@ -3,6 +3,19 @@
 ListaPiezas::ListaPiezas()
 {
 	crearPiezas();
+	ofstream archivo;//modo escritura
+	
+	archivo.open("Historial.txt", ios::out);//abrir archivo llamado Historial.txt, si este archivo ya existe, se reemplaza, es decir que cada vez que juguemos una partida nueva se borrará el contenido de la anterior
+	
+
+	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
+		cout << "no se pudo abrir el archivo";
+		exit(1);
+	}
+
+
+
+	archivo.close();//cerramos el archivo
 }
 
 ListaPiezas::ListaPiezas(color colorIA)
@@ -229,6 +242,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 	//Buscamos la pieza en el array
 	int index = -1;
 	int indexDes = -1;
+
 	pieza* piezaDestino = buscarPieza(fila,columna);
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza1) {
@@ -248,6 +262,11 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 						if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
 						pieza1->setFila(fila);
 						pieza1->setColumna(columna);
+						//movimiento = pieza1->guardarHistorial(fila,columna);
+						//char fil = fila;
+						//char col = columna;
+						pieza1->guardarHistorial(fila,columna);
+						//archivo << movimiento << " ";
 						jaque(BLANCO);
 						jaque(NEGRO);
 						//Cambiamos el color del proximo turno
@@ -270,7 +289,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 		
 	}
 
-
+	
 }
 
 bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)

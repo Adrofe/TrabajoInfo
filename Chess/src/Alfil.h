@@ -1,5 +1,7 @@
 #pragma once
 #include "pieza.h"
+#include <fstream>
+#include <string>
 
 class Alfil : public pieza {
 
@@ -35,7 +37,7 @@ public:
 	void dibuja();
 	bool  movimientoLegal(coordenada destino);
 	int getValorPos(int fila, int columna);
-
+	void guardarHistorial(int fila, int columna);
 
 };
 

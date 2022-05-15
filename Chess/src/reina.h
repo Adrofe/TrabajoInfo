@@ -1,5 +1,8 @@
 #pragma once
 #include "pieza.h"
+#include <fstream>
+#include <string>
+
 class reina : public pieza {
 	int puntPosBlancas[8][8] = {
 	-20,-10,-10, -5, -5,-10,-10,-20,
@@ -30,6 +33,7 @@ public:
 	void dibuja();
 	bool movimientoLegal(coordenada destino);
 	int getValorPos(int fila, int columna);
+	void guardarHistorial(int fila, int columna);
 
 };
 

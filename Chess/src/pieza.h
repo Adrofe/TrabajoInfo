@@ -3,6 +3,8 @@
 #include "vector2D.h"
 #include "freeglut.h"
 #include "ETSIDI.h"
+#include <fstream>
+#include <string>
 
 enum tipo_pieza {REY, REINA, ALFIL, TORRE, CABALLO, PEON};
 
@@ -33,6 +35,7 @@ public:
 	//virtual bool movimientoLegal(coordenada destino, bool matriz[7][7]);
 	virtual void dibuja();
 	virtual bool movimientoLegal(coordenada destino)=0;
+	virtual void guardarHistorial(int fila, int columna) = 0;
 
 	float getAltura() { return altura; }
 	float getAncho() { return ancho; }

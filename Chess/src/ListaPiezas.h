@@ -10,6 +10,8 @@
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <string>
 
 
 #define MAX_PIEZAS 100
