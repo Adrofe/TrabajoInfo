@@ -12,6 +12,23 @@ void partida::inicializa()
 
 }
 
+void partida::mover()
+{
+
+    /*
+    if (existeIA) {
+        if (piezas.proximoTurno == colorIA) {
+            if (calculando == false) {
+                std::cout<<endl<<"--------------------------------------------------------------------------------"<<endl<<"Entramos al calculo" << endl;
+                calculando = true;
+                piezas.moverPiezaIA();
+            }
+        }
+        else calculando = false;
+    }
+    */
+}
+
 void partida::dibuja()
 {
 
@@ -66,10 +83,9 @@ void partida::mouse(int button, int state, int x, int y)
         piezas.moverPieza(aux, fila, columna);
         piezas.si = false;
 
-        if (existeIA) {
-            piezas.moverPiezaIA();
-        }
-        
+        piezas.algoritmoIA(100, 100);
+
+
     }
 }
 

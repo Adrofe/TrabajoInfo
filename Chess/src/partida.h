@@ -14,6 +14,8 @@ public:
 	ListaPiezas piezas;
 
 	bool existeIA = TRUE;
+	bool calculando = false;
+	color colorIA = NEGRO;
 	
 	friend class IA;
 

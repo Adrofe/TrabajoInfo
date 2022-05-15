@@ -24,7 +24,7 @@ private:
 	//pieza* listaIA[MAX_PIEZAS];
 	
 	int nPiezas;
-	color proximoTurno = BLANCO;
+	
 
 	 bool jaqueBlanco;
 	 bool jaqueNegro;
@@ -35,9 +35,13 @@ private:
 
 
 public:
-	coordenada coordenadaPintar[64];
+	coordenada movimientosPosibles[64];
 	int nPosibles;
+
+	coordenada coordenadaPintar[64];
 	coordenada coordenadaComer[8];
+
+	color proximoTurno = BLANCO;
 
 	friend class IA;
 
@@ -80,6 +84,8 @@ public:
 	//IA
 	void moverPiezaIA();
 	coordenada coordenadaAleatoria(pieza* pieza);
+	void algoritmoIA(int iteraciones,int profundidad);
+	int evaluacion(coordenada coord);
 
 };
 

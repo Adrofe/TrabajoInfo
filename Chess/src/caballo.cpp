@@ -3,13 +3,13 @@
 caballo::caballo()
 {
 	tipo = CABALLO;
-	valor = 3;
+	valor = 30;
 }
 
 caballo::caballo(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = CABALLO;
-	valor = 3;
+	valor = 30;
 }
 
 void caballo::dibuja()
@@ -73,4 +73,14 @@ bool caballo::movimientoLegal(coordenada destino)
 		return true;
 	}
 	else return false;
+}
+
+int caballo::getValorPos(int fila, int columna)
+{
+	if (getColor() == BLANCO) {
+		return puntPosBlancas[fila][columna];
+	}
+	else {
+		return puntPosNegras[fila][columna];
+	}
 }

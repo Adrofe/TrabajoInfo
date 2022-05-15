@@ -4,13 +4,13 @@
 rey::rey( color color, coordenada coord) : pieza(color,coord)
 {
 	tipo = REY;
-	valor = 6;
+	valor = 60;
 }
 
 rey::rey()
 {
 	tipo = REY;
-	valor = 6;
+	valor = 60;
 }
 
 void rey::dibuja()
@@ -85,4 +85,12 @@ bool rey::movimientoLegal(coordenada destino)
 	else return false;
 }
 
-
+int rey::getValorPos(int fila, int columna)
+{
+	if (getColor() == BLANCO) {
+		return puntPosBlancas[fila][columna];
+	}
+	else {
+		return puntPosNegras[fila][columna];
+	}
+}

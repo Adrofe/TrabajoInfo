@@ -5,7 +5,7 @@
 enum{};
 using namespace std;
 class vector2D;
-enum color{NEGRO, BLANCO};
+enum color{NEGRO, BLANCO, NONE};
 
 class coordenada
 {

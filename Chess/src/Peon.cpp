@@ -3,13 +3,13 @@
 Peon::Peon()
 {
 	tipo = PEON;
-	valor = 1;
+	valor = 10;
 }
 
 Peon::Peon(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = PEON;
-	valor = 1;
+	valor = 10;
 }
 
 void Peon::dibuja()
@@ -102,4 +102,15 @@ bool Peon::movimientoLegal(coordenada destino)
 		}
 	}
 	return false;
+}
+
+
+int Peon::getValorPos(int fila, int columna)
+{
+	if (getColor() == BLANCO) {
+		return puntPosBlancas[fila][columna];
+	}
+	else {
+		return puntPosNegras[fila][columna];
+	}
 }

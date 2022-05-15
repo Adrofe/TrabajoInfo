@@ -3,13 +3,13 @@
 Torre::Torre(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = TORRE;
-	valor = 5;
+	valor = 50;
 }
 
 Torre::Torre()
 {
 	tipo = TORRE;
-	valor = 5;
+	valor = 50;
 }
 
 void Torre::dibuja()
@@ -73,4 +73,14 @@ bool Torre::movimientoLegal(coordenada destino)
 		return true;
 	} 
 	else return false;
+}
+
+int Torre::getValorPos(int fila, int columna)
+{
+	if (getColor() == BLANCO) {
+		return puntPosBlancas[fila][columna];
+	}
+	else {
+		return puntPosNegras[fila][columna];
+	}
 }

@@ -62,7 +62,7 @@ void ListaPiezas::crearPiezas()
 	coordenada c31("g", 8);
 	coordenada c32("h", 8);
 
-	coordenada fantasma("z", 5);
+	coordenada fantasma("z", 100);
 
 
 
@@ -105,8 +105,8 @@ void ListaPiezas::crearPiezas()
 	Peon* peon15 = new Peon(NEGRO, c17);
 	Peon* peon16 = new Peon(NEGRO, c18);
 
-	Peon* FANTASMA_ABAJO = new Peon(NEGRO, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
-	Peon* FANTASMA_ARRIBA = new Peon(NEGRO, fantasma);
+	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
 
 
 
@@ -349,6 +349,7 @@ bool ListaPiezas::comprobarColor(int index, coordenada coord)
 
 void ListaPiezas::movPosibles(pieza* aux)
 {
+	nPosibles = 0;
 	int a = 1;
 	int b = 1;
 	if (aux != nullptr) {
@@ -357,6 +358,11 @@ void ListaPiezas::movPosibles(pieza* aux)
 				for (int j = 1; j < 9; j++) {
 					
 					 if (movimientoLegal(aux, i, j)) {
+
+						 coordenada coord(i, j);
+						 movimientosPosibles[nPosibles++] = { i,j };
+
+
 						 if (buscarPieza(i, j) != nullptr) {
 							 coordenadaComer[b] = { i,j };
 							 b++;
@@ -372,11 +378,11 @@ void ListaPiezas::movPosibles(pieza* aux)
 			}
 
 			for (int c = a; c < 64; c++) {
-				coordenadaPintar[c] = { -1, -1 };
+				coordenadaPintar[c] = { -1,-1 };
 			}
 			
 			for (int d = b; d < 8; d++) {
-				coordenadaComer[d] = { -1, -1 };
+				coordenadaComer[d] = { -1,-1 };
 			}
 			
 		}
@@ -700,7 +706,7 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 
 void ListaPiezas::moverPiezaIA()
 {
-	int piezasIA[MAX_PIEZAS];
+	int piezasIA[20];
 	int nIA = 0;
 	srand(time(NULL));
 
@@ -713,38 +719,100 @@ void ListaPiezas::moverPiezaIA()
 	}
 
 	int piezaAleatoria;
-
 	coordenada coordenadaRandom;
-	//do {
+
 	//Escogemos una pieza aleatoria
-	
-	piezaAleatoria = (rand() % nIA);
-	coordenadaRandom = coordenadaAleatoria(listaPiezas[piezasIA[piezaAleatoria]]);
-	std::cout << "IA" << endl;
 
-	//} while ((coordenadaRandom.getFila()!=-1)&&(coordenadaRandom.getColumna() != -1));
+	bool flag = true;
+	while (flag) {
 
-	std::cout << "Tipo: " << listaPiezas[piezasIA[piezaAleatoria]]->getTipo() << " FILA: " << coordenadaRandom.getFila() << " COLUMNA: " << coordenadaRandom.getFila() << endl;
+		piezaAleatoria = rand() * 33;
+		piezaAleatoria = (rand() % nIA);
+
+		movPosibles(listaPiezas[piezasIA[piezaAleatoria]]);
+
+
+		int random;
+		//if (nPosibles > 0) {
+			random = rand() * 33;
+			random = (rand() % nPosibles);
+			cout << random << endl;
+
+			coordenadaRandom = movimientosPosibles[random];
+
+			std::cout <<"Mov Posible f"<< coordenadaRandom.getFila() << " c " << coordenadaRandom.getColumna() << endl;
+
+
+			if (movimientoLegal(listaPiezas[piezasIA[piezaAleatoria]], coordenadaRandom.getFila(), coordenadaRandom.getFila()) == TRUE) flag = false;
+			std::cout << "Iteracion finalizada" << endl;
+		//}
+
+	}
 	moverPieza(listaPiezas[piezasIA[piezaAleatoria]], coordenadaRandom.getFila(), coordenadaRandom.getColumna());
 	
-
 }
 
 coordenada ListaPiezas::coordenadaAleatoria(pieza* aux)
 {
+	coordenada coordenada;
+	return coordenada;
+	
+}
 
-	movPosibles(aux);
+void ListaPiezas::algoritmoIA(int iteraciones, int profundidad)
+{
+	int iter = 0;
+	//while (iter < iteraciones) {
+
+		int puntuacionOptima = -999;
+		int filaOptima = -1;
+		int columnaOptima = -1;
+		int indexOptimo = 0;
+
+		
+		for (int i = 0; i < nPiezas; i++) {
+			//Recorremos todas las piezas de la IA
+			if (listaPiezas[i]->getColor() == colorIA) {
+				movPosibles(listaPiezas[i]);
+				for (int j = 0; j < nPosibles; j++) {
+					int punt=0;
+					punt = evaluacion(movimientosPosibles[j]) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila()-1, movimientosPosibles[j].getColumna()-1);
+					//std::cout << "Punt" << punt << " Movimiento de " << listaPiezas[i]->getTipo() << " a " << movimientosPosibles[j].getFila() << " " << movimientosPosibles[j].getColumna() << endl;
+					if (punt > puntuacionOptima) {
+						if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
+
+							puntuacionOptima = punt;
+							columnaOptima = movimientosPosibles[j].getColumna();
+							filaOptima = movimientosPosibles[j].getFila();
+							indexOptimo = i;
+							std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
+							std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
+						}
+					}
+				}
+			}
+		}
+
+		moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
 
 
-	int random;
-	srand(time(NULL));
-	if (nPosibles != 0) {
-		random = (rand() % nPosibles+1);
+
+		iter++;
+	//}
+
+
+
+}
+
+int ListaPiezas::evaluacion(coordenada coord)
+{
+	int fila = coord.getFila();
+	int columna = coord.getColumna();
+
+	if (mirarCasilla(fila,columna)) {
+		return buscarPieza(fila, columna)->getValor();
 	}
-	else { random = 1; }
-	
-	return coordenadaPintar[random];
-	
+	else return 0;
 }
 
 /* Valores matemáticos para evaluar los puntos con la ia IA*
@@ -772,3 +840,4 @@ PARTES CON UNOS PUNTOS INICIALES SI PUEDES COMER SUMAS PUNTOS SI TE PUEDEN COMER
   FALTA TODA LA INTERFAZ DE LA PANTALLA PONIENDO UN TIEMPO O PONIENDO Y DE QUIEN ES EL TURNO
 
 */
+

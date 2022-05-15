@@ -3,13 +3,15 @@
 Alfil::Alfil()
 {
 	tipo = ALFIL;
-	valor = 3;
+	valor = 30;
+
 }
 
 Alfil::Alfil(color color, coordenada coord) : pieza(color, coord)
 {
 	tipo = ALFIL;
-	valor = 3;
+	valor = 30;
+
 }
 
 void Alfil::dibuja()
@@ -65,5 +67,15 @@ bool Alfil::movimientoLegal(coordenada destino)
 		return true;
 	}
 	else return false;
+}
+
+int Alfil::getValorPos(int fila, int columna)
+{
+	if (getColor() == BLANCO) {
+		return puntPosBlancas[fila][columna];
+	}
+	else {
+		return puntPosNegras[fila][columna];
+	}
 }
 

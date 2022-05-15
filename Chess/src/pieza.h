@@ -13,6 +13,8 @@ private:
 	color icolor;
 	float altura = 8.0f, ancho = 6.0f;
 
+
+
 protected:
 	tipo_pieza tipo;
 	int valor;
@@ -37,6 +39,7 @@ public:
 
 	virtual tipo_pieza getTipo() { return tipo; }
 	int getValor() { return valor; }
+	virtual int getValorPos(int fila, int columna)=0;
 
 };
 
