@@ -63,6 +63,7 @@ public:
 
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
+	bool movimientoLegalJaque(pieza* pieza, int fila, int columna); //esto es sin jaque posible
 	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento
 	bool comprobarColor(int index, coordenada coord);
 	void movPosibles(pieza* aux);
@@ -75,6 +76,7 @@ public:
 
 	bool comerPieza(pieza* pieza, int fila, int columna);
 	void jaque(color Color);
+	bool jaqueBool(color Color);
 	bool jaquePosible(pieza* pieza,int fila, int columna);
 
 

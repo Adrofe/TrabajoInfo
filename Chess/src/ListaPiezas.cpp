@@ -258,6 +258,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				//Comprobamos si el movimiento es legal
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
+					//if(jaqueBlanco || jaqueNegro)
 					//if (jaquePosible(pieza1, fila, columna)) {
 						if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
 						pieza1->setFila(fila);
@@ -323,8 +324,65 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 		if (comprobarColor(index, coordDestino)) {
 			if (listaPiezas[index]->movimientoLegal(coordDestino)) {
 				if (comprobarPieza(listaPiezas[index], fila, columna)) {
+					//if (jaqueBlanco || jaqueNegro) {
+						if (jaquePosible(listaPiezas[index], fila, columna)) {
 
-					 return true;
+							return true;
+						}
+					//}
+					//else return true;
+
+				}
+				
+				//else return false;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			//std::cout << "Hay una pieza del mismo color" << endl;
+			return false;
+		}
+		
+	}
+	//else return false;
+	return false;
+}
+
+bool ListaPiezas::movimientoLegalJaque(pieza* pieza1, int fila, int columna)
+{
+	coordenada coordDestino(fila, columna);
+	pieza* piezaDestino;
+	piezaDestino = buscarPieza(fila, columna);
+
+
+	//Buscamos la pieza en el array
+	int index = -1;
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i] == pieza1) {
+			index = i;
+		}
+	}
+
+
+
+	if (index != -1) {
+
+		//comprueba que el color sea diferente al sitio al que te quieres mover
+		for (int a = 0; a < nPiezas; a++) {
+			if (coordDestino == listaPiezas[a]->getCoordenada()) {
+				if (listaPiezas[index]->getColor() == listaPiezas[a]->getColor()) {
+					return false;
+				}
+			}
+		}
+		if (comprobarColor(index, coordDestino)) {
+			if (listaPiezas[index]->movimientoLegal(coordDestino)) {
+				if (comprobarPieza(listaPiezas[index], fila, columna)) {
+
+						return true;
 
 				}
 				//else return false;
@@ -337,7 +395,7 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 			//std::cout << "Hay una pieza del mismo color" << endl;
 			return false;
 		}
-		
+
 	}
 	//else return false;
 	return false;
@@ -666,6 +724,9 @@ void ListaPiezas::jaque(color Color)
 	pieza* aux;
 	coordenada CoordRey(-1,-1);
 
+	if (Color == BLANCO) { jaqueNegro = FALSE; }
+	if (Color == NEGRO) { jaqueBlanco = FALSE; }
+
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i]->getTipo() == REY && listaPiezas[i]->getColor() != Color) {
 			CoordRey.setCol(listaPiezas[i]->getCoordenada().getColumna());
@@ -674,8 +735,7 @@ void ListaPiezas::jaque(color Color)
 	}
 
 	for (int i = 0; i < nPiezas; i++) {
-		if (movimientoLegal(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())){
-			std::cout << " mov legar valido " << jaqueNegro << " " << jaqueBlanco << endl;
+		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())){
 
 					if (Color == BLANCO) { jaqueNegro = TRUE; }
 					if (Color == NEGRO) { jaqueBlanco = TRUE; }
@@ -686,10 +746,64 @@ void ListaPiezas::jaque(color Color)
 
 }
 
-bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna)
+bool ListaPiezas::jaqueBool(color Color)
 {
-	coordenada CoordInicio(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
-	coordenada CoordFinal(fila, columna);
+	pieza* aux;
+	coordenada CoordRey(-1, -1);
+
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i]->getTipo() == REY && listaPiezas[i]->getColor() != Color) {
+			CoordRey.setCol(listaPiezas[i]->getCoordenada().getColumna());
+			CoordRey.setFil(listaPiezas[i]->getCoordenada().getFila());
+		}
+	}
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())) {
+
+			return true;
+		}
+
+	}
+	return false;
+}
+
+bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna) 
+{
+	coordenada CoordApoyo;
+
+	CoordApoyo.setFil(pieza->getCoordenada().getFila());
+	CoordApoyo.setCol(pieza->getCoordenada().getColumna());
+
+	pieza->setFila(fila);
+	pieza->setColumna(columna);
+	if (jaqueBool(BLANCO)) { 
+
+		pieza->setFila(CoordApoyo.getFila());
+		pieza->setColumna(CoordApoyo.getColumna());
+
+		if (pieza->getColor() == BLANCO) return true;
+
+		jaqueBlanco = FALSE;
+		return false;
+	}
+	if (jaqueBool(NEGRO)) { 
+
+		pieza->setFila(CoordApoyo.getFila());
+		pieza->setColumna(CoordApoyo.getColumna());
+
+		if (pieza->getColor() == NEGRO) return true;
+
+		jaqueNegro = FALSE;
+		return false;
+
+	}
+					
+		pieza->setFila(CoordApoyo.getFila());
+		pieza->setColumna(CoordApoyo.getColumna());
+			
+
 	return true;
 }
 
