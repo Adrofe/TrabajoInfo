@@ -258,25 +258,33 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				//Comprobamos si el movimiento es legal
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
-					//if(jaqueBlanco || jaqueNegro)
-					//if (jaquePosible(pieza1, fila, columna)) {
-						if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
-						pieza1->setFila(fila);
-						pieza1->setColumna(columna);
-						//movimiento = pieza1->guardarHistorial(fila,columna);
-						//char fil = fila;
-						//char col = columna;
-						pieza1->guardarHistorial(fila,columna);
-						//archivo << movimiento << " ";
-						jaque(BLANCO);
-						jaque(NEGRO);
-						//Cambiamos el color del proximo turno
-						if (proximoTurno == BLANCO) {
-							proximoTurno = NEGRO;
+					
+					if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
+					pieza1->setFila(fila);
+					pieza1->setColumna(columna);
+					//movimiento = pieza1->guardarHistorial(fila,columna);
+					//char fil = fila;
+					//char col = columna;
+					pieza1->guardarHistorial(fila,columna);
+					//archivo << movimiento << " ";
+					jaque(BLANCO);
+					jaque(NEGRO);
+					
+					//Cambiamos el color del proximo turno
+					if (proximoTurno == BLANCO) {
+						proximoTurno = NEGRO;
+					}
+					else { proximoTurno = BLANCO; }
+					int n = 0;
+					for (int i = 0; i < nPiezas; i++) {
+						if (listaPiezas[i]->getColor() == proximoTurno) {
+							movPosibles(listaPiezas[i]);
+							if (nPosibles != 0) n++;
 						}
-						else { proximoTurno = BLANCO; }
-					//}
-
+					}
+					if (n == 0) {
+						std::cout << "jaque Mate" << endl;
+					}
 				}
 				else {
 					std::cout << "Movimiento ilegal de la pieza" << endl;
@@ -326,7 +334,7 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 				if (comprobarPieza(listaPiezas[index], fila, columna)) {
 					//if (jaqueBlanco || jaqueNegro) {
 						if (jaquePosible(listaPiezas[index], fila, columna)) {
-
+							PosiblesJaque++;
 							return true;
 						}
 					//}
@@ -687,6 +695,7 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 	}
 
+	
 	return true;
 }
 
@@ -708,12 +717,11 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 	//Comprobamos el color de la pieza de destino
 	if (mirarCasilla(fila, columna)) {
 		if (pieza1->getColor() != listaPiezas[index]->getColor()) {
-			//Comprobamos si no es el rey
-			//if (listaPiezas[index]->getTipo() != REY) {
-				return true;
+			if (jaquePosible(pieza1, fila, columna)) return false;
+			return true;
 
-			//}
 		}
+		
 	}
 	 return false;
 

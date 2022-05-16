@@ -27,11 +27,12 @@ private:
 	
 	int nPiezas;
 	
+	int PosiblesJaque = 0;
 
 	 bool jaqueBlanco;
 	 bool jaqueNegro;
 
-
+	 bool jaqueMate = false;
 	color colorIA =	NEGRO;
 
 
