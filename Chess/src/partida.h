@@ -13,8 +13,9 @@ public:
 	tablero tablero;
 	ListaPiezas piezas;
 
-	bool existeIA = TRUE;
+	bool existeIA = true;
 	bool calculando = false;
+
 	color colorIA = NEGRO;
 	
 	friend class IA;

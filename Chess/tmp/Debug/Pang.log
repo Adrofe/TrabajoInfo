@@ -1,6 +1,5 @@
-﻿  ListaPiezas.cpp
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(666,9): warning C4101: 'aux': variable local sin referencia
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(730,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(367): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(724): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
-  Pang.vcxproj -> C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\bin\Chess.exe
+﻿  IA.cpp
+  Chess.cpp
+  partida.cpp
+  Generando código...
+  Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe

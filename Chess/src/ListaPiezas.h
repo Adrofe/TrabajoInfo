@@ -32,7 +32,6 @@ private:
 	 bool jaqueNegro;
 
 
-	bool existeIA = false;
 	color colorIA =	NEGRO;
 
 
