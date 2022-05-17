@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IA.cpp" />
     <ClCompile Include="src\Alfil.cpp" />
     <ClCompile Include="src\caballo.cpp" />
     <ClCompile Include="src\Chess.cpp" />
@@ -35,7 +34,6 @@
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IA.h" />
     <ClInclude Include="src\Alfil.h" />
     <ClInclude Include="src\caballo.h" />
     <ClInclude Include="src\coordenada.h" />

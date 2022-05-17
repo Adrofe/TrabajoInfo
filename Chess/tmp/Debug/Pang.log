@@ -1,7 +1,7 @@
 ﻿  ListaPiezas.cpp
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(732,9): warning C4101: 'aux': variable local sin referencia
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(759,9): warning C4101: 'aux': variable local sin referencia
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(852,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(433): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\ListaPiezas.cpp(846): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
-  Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(733,9): warning C4101: 'aux': variable local sin referencia
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(760,9): warning C4101: 'aux': variable local sin referencia
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(883,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(434): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(877): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
+  Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe

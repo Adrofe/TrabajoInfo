@@ -88,7 +88,8 @@ public:
 	//IA
 	void moverPiezaIA();
 	coordenada coordenadaAleatoria(pieza* pieza);
-	void algoritmoIA(int iteraciones,int profundidad);
+	void algoritmoIA();
+	void algoritmoIAv2(int iteraciones, int profundidad=1);
 	int evaluacion(coordenada coord);
 
 };

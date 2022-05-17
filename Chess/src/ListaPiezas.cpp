@@ -259,9 +259,10 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
 					
-					if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);
+					//if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);	BORRAR
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
+					eliminar(listaPiezas[indexDes]);
 					//movimiento = pieza1->guardarHistorial(fila,columna);
 					//char fil = fila;
 					//char col = columna;
@@ -777,39 +778,69 @@ bool ListaPiezas::jaqueBool(color Color)
 	return false;
 }
 
-bool ListaPiezas::jaquePosible(pieza* pieza, int fila, int columna) 
+bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna) 
 {
 	coordenada CoordApoyo;
 
-	CoordApoyo.setFil(pieza->getCoordenada().getFila());
-	CoordApoyo.setCol(pieza->getCoordenada().getColumna());
+	coordenada CoordApoyoFicha;
+	bool hayPieza = false;
+	pieza* piezaDestino;
 
-	pieza->setFila(fila);
-	pieza->setColumna(columna);
+	CoordApoyo.setFil(pieza1->getCoordenada().getFila());
+	CoordApoyo.setCol(pieza1->getCoordenada().getColumna());
+
+	if (mirarCasilla(fila, columna)) {
+		hayPieza = true;
+		piezaDestino = buscarPieza(fila, columna);
+		piezaDestino->setFila(100);
+		piezaDestino->setColumna(100);
+	}
+
+	pieza1->setFila(fila);
+	pieza1->setColumna(columna);
+
 	if (jaqueBool(BLANCO)) { 
 
-		pieza->setFila(CoordApoyo.getFila());
-		pieza->setColumna(CoordApoyo.getColumna());
+		//Devolvemos la pieza que se mueve a su posicion original
+		pieza1->setFila(CoordApoyo.getFila());
+		pieza1->setColumna(CoordApoyo.getColumna());
+		//Devolvemos si existia una pieza en destino a su sitio
+		if (hayPieza) {
+			piezaDestino->setFila(fila);
+			piezaDestino->setColumna(columna);
+		}
 
-		if (pieza->getColor() == BLANCO) return true;
+		if (pieza1->getColor() == BLANCO) return true;
 
 		jaqueBlanco = FALSE;
 		return false;
 	}
 	if (jaqueBool(NEGRO)) { 
 
-		pieza->setFila(CoordApoyo.getFila());
-		pieza->setColumna(CoordApoyo.getColumna());
+		//Devolvemos la pieza que se mueve a su posicion original
+		pieza1->setFila(CoordApoyo.getFila());
+		pieza1->setColumna(CoordApoyo.getColumna());
 
-		if (pieza->getColor() == NEGRO) return true;
+		//Devolvemos si existia una pieza en destino a su sitio
+		if (hayPieza) {
+			piezaDestino->setFila(fila);
+			piezaDestino->setColumna(columna);
+		}
+
+		if (pieza1->getColor() == NEGRO) return true;
 
 		jaqueNegro = FALSE;
 		return false;
 
 	}
-					
-		pieza->setFila(CoordApoyo.getFila());
-		pieza->setColumna(CoordApoyo.getColumna());
+
+	if (hayPieza) {
+		piezaDestino->setFila(fila);
+		piezaDestino->setColumna(columna);
+	}
+				
+	pieza1->setFila(CoordApoyo.getFila());
+	pieza1->setColumna(CoordApoyo.getColumna());
 			
 
 	return true;
@@ -900,49 +931,97 @@ coordenada ListaPiezas::coordenadaAleatoria(pieza* aux)
 	
 }
 
-void ListaPiezas::algoritmoIA(int iteraciones, int profundidad)
+void ListaPiezas::algoritmoIA()
 {
-	int iter = 0;
-	//while (iter < iteraciones) {
+	int puntuacionOptima = -999;
+	int filaOptima = -1;
+	int columnaOptima = -1;
+	int indexOptimo = 0;
 
-		int puntuacionOptima = -999;
-		int filaOptima = -1;
-		int columnaOptima = -1;
-		int indexOptimo = 0;
+	for (int i = 0; i < nPiezas; i++) {
+		//Recorremos todas las piezas de la IA
+		if (listaPiezas[i]->getColor() == colorIA) {
+			movPosibles(listaPiezas[i]);
+			for (int j = 0; j < nPosibles; j++) {
+				int punt = 0;
+				punt = evaluacion(movimientosPosibles[j]) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila() - 1, movimientosPosibles[j].getColumna() - 1);
+				//std::cout << "Punt" << punt << " Movimiento de " << listaPiezas[i]->getTipo() << " a " << movimientosPosibles[j].getFila() << " " << movimientosPosibles[j].getColumna() << endl;
+				if (punt > puntuacionOptima) {
+					if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
 
-		
-		for (int i = 0; i < nPiezas; i++) {
-			//Recorremos todas las piezas de la IA
-			if (listaPiezas[i]->getColor() == colorIA) {
-				movPosibles(listaPiezas[i]);
-				for (int j = 0; j < nPosibles; j++) {
-					int punt=0;
-					punt = evaluacion(movimientosPosibles[j]) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila()-1, movimientosPosibles[j].getColumna()-1);
-					//std::cout << "Punt" << punt << " Movimiento de " << listaPiezas[i]->getTipo() << " a " << movimientosPosibles[j].getFila() << " " << movimientosPosibles[j].getColumna() << endl;
-					if (punt > puntuacionOptima) {
-						if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
-
-							puntuacionOptima = punt;
-							columnaOptima = movimientosPosibles[j].getColumna();
-							filaOptima = movimientosPosibles[j].getFila();
-							indexOptimo = i;
-							std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
-							std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
-						}
+						puntuacionOptima = punt;
+						columnaOptima = movimientosPosibles[j].getColumna();
+						filaOptima = movimientosPosibles[j].getFila();
+						indexOptimo = i;
+						std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
+						std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
 					}
 				}
 			}
 		}
+	}
 
-		moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
+	moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
 
+}
 
+void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
+{
+	int iter = 0;
+	int prof = 1;
 
-		iter++;
-	//}
+	int index = 0;
+	int fila = 0;
+	int columna = 0;
 
+	int maxPuntuacion = -999;
 
+	int n = 0;
+	int i = 1;
+	int j = 1;
 
+	while (iter < iteraciones||prof<profundidad) {
+		//Recorremos todas las piezas
+		int punt;
+		coordenada coord(i, j);
+		if ((listaPiezas[n]->getColor() == colorIA)) {
+			if (movimientoLegal(listaPiezas[n], i, j)) {
+				punt = evaluacion(coord) + listaPiezas[n]->getValorPos(i, j);
+				if (punt > maxPuntuacion) {
+					maxPuntuacion = punt;
+					index = n;
+					fila = i;
+					columna = j;
+				}
+				iter++;
+			}
+			//Ya se han comprobado todos los movimientos de esa pieza
+			if (j == 8 && i == 8) {
+					j = 1;
+					i = 1;
+					if (n < nPiezas-1) {
+						n++;
+					}
+					else break;
+			}
+			//Ya se ha comprobado toda la fila, se aumenta en uno la fila
+			if (j == 8) {
+				j = 1;
+					i++;
+			}
+			j++;
+		}
+		else {
+			if (n < nPiezas-1) {
+				n++;
+			}
+			else break;
+		}
+
+	}
+
+	std::cout << "n iteraciones:" << iter;
+	moverPieza(listaPiezas[index], fila, columna);
 }
 
 int ListaPiezas::evaluacion(coordenada coord)
