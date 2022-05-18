@@ -33,7 +33,7 @@ private:
 	 bool jaqueNegro;
 
 	 bool jaqueMate = false;
-	color colorIA =	NEGRO;
+	 color colorIA =	NEGRO;
 
 
 public:
@@ -90,7 +90,14 @@ public:
 	coordenada coordenadaAleatoria(pieza* pieza);
 	void algoritmoIA();
 	void algoritmoIAv2(int iteraciones, int profundidad=1);
-	int evaluacion(coordenada coord);
+	int evaluacion(int fila, int columna);
+	int evaluacionCompleta();
+
+	int alphaBetaMax(int alpha, int beta, int depthleft);
+	int alphaBetaMin(int alpha, int beta, int depthleft);
+
+	int maxi(pieza* pieza1,color color, int profundidad, int fila, int columna);
+	int mini(pieza* pieza1,color color, int profundidad, int fila, int columna);
 
 };
 

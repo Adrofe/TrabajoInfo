@@ -6,7 +6,7 @@
 using namespace std;
 class Peon : public pieza
 {
-	int puntPosBlancas[8][8] = {
+	int puntPosNegras[8][8] = {
 	 0,  0,  0,  0,  0,  0,  0,  0,
 	50, 50, 50, 50, 50, 50, 50, 50,
 	10, 10, 20, 30, 30, 20, 10, 10,
@@ -16,7 +16,7 @@ class Peon : public pieza
 	 5, 10, 10,-20,-20, 10, 10,  5,
 	 0,  0,  0,  0,  0,  0,  0,  0
 	};
-	int puntPosNegras[8][8] = {
+	int puntPosBlancas[8][8] = {
 	 0,  0,  0,  0,  0,  0,  0,  0,
 	 5, 10, 10,-20,-20, 10, 10,  5,
 	 5, -5,-10,  0,  0,-10, -5,  5,

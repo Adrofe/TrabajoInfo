@@ -5,7 +5,7 @@
 
 class Torre : public pieza {
 
-	int puntPosBlancas[8][8] = {
+	int puntPosNegras[8][8] = {
 	  0,  0,  0,  0,  0,  0,  0,  0,
 	  5, 10, 10, 10, 10, 10, 10,  5,
 	 -5,  0,  0,  0,  0,  0,  0, -5,
@@ -15,7 +15,7 @@ class Torre : public pieza {
 	 -5,  0,  0,  0,  0,  0,  0, -5,
 	  0,  0,  0,  5,  5,  0,  0,  0
 	};
-	int puntPosNegras[8][8] = {
+	int puntPosBlancas[8][8] = {
 	  0,  0,  0,  5,  5,  0,  0,  0
 	 - 5,  0,  0,  0,  0,  0,  0, -5,
 	 -5,  0,  0,  0,  0,  0,  0, -5,

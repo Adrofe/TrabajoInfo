@@ -12,7 +12,6 @@ class pieza
 {	
 private:
 	coordenada coord;
-	color icolor;
 	float altura = 8.0f, ancho = 6.0f;
 
 
@@ -20,6 +19,7 @@ private:
 protected:
 	tipo_pieza tipo;
 	int valor;
+	color icolor;
 
 public:
 	

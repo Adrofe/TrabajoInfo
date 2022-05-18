@@ -13,7 +13,7 @@ public:
 	tablero tablero;
 	ListaPiezas piezas;
 
-	bool existeIA = false;
+	bool existeIA = true;
 	bool calculando = false;
 
 	color colorIA = NEGRO;

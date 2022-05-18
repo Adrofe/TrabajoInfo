@@ -81,10 +81,10 @@ bool reina::movimientoLegal(coordenada destino)
 int reina::getValorPos(int fila, int columna)
 {
 	if (getColor() == BLANCO) {
-		return puntPosBlancas[fila][columna];
+		return puntPosBlancas[fila-1][columna-1];
 	}
 	else {
-		return puntPosNegras[fila][columna];
+		return puntPosNegras[fila-1][columna-1];
 	}
 }
 

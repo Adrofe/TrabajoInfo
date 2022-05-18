@@ -16,6 +16,8 @@ ListaPiezas::ListaPiezas()
 
 
 	archivo.close();//cerramos el archivo
+
+	cout << "Score:"<<evaluacionCompleta()<< endl;
 }
 
 ListaPiezas::ListaPiezas(color colorIA)
@@ -944,7 +946,7 @@ void ListaPiezas::algoritmoIA()
 			movPosibles(listaPiezas[i]);
 			for (int j = 0; j < nPosibles; j++) {
 				int punt = 0;
-				punt = evaluacion(movimientosPosibles[j]) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila() - 1, movimientosPosibles[j].getColumna() - 1);
+				punt = evaluacion(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna()) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna());
 				//std::cout << "Punt" << punt << " Movimiento de " << listaPiezas[i]->getTipo() << " a " << movimientosPosibles[j].getFila() << " " << movimientosPosibles[j].getColumna() << endl;
 				if (punt > puntuacionOptima) {
 					if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
@@ -967,97 +969,164 @@ void ListaPiezas::algoritmoIA()
 
 void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
 {
-	int iter = 0;
-	int prof = 1;
+	int puntuacionOptima = -999;
+	int index=0, fila=1, columna=1;
 
-	int index = 0;
-	int fila = 0;
-	int columna = 0;
-
-	int maxPuntuacion = -999;
-
-	int n = 0;
-	int i = 1;
-	int j = 1;
-
-	while (iter < iteraciones||prof<profundidad) {
-		//Recorremos todas las piezas
-		int punt;
-		coordenada coord(i, j);
-		if ((listaPiezas[n]->getColor() == colorIA)) {
-			if (movimientoLegal(listaPiezas[n], i, j)) {
-				punt = evaluacion(coord) + listaPiezas[n]->getValorPos(i, j);
-				if (punt > maxPuntuacion) {
-					maxPuntuacion = punt;
-					index = n;
-					fila = i;
-					columna = j;
-				}
-				iter++;
-			}
-			//Ya se han comprobado todos los movimientos de esa pieza
-			if (j == 8 && i == 8) {
-					j = 1;
-					i = 1;
-					if (n < nPiezas-1) {
-						n++;
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i]->getColor() == colorIA) {
+			for (int j = 1; j < 9; j++) {
+				for (int k = 1; k < 9; k++) {
+					if (movimientoLegal(listaPiezas[i], j, k)) {
+						int punt;
+						punt = maxi(listaPiezas[i],colorIA, 1, j, k);
+						if (punt > puntuacionOptima) {
+							puntuacionOptima = punt;
+							fila = j;
+							columna = k;
+							index = i;
+						}
 					}
-					else break;
+				}
 			}
-			//Ya se ha comprobado toda la fila, se aumenta en uno la fila
-			if (j == 8) {
-				j = 1;
-					i++;
-			}
-			j++;
 		}
-		else {
-			if (n < nPiezas-1) {
-				n++;
-			}
-			else break;
-		}
-
 	}
 
-	std::cout << "n iteraciones:" << iter;
 	moverPieza(listaPiezas[index], fila, columna);
 }
 
-int ListaPiezas::evaluacion(coordenada coord)
-{
-	int fila = coord.getFila();
-	int columna = coord.getColumna();
+int ListaPiezas::evaluacion(int fila, int columna){
 
 	if (mirarCasilla(fila,columna)) {
-		return buscarPieza(fila, columna)->getValor();
+		int valor = buscarPieza(fila, columna)->getValor()+buscarPieza(fila,columna)->getValorPos(fila,columna);
+		return valor;
 	}
 	else return 0;
 }
 
-/* Valores matemáticos para evaluar los puntos con la ia IA*
+int ListaPiezas::evaluacionCompleta()
+{
+	int puntuacion = 0;
 
-PARTES CON UNOS PUNTOS INICIALES SI PUEDES COMER SUMAS PUNTOS SI TE PUEDEN COMER LOS RESTAS.
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 9; j++) {
+			if (mirarCasilla(i,j))
+			{
+				if (buscarPieza(i, j)->getColor() == colorIA) {
+					puntuacion += evaluacion(i, j);
+				}
+				else {
+					puntuacion -= evaluacion(i, j);
+				}
+			}
+		}
+	}
+	return puntuacion;
+}
 
- peon:
-   * Por cada peon +10 puntos
-   * Por cada casilla que un peon avanza +1 puntos
-   * ademas de ver a quienes puede comer
- caballo:
-   * Por cada caballo +30 puntos
-   * Si está cerca o lejos del centro del tablero +-5 puntos y si puede comer a los que mas puntos dan
- alfil:
-   * Por cada alfil +30 puntos
-   * Añadir un punto por cada casilla a la que se pueda mover el alfil y si puede comer a los que mas puntos dan
- torre:
-   * Por cada torre +50 puntos
-   * Añadir un punto por cada casilla a la que se pueda mover la torre y si puede comer a los que mas puntos dan
- dama:
-   * Por cada dama +90 puntos
-   * Si está cerca o lejos del centro del tablero +-5 puntos ademas de poder comer piezas eso da puntos
-  
+int ListaPiezas::maxi(pieza* pieza1, color color1, int profundidad, int fila, int columna)
+{
+	if (profundidad == 0) return evaluacionCompleta();
 
-  FALTA TODA LA INTERFAZ DE LA PANTALLA PONIENDO UN TIEMPO O PONIENDO Y DE QUIEN ES EL TURNO
+	color prox;
+	if (color1 == NEGRO) {
+		prox = BLANCO;
+	}
+	else prox = NEGRO;
 
-*/
+	int max = -999;
+	for (int n = 0; n < nPiezas; n++) {
+		for (int i = 1; i < 9; i++) {
+			for (int j = 1; j < 9; j++) {
+				int puntuacion;
+				bool mover = false;
+				coordenada apoyo1;
+				coordenada apoyo2;
+				pieza* piezaCasilla;
+				if (listaPiezas[n]->getColor() == color1 && listaPiezas[n]->getColor() != NONE) {
+					if (movimientoLegal(listaPiezas[n], i, j)) {
+						//Mover pieza
+						if (mirarCasilla(i, j)) {
+							mover = true;
+							piezaCasilla = buscarPieza(i, j);
+							apoyo1 = piezaCasilla->getCoordenada();
+							piezaCasilla->setFila(100);
+							piezaCasilla->setColumna(100);
+						}
+						apoyo2 = listaPiezas[n]->getCoordenada();
+						listaPiezas[n]->setFila(i);
+						listaPiezas[n]->setColumna(j);
+
+
+						puntuacion = mini(listaPiezas[n], prox, profundidad - 1, fila, columna);
+						if (puntuacion > max)max = puntuacion;
+
+
+						//Devolver pieza
+						listaPiezas[n]->setFila(apoyo2.getFila());
+						listaPiezas[n]->setColumna(apoyo2.getColumna());
+						if (mover) {
+							piezaCasilla->setFila(apoyo1.getFila());
+							piezaCasilla->setColumna(apoyo1.getColumna());
+						}
+					}
+					}
+				}
+			}
+		}
+		return max;
+}
+
+int ListaPiezas::mini(pieza* pieza1,color color1, int profundidad, int fila, int columna)
+{
+
+	color prox;
+	if (color1 == NEGRO) {
+		prox = BLANCO;
+	}
+	else prox = NEGRO;
+
+
+	if (profundidad == 0) return -(evaluacionCompleta());
+	int min = 999;
+	for (int n = 0; n < nPiezas; n++) {
+		for (int i = 1; i < 9; i++) {
+			for (int j = 1; j < 9; j++) {
+				int puntuacion;
+				bool mover = false;
+				coordenada apoyo1;
+				coordenada apoyo2;
+				pieza* piezaCasilla;
+				if (listaPiezas[n]->getColor() == color1 && listaPiezas[n]->getColor() != NONE) {
+					if (movimientoLegal(listaPiezas[n], fila, columna)) {
+						//Mover pieza
+						if (mirarCasilla(i, j)) {
+							mover = true;
+							piezaCasilla = buscarPieza(i, j);
+							apoyo1 = piezaCasilla->getCoordenada();
+							piezaCasilla->setFila(100);
+							piezaCasilla->setColumna(100);
+						}
+						apoyo2 = listaPiezas[n]->getCoordenada();
+						listaPiezas[n]->setFila(i);
+						listaPiezas[n]->setColumna(j);
+
+
+						puntuacion = mini(listaPiezas[n],prox, profundidad - 1, fila, columna);
+						if (puntuacion < min)min = puntuacion;
+
+
+						//Devolver pieza
+						listaPiezas[n]->setFila(apoyo2.getFila());
+						listaPiezas[n]->setColumna(apoyo2.getColumna());
+						if (mover) {
+							piezaCasilla->setFila(apoyo1.getFila());
+							piezaCasilla->setColumna(apoyo1.getColumna());
+						}
+					}
+				}
+			}
+		}
+	}
+	return min;
+}
 
