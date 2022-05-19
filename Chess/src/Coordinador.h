@@ -18,7 +18,7 @@ public:
 
 protected:
 	partida partida;
-	enum Estado { INICIO, JUEGO, FIN, GAMEOVER, INICIO2 };
+	enum Estado { INICIO, MODOS, JUEGO, FIN, GAMEOVER,  };
 	Estado estado;
 private:
 	
