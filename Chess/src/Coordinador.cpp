@@ -17,6 +17,7 @@ void CoordinadorPang::dibuja(){
 		gluLookAt(x_ojo, y_ojo, z_ojo, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+<<<<<<< Updated upstream
 		ETSIDI::setTextColor(1, 1, 0);
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Pang 1.1", -5, 8);
@@ -25,6 +26,30 @@ void CoordinadorPang::dibuja(){
 		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", -5, 7);
 		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", -5, 6);
 		ETSIDI::printxy("Hernando & Rodriguez-Losada", 2, 1);
+=======
+
+		
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo2.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
+		glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+
+		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
+		ETSIDI::printxy("Chess", 1, 2);
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
+		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", 15, -30);
+		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", 10, -30);
+		ETSIDI::printxy("Alonso, Adrian, Adrian, Anton y Manuel", 4, 1);
+>>>>>>> Stashed changes
 	}
 	else if (estado == JUEGO)
 	{
