@@ -7,6 +7,7 @@
 Coordinador::Coordinador()
 {
 	estado = INICIO;
+	musica();
 }
 Coordinador::~Coordinador()
 {
@@ -15,8 +16,6 @@ Coordinador::~Coordinador()
 void Coordinador::dibuja()
 {
 	if (estado == INICIO) {
-		actmusic = true;
-
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
@@ -26,23 +25,24 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondoInicio.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
-		glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
-		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
-		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, -1.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, -1.0f, 82.0f);
+		glTexCoord2d(1, 0); glVertex3f(75.0f, -1.0f, 82.0f);
+		glTexCoord2d(0, 0); glVertex3f(75.0f, -1.0f, -17.0f);
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
 	}
 	else if (estado == JUEGO)
 	{
-		actmusic = true;
 		partida.dibuja();
+		ETSIDI::setTextColor(0, 1, 1);
+		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
+		ETSIDI::printxy("JAQUE MATE: Has perdido", -137, 20);
+		ETSIDI::printxy("Pulsa -C- para continuar", -5, 5);
 	}
 	else if (estado == MODOS)
 	{
-		actmusic = true;
-		
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
@@ -51,10 +51,10 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/Modos.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
-		glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
-		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
-		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, -1.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, -1.0f, 82.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 82.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -17.0f);
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
@@ -100,24 +100,22 @@ void Coordinador::mueve() //funcion a modificar para el jaque mate
 }
 
 void Coordinador::Tecla(unsigned char key) {
+
+	if (key == 'm' || key == 'M') {
+		musica();
+	}
+
 	
 	if (estado == INICIO) {
-		if (key == 'm' || key== 'M' ) {
-			musica(actmusic); 
-		}
+
 		if (key == 'e' ||  key== 'E') {
-			ETSIDI::stopMusica();
 			estado = MODOS;
 		}
 		if (key == 's' ||  key== 'S' )exit(0);
 	}
 
 	if (estado == MODOS) {
-		if (key == 'm' ||  key== 'M') {
-			musica(actmusic);
-		}
 		if (key == '1') {
-			ETSIDI::stopMusica();
 			estado = JUEGO;
 			partida.inicializa();
 		}
@@ -128,14 +126,10 @@ void Coordinador::Tecla(unsigned char key) {
 
 	}
 	else if (estado == JUEGO) {
-		if (key == 'm' ||  key == 'M') {
-			musica(actmusic);
-		}
 		if (key == 's' || key == 'S')exit(0);
 
 		if (key == 'p') {
 			//estado = PAUSA;
-			musica(actmusic);
 		}
 
 		//añadir jaquemate para gameover
@@ -150,9 +144,13 @@ void Coordinador::Tecla(unsigned char key) {
 	}
 }
 
-void Coordinador::musica(bool activarmusica) {
-	if (activarmusica) {
+void Coordinador::musica() {
+	if (modoMusica==true){
+		modoMusica = false;
+		ETSIDI::stopMusica();
+	}
+	else if (modoMusica == false) {
+		modoMusica = true;
 		ETSIDI::playMusica("sonidos/ambiente.mp3", true);
 	}
-	else(ETSIDI::stopMusica());
 }

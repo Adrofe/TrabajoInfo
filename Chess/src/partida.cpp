@@ -8,6 +8,7 @@ void partida::inicializa()
 	y_ojo = 100.0f;
 	z_ojo = 32.0f;
 
+    ETSIDI::play("sonidos/inicioPartida.mp3");
 
 
 }

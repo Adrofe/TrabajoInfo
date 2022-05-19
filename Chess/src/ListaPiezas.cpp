@@ -1,9 +1,13 @@
 #include "ListaPiezas.h"
 #include "ETSIDI.h"
+#include<windows.h>
 
 ListaPiezas::ListaPiezas()
 {
+
+
 	crearPiezas();
+
 	ofstream archivo;//modo escritura
 	
 	archivo.open("Historial.txt", ios::out);//abrir archivo llamado Historial.txt, si este archivo ya existe, se reemplaza, es decir que cada vez que juguemos una partida nueva se borrará el contenido de la anterior
@@ -210,8 +214,10 @@ void ListaPiezas::eliminar(int index)
 
 void ListaPiezas::eliminar(pieza* pieza)
 {
+	
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza) {
+			ETSIDI::play("sonidos/comer.mp3");
 			eliminar(i);
 			return;
 		}
@@ -264,7 +270,8 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					//if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);	BORRAR
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
-					ETSIDI::play("sonidos/movimiento.wav"); //sonido de movimiento de pieza
+					ETSIDI::play("sonidos/movimiento.mp3"); //sonido de movimiento de pieza
+
 					eliminar(listaPiezas[indexDes]);
 					//movimiento = pieza1->guardarHistorial(fila,columna);
 					//char fil = fila;
@@ -750,8 +757,14 @@ void ListaPiezas::jaque(color Color)
 	for (int i = 0; i < nPiezas; i++) {
 		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())){
 
-					if (Color == BLANCO) { jaqueNegro = TRUE; }
-					if (Color == NEGRO) { jaqueBlanco = TRUE; }
+					if (Color == BLANCO) { 
+						jaqueNegro = TRUE;
+						ETSIDI::play("sonidos/jaque.mp3");
+					}
+					if (Color == NEGRO) { 
+						jaqueBlanco = TRUE; 
+						ETSIDI::play("sonidos/jaque.mp3");
+					}
 					std::cout << " hay jaque "<< jaqueNegro<< " " << jaqueBlanco << endl;
 		}
 
