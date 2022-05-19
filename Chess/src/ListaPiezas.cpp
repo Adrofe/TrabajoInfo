@@ -280,6 +280,19 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					//archivo << movimiento << " ";
 					jaque(BLANCO);
 					jaque(NEGRO);
+
+					if (jaqueBlanco&&jaqueMate(BLANCO)) {
+						cout << "Jaque mate a Blanco" << endl;
+						jaqueMateBlanco = true;
+						Sleep(300);
+						ETSIDI::play("sonidos/jaqueMate.mp3");
+					}
+					if (jaqueNegro && jaqueMate(NEGRO)) {
+						cout << "Jaque mate a Negro" << endl;
+						jaqueMateNegro = true;
+						Sleep(300);
+						ETSIDI::play("sonidos/jaqueMate.mp3");
+					}
 					
 					
 					//Cambiamos el color del proximo turno
@@ -863,6 +876,27 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 	return true;
 }
 
+bool ListaPiezas::jaqueMate(color color)
+{
+	bool movPosible = false;
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i]->getColor() == color) {
+			for (int a = 1; a < 9; a++) {
+				for (int b = 1; b < 9; b++) {
+					if (movimientoLegal(listaPiezas[i], a, b)) {
+						movPosible = true;
+						cout << "Mov de " << listaPiezas[i]->getTipo() << " a " << a << " " << b << endl;
+					}
+				}
+			}
+		}
+	}
+	if (movPosible == true) {
+		return false;
+	}
+	else return true;
+}
+
 
 
 
@@ -891,61 +925,6 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 	else if (aux->getTipo() == PEON) return comprobarPeon(aux, fila, columna);
 	else if (aux->getTipo() == REY) return comprobarRey(aux, fila, columna);
 		
-}
-
-void ListaPiezas::moverPiezaIA()
-{
-	int piezasIA[20];
-	int nIA = 0;
-	srand(time(NULL));
-
-	//Creamos una lista de piezas con las piezas de la IA
-	for (int i = 0; i < nPiezas; i++) {
-		if (listaPiezas[i]->getColor() == colorIA) {
-			piezasIA[nIA] = i;
-			nIA++;
-		}
-	}
-
-	int piezaAleatoria;
-	coordenada coordenadaRandom;
-
-	//Escogemos una pieza aleatoria
-
-	bool flag = true;
-	while (flag) {
-
-		piezaAleatoria = rand() * 33;
-		piezaAleatoria = (rand() % nIA);
-
-		movPosibles(listaPiezas[piezasIA[piezaAleatoria]]);
-
-
-		int random;
-		//if (nPosibles > 0) {
-			random = rand() * 33;
-			random = (rand() % nPosibles);
-			cout << random << endl;
-
-			coordenadaRandom = movimientosPosibles[random];
-
-			std::cout <<"Mov Posible f"<< coordenadaRandom.getFila() << " c " << coordenadaRandom.getColumna() << endl;
-
-
-			if (movimientoLegal(listaPiezas[piezasIA[piezaAleatoria]], coordenadaRandom.getFila(), coordenadaRandom.getFila()) == TRUE) flag = false;
-			std::cout << "Iteracion finalizada" << endl;
-		//}
-
-	}
-	moverPieza(listaPiezas[piezasIA[piezaAleatoria]], coordenadaRandom.getFila(), coordenadaRandom.getColumna());
-	
-}
-
-coordenada ListaPiezas::coordenadaAleatoria(pieza* aux)
-{
-	coordenada coordenada;
-	return coordenada;
-	
 }
 
 void ListaPiezas::algoritmoIA()

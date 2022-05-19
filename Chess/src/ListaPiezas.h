@@ -34,7 +34,8 @@ private:
 	 bool jaqueBlanco;
 	 bool jaqueNegro;
 
-	 bool jaqueMate = false;
+	 bool jaqueMateBlanco = false;
+	 bool jaqueMateNegro = false;
 	 color colorIA =	NEGRO;
 
 
@@ -81,6 +82,7 @@ public:
 	void jaque(color Color);
 	bool jaqueBool(color Color);
 	bool jaquePosible(pieza* pieza,int fila, int columna);
+	bool jaqueMate(color color);
 
 
 	bool mirarCasilla(int fila, int columna);
@@ -88,8 +90,6 @@ public:
 
 
 	//IA
-	void moverPiezaIA();
-	coordenada coordenadaAleatoria(pieza* pieza);
 	void algoritmoIA();
 	void algoritmoIAv2(int iteraciones, int profundidad=1);
 	int evaluacion(int fila, int columna);
