@@ -1,4 +1,5 @@
 #pragma once
+#include "ETSIDI.h"
 #include "pieza.h"
 #include "rey.h"
 #include "reina.h"
@@ -12,6 +13,7 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+
 
 
 #define MAX_PIEZAS 100

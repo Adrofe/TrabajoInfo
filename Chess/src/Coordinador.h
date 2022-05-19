@@ -13,13 +13,14 @@ public:
 	void Tecla(unsigned char key);
 	void mueve();
 	void dibuja();
+	void musica(bool activarmusica);
+	bool actmusic;
 
 protected:
 	partida partida;
 	enum Estado { INICIO, JUEGO, FIN, GAMEOVER, PAUSA };
 	Estado estado;
-
-
-
+private:
+	
 
 };

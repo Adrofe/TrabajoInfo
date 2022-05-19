@@ -7,6 +7,7 @@ Coordinador juego;
 bool o = FALSE;
 coordenada b("a", 2);
 
+
 //los callback, funciones que seran llamadas automaticamente por la glut
 //cuando sucedan eventos
 //NO HACE FALTA LLAMARLAS EXPLICITAMENTE
