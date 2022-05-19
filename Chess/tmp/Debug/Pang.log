@@ -1,3 +1,2 @@
 ﻿  Coordinador.cpp
-C:\Users\souto\Documents\GitHub\TrabajoInfo\Chess\src\Coordinador.cpp(109,10): warning C4553: "==": el resultado de la expresión no se usa. ¿Quiso decir "="?
-  Pang.vcxproj -> C:\Users\souto\Documents\GitHub\TrabajoInfo\Chess\bin\Chess.exe
+C:\Users\alonso\Desktop\Ajedrez\Chess\src\Coordinador.cpp(144,22): error C3867: 'partida::inicializa': sintaxis no estándar; utilice '&' para crear un puntero al miembro

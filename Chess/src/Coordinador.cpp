@@ -16,36 +16,74 @@ void Coordinador::dibuja()
 {
 	if (estado == INICIO) {
 		actmusic = true;
+
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
-		ETSIDI::setTextColor(1, 1, 1);
+
+		glEnable(GL_TEXTURE_2D);
+		glColor3f(1, 1, 1);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo1.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
+		glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+
+		//ETSIDI::setTextColor(0, 0, 1);
 		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
-		ETSIDI::printxy("Chess", 1, 2);
-		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::printxy("Chess", 0, 8);
 		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
 		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", 15, -30);
 		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", 10, -30);
-		ETSIDI::printxy("PULSA LA TECLA -M- PARA ACTIVAR LA MUSICA", 5, -30);
-		ETSIDI::printxy("Alonso, Adris, Anton y Manuel", 4, 1);
+		ETSIDI::printxy("Pulsa M para activar musica", 5, -30);
+		ETSIDI::printxy("Alonso, Adris, Anton y Manuel", 2, 1);
 	}
 	else if (estado == JUEGO)
 	{
 		actmusic = true;
 		partida.dibuja();
 	}
-	else if (estado == PAUSA)
+	else if (estado == INICIO2)
 	{
 		actmusic = true;
-		partida.dibuja();
-		ETSIDI::setTextColor(0, 1, 0);
-		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
-		ETSIDI::printxy("PAUSA", -2, 10);
-		ETSIDI::printxy("Pulsa C para continuar", -5, 5);
 		
+		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo5.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
+		glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+
+		ETSIDI::setTextColor(0, 1, 0);// me cambia tambien el color de fondo.
+		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
+		ETSIDI::printxy("PUlse la tecla::", 20, -30);
+		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
+		ETSIDI::printxy("CARGAR PARTIDA: C", 15, -30);
+		ETSIDI::printxy("SALIR: S", 13, -30);
+		ETSIDI::printxy("MUSICA: M", 10, -30);
+		ETSIDI::printxy("Alonso, Adris, Anton y Manuel", 2, 1);
 	}
+
+		//ETSIDI::setTextColor(1, 0, 0);
+		//ETSIDI::setFont("fuentes/arialbd.ttf", 16);
+		//ETSIDI::printxy("PAUSA", -2, 10);
+		//ETSIDI::printxy("Pulsa C para continuar", -5, 5);
 	else if (estado == GAMEOVER)
-	{
+		{
 		partida.dibuja();
 		ETSIDI::setTextColor(1, 0, 0);
 		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
@@ -90,24 +128,40 @@ void Coordinador::Tecla(unsigned char key) {
 			musica(actmusic); 
 		}
 		if (key == 'e') {
-			partida.inicializa();
 			ETSIDI::stopMusica();
-			estado = JUEGO;
+			estado = INICIO2;
 		}
 		if (key == 's')exit(0);
+	}
+
+	if (estado == INICIO2) {
+		if (key == 'm') {
+			musica(actmusic);
+		}
+		if (key == 'e') {
+			ETSIDI::stopMusica();
+			estado = JUEGO;
+			partida.inicializa;
+		}
+		if (key == 's')exit(0);
+
+
+		// añadir c: cargar, n nuevo etc..
+
 	}
 	else if (estado == JUEGO) {
 		if (key == 'm') {
 			musica(actmusic);
 		}
-		if (key == 'p') {
-			estado = PAUSA;
+		/*if (key == 'p') {
+			//estado = PAUSA;
 			musica(actmusic);
-		}
+		}*/
+
+		//añadir jaquemate para gameover
+
 	}
-	else if (estado == PAUSA) {
-		estado == JUEGO;
-	}
+	
 	else if (estado == GAMEOVER) {
 		if (key == 'c')estado = INICIO;
 	}
