@@ -245,6 +245,39 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 	return nullptr;
 }
 
+void ListaPiezas::enroque(pieza* pieza, int fila, int columna)
+{
+	if (pieza->getTipo() == REY) {
+		if (fila == 1 && columna == 2) {
+			buscarPieza(1, 1)->setColumna(3);
+		}
+		if (fila == 1 && columna == 7) {
+			buscarPieza(1, 8)->setColumna(6);
+		}
+		if (fila == 8 && columna == 2) {
+			buscarPieza(8, 1)->setColumna(3);
+		}
+		if (fila == 8 && columna == 7) {
+			buscarPieza(8, 8)->setColumna(6);
+		}
+	}
+
+}
+
+void ListaPiezas::anularEnroque(pieza* pieza, int fila, int columna)
+{
+	if (pieza->getTipo() == TORRE) {
+		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 1)) torreBlancaIzq = false;
+		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 8)) torreBlancaDrc = false;
+		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 1)) torreNegraIzq = false;
+		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 8)) torreNegraDrc = false;
+	}
+	if (pieza->getTipo() == REY) {
+		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 5)) enroqueBlanco = false;
+		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 5)) enroqueNegro = false;
+	}
+}
+
 
 void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 {
@@ -268,6 +301,11 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
 					//if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);	BORRAR
+
+					enroque(pieza1, fila, columna);
+					anularEnroque(pieza1, fila, columna);
+
+
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
 					ETSIDI::play("sonidos/movimiento.mp3"); //sonido de movimiento de pieza
@@ -592,6 +630,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 		}
 	}
 
+
 	return true;
 	
 	
@@ -720,7 +759,63 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 	}
 
-	
+	//Enroque hacia la izquierda del blanco
+	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 2)) {
+		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
+			//Casillas vacias a la izquierda
+			if ((mirarCasilla(1, 2) == true) || (mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
+				return false;
+			}
+			else if ((jaquePosible(pieza, 1, 2) == false) || (jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
+				return false;
+			}
+			else return true;
+		}
+		else return false;
+	}
+	//Enroque hacia la izquierda del blanco
+	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 7)) {
+		if ((torreBlancaDrc == true) && (enroqueBlanco == true)) {
+			//Casillas vacias a la izquierda
+			if ((mirarCasilla(1, 6) == true) || (mirarCasilla(1, 7) == true)) {
+				return false;
+			}
+			else if ((jaquePosible(pieza, 1, 6) == false) || (jaquePosible(pieza, 1, 7) == false)) {
+				return false;
+			}
+			else return true;
+		}
+		else return false;
+	}
+	//Enroque hacia la izquierda del blanco
+	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 2)) {
+		if ((torreNegraIzq == true) && (enroqueNegro == true)) {
+			//Casillas vacias a la izquierda
+			if ((mirarCasilla(8, 2) == true) || (mirarCasilla(8, 3) == true) || (mirarCasilla(8, 4) == true)) {
+				return false;
+			}
+			else if ((jaquePosible(pieza, 8, 2) == false) || (jaquePosible(pieza, 8, 3) == false) || (jaquePosible(pieza, 8, 4) == false)) {
+				return false;
+			}
+			else return true;
+		}
+		else return false;
+	}
+	//Enroque hacia la izquierda del blanco
+	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 7)) {
+		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
+			//Casillas vacias a la izquierda
+			if ((mirarCasilla(8, 6) == true) || (mirarCasilla(8, 7) == true)) {
+				return false;
+			}
+			else if ((jaquePosible(pieza, 8, 6) == false) || (jaquePosible(pieza, 8, 7) == false)) {
+				return false;
+			}
+			else return true;
+		}
+		else return false;
+	}
+
 	return true;
 }
 

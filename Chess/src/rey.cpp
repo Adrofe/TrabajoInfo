@@ -82,7 +82,22 @@ bool rey::movimientoLegal(coordenada destino)
 	else if ((abs(destino.getColumna() - coordInicio.getColumna()) == 1) && (abs(destino.getFila() - coordInicio.getFila()) == 0)) {
 		return true;
 	}
-	else return false;
+
+
+	if (icolor == BLANCO) {
+		if (getCoordenada().getFila() == 1 && getCoordenada().getColumna() == 5) {
+			if (destino.getFila() == 1 && destino.getColumna() == 2) return true;
+			if (destino.getFila() == 1 && destino.getColumna() == 7) return true;
+		}
+	}
+	else {
+		if (getCoordenada().getFila() == 8 && getCoordenada().getColumna() == 5) {
+			if (destino.getFila() == 8 && destino.getColumna() == 2) return true;
+			if (destino.getFila() == 8 && destino.getColumna() == 7) return true;
+		}
+	}
+
+	return false;
 }
 
 int rey::getValorPos(int fila, int columna)

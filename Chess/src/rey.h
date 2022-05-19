@@ -5,6 +5,7 @@
 
 class rey : public pieza
 {
+	bool enroque = true;
 
 	int puntPosNegras[8][8] = {
 	-30,-40,-40,-50,-50,-40,-40,-30,
@@ -35,6 +36,9 @@ public:
 	bool movimientoLegal(coordenada destino);
 	int getValorPos(int fila, int columna);
 	void guardarHistorial(int fila, int columna);
+	void pararEnroque() {
+		enroque = false;
+	}
 
 
 

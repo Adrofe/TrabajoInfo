@@ -23,20 +23,24 @@ class ListaPiezas
 {
 private: 
 	pieza* listaPiezas[MAX_PIEZAS];
-
-	//Para simplificar
-	//pieza* listaIA[MAX_PIEZAS];
-	
 	int nPiezas;
 	
+
+	bool enroqueBlanco = true;
+	bool enroqueNegro = true;
+	bool torreBlancaIzq = true;
+	bool torreBlancaDrc = true;
+	bool torreNegraIzq = true;
+	bool torreNegraDrc = true;
+
 	int PosiblesJaque = 0;
 
-	 bool jaqueBlanco;
-	 bool jaqueNegro;
+	bool jaqueBlanco;
+	bool jaqueNegro;
 
-	 bool jaqueMateBlanco = false;
-	 bool jaqueMateNegro = false;
-	 color colorIA =	NEGRO;
+	bool jaqueMateBlanco = false;
+	bool jaqueMateNegro = false;
+	color colorIA =	NEGRO;
 
 
 public:
@@ -47,8 +51,6 @@ public:
 	coordenada coordenadaComer[8];
 
 	color proximoTurno = BLANCO;
-
-	friend class IA;
 
 	bool si = false;
 
@@ -64,6 +66,11 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 	pieza* buscarPieza(int fila, int columna);
+
+
+	void enroque(pieza* pieza, int fila, int columna);
+	void anularEnroque(pieza* pieza, int fila, int columna);
+
 
 	void moverPieza(pieza* pieza, int fila, int columna);
 	bool movimientoLegal(pieza* pieza, int fila, int columna);
