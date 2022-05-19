@@ -264,7 +264,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					//if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);	BORRAR
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
-					//ETSIDI::play("sonidos/movimiento.wav"); //sonido de movimiento de pieza
+					ETSIDI::play("sonidos/movimiento.wav"); //sonido de movimiento de pieza
 					eliminar(listaPiezas[indexDes]);
 					//movimiento = pieza1->guardarHistorial(fila,columna);
 					//char fil = fila;

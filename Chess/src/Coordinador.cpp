@@ -26,6 +26,7 @@ void Coordinador::dibuja()
 		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
 		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", 15, -30);
 		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", 10, -30);
+		ETSIDI::printxy("Pulsa M para activar musica", 5, -30);
 		ETSIDI::printxy("Alonso, Adris, Anton y Manuel", 4, 1);
 	}
 	else if (estado == JUEGO)
@@ -35,12 +36,13 @@ void Coordinador::dibuja()
 	}
 	else if (estado == PAUSA)
 	{
-		actmusic = true;
+		
 		partida.dibuja();
 		ETSIDI::setTextColor(0, 1, 0);
 		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
 		ETSIDI::printxy("PAUSA", -2, 10);
 		ETSIDI::printxy("Pulsa C para continuar", -5, 5);
+		
 	}
 	else if (estado == GAMEOVER)
 	{
@@ -61,7 +63,6 @@ void Coordinador::dibuja()
 
 void Coordinador::mouse(int button, int state, int x, int y)
 {
-	musica(actmusic);
 	partida.mouse(button, state, x, y);	
 }
 
@@ -83,17 +84,25 @@ void Coordinador::mueve() //funcion a modificar para el jaque mate
 }
 
 void Coordinador::Tecla(unsigned char key) {
+	
 	if (estado == INICIO) {
-
+		if (key == 'm') { 
+			musica(actmusic); 
+		}
 		if (key == 'e') {
 			partida.inicializa();
 			estado = JUEGO;
+			ETSIDI::stopMusica();
 		}
 		if (key == 's')exit(0);
 	}
 	else if (estado == JUEGO) {
+		if (key == 'm') {
+			musica(actmusic);
+		}
 		if (key == 'p') {
 			estado = PAUSA;
+			musica(actmusic);
 		}
 	}
 	else if (estado == PAUSA) {
