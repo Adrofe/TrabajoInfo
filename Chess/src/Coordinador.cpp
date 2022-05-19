@@ -26,17 +26,17 @@ void Coordinador::dibuja()
 		ETSIDI::setFont("fuentes/arialbd.ttf", 12);
 		ETSIDI::printxy("PULSE LA TECLA -E- PARA EMPEZAR", 15, -30);
 		ETSIDI::printxy("PULSE LA TECLA -S- PARA SALIR", 10, -30);
-		ETSIDI::printxy("Pulsa M para activar musica", 5, -30);
+		ETSIDI::printxy("PULSA LA TECLA -M- PARA ACTIVAR LA MUSICA", 5, -30);
 		ETSIDI::printxy("Alonso, Adris, Anton y Manuel", 4, 1);
 	}
 	else if (estado == JUEGO)
 	{
-		actmusic = false;
+		actmusic = true;
 		partida.dibuja();
 	}
 	else if (estado == PAUSA)
 	{
-		
+		actmusic = true;
 		partida.dibuja();
 		ETSIDI::setTextColor(0, 1, 0);
 		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
@@ -91,8 +91,8 @@ void Coordinador::Tecla(unsigned char key) {
 		}
 		if (key == 'e') {
 			partida.inicializa();
-			estado = JUEGO;
 			ETSIDI::stopMusica();
+			estado = JUEGO;
 		}
 		if (key == 's')exit(0);
 	}
