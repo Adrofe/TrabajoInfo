@@ -64,15 +64,14 @@ void Coordinador::mueve() //funcion a modificar para el jaque mate
 {
 	if (estado == JUEGO)
 	{
-		//partida.mover();
-		/*if (mundo.getNumEsferas() == 0)
+		partida.dibuja();
+		/*if (// deteccion de jaque mate a tu favor)
 		{
-			if (!mundo.cargarNivel())
 				estado = FIN;
 		}
-		if (mundo.getImpacto())
+		if (//deteccion de jaque mate en tu contra)
 		{
-			estado = GAMEOVER;
+			estado = JAQUEMATE;
 		}*/
 	}
 }

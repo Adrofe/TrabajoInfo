@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
-  "SelectedNode": "\\Chess.sln",
+  "SelectedNode": "\\src\\Coordinador.cpp",
   "PreviewInSolutionExplorer": false
 }

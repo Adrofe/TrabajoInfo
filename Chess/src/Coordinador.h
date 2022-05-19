@@ -1,5 +1,4 @@
 #include "partida.h"
-#pragma once
 
 class Coordinador
 {

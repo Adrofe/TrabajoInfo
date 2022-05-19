@@ -3,6 +3,7 @@
 #include "partida.h"
 #include "Coordinador.h"
 
+
 Coordinador juego;
 
 bool o = FALSE;
