@@ -52,8 +52,6 @@ void partida::dibuja()
 	glTexCoord2d(0, 0); glVertex3f(85.0f, -1.0f, -25.0f);
 	glEnd();
 
-	glEnable(GL_LIGHTING);
-    glDisable(GL_LIGHTING);
     glColor3ub(0, 0, 0);
     glBegin(GL_POLYGON);
     glTexCoord2d(0, 1); glVertex3f(-1.0f, -0.5f, 65.0f);
@@ -61,10 +59,99 @@ void partida::dibuja()
     glTexCoord2d(1, 0); glVertex3f(65.0f, -0.5f, -1.0f);
     glTexCoord2d(0, 0); glVertex3f(-1.0f, -0.5f, -1.0f);
     glEnd();
+
+    glColor3ub(255, 255, 255);
+    //PONER LETRAS EN EL TABLERO
+    for (int i = 0; i < 8; i++) {
+        switch (i) {
+        case 0:
+            glEnable(GL_TEXTURE_2D);  
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/A.png").id);
+            break;
+        case 1:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/B.png").id);
+            break;
+        case 2:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/C.png").id);
+            break;
+        case 3:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/D.png").id);
+            break;
+        case 4:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/E.png").id);
+            break;
+        case 5:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/F.png").id);
+            break;
+        case 6:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/G.png").id);
+            break;
+        case 7:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/H.png").id);
+            break;
+        }
+
+        glBegin(GL_POLYGON);
+        glTexCoord2d(0, 0); glVertex3f(-1.0f, -0.5f, -1.0f + i * 8.0f);
+        glTexCoord2d(1, 0); glVertex3f(-1.0f, -0.5f, 9.0f + i * 8.0f);
+        glTexCoord2d(1, 1); glVertex3f(-9.0f, -0.5f, 9.0f + i * 8.0f);
+        glTexCoord2d(0, 1); glVertex3f(-9.0f, -0.5f, -1.0f + i * 8.0f);
+        glEnd();
+    }
+    for (int i = 0; i < 8; i++) {
+        switch (i) {
+        case 0:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/1.png").id);
+            break;
+        case 1:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/2.png").id);
+            break;
+        case 2:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/3.png").id);
+            break;
+        case 3:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/4.png").id);
+            break;
+        case 4:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/5.png").id);
+            break;
+        case 5:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/6.png").id);
+            break;
+        case 6:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/7.png").id);
+            break;
+        case 7:
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/8.png").id);
+            break;
+        }
+
+        glBegin(GL_POLYGON);
+        glTexCoord2d(1, 1); glVertex3f(-1.0f + i * 8.0f, -0.5f, -1.0f);
+        glTexCoord2d(0, 1); glVertex3f(-1.0f + i * 8.0f, -0.5f, -9.0f);
+        glTexCoord2d(0, 0); glVertex3f(9.0f + i * 8.0f, -0.5f, -9.0f);
+        glTexCoord2d(1, 0); glVertex3f(9.0f + i * 8.0f, -0.5f, -1.0f);
+        glEnd();
+    }
     glEnable(GL_LIGHTING);
 
     //Liberar memoria de la textura
-    //glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
 	tablero.dibuja();
     piezas.dibuja();

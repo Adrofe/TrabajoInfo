@@ -1,8 +1,2 @@
-﻿  tablero.cpp
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(102,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(103,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(105,63): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(133,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(134,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(136,63): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+﻿  partida.cpp
   Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe
