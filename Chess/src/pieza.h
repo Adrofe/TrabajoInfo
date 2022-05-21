@@ -10,11 +10,8 @@ enum tipo_pieza {REY, REINA, ALFIL, TORRE, CABALLO, PEON};
 
 class pieza
 {	
-private:
 	coordenada coord;
 	float altura = 8.0f, ancho = 6.0f;
-
-
 
 protected:
 	tipo_pieza tipo;
@@ -22,28 +19,28 @@ protected:
 	color icolor;
 
 public:
-	
-
+	//Constructores
 	pieza(color color, coordenada coord);
 	pieza();
 	~pieza();
-	virtual color getColor();
+
 	coordenada getCoordenada();
 	void setColumna(int columna);
 	void setFila(int fila);
 	int getColumna();
 	int getFila();
 
-	//virtual bool movimientoLegal(coordenada destino, bool matriz[7][7]);
+	//Metodos virtuales
+	virtual color getColor();
 	virtual void dibuja();
 	virtual bool movimientoLegal(coordenada destino)=0;
 	virtual void guardarHistorial() = 0;
 
+	//Getters
 	float getAltura() { return altura; }
 	float getAncho() { return ancho; }
-
 	virtual tipo_pieza getTipo() { return tipo; }
 	int getValor() { return valor; }
-	virtual int getValorPos(int fila, int columna)=0;
+	virtual int getValorPos(int fila, int columna)=0; //Devuelve un int que indica lo buena que es una determinada posicion para un tipo de pieza
 };
 

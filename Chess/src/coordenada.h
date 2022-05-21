@@ -13,18 +13,24 @@ class coordenada
 	int numero;
 public:
 
+	//Constructores
 	coordenada();
 	coordenada(string letra, int numero);
 	coordenada(int fila, int columna);
-	vector2D toVector();
-	string toLetraCol(int numero); 
+
+	//Getters
 	int getFila();
 	int getColumna();
+	vector2D toVector();
 	string getLetra() { return letra; }
-	void setCol(int columna);
-	void setFil(int fila);
 	color getColorCasilla();
 
+	//Setters
+	void setCol(int columna);
+	void setFil(int fila);
+ 
+	//Convertidores y operadores
+	string toLetraCol(int numero);
 	bool operator==(coordenada coord);
 	coordenada operator-(coordenada coord);
 

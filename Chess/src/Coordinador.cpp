@@ -230,9 +230,11 @@ void Coordinador::Tecla(unsigned char key) {
 	else if (estado == FIN) {
 		if (key == 'c')estado = INICIO;
 	}
+
 	else if (estado == FIN) {
 		if (key == 'c')estado = INICIO;
 	}
+
 	else if (estado == PAUSA) {
 		if (key == 'p' || key == 'P') {
 			estado = JUEGO;

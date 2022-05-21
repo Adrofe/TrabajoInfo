@@ -27,10 +27,8 @@ class Alfil : public pieza {
 	-20,-10,-10,-10,-10,-10,-10,-20,
 	};
 
-
-
-
 public:
+	//Constructores
 	Alfil(color color, coordenada coord);
 	Alfil();
 

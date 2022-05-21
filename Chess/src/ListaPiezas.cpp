@@ -4,13 +4,6 @@
 
 ListaPiezas::ListaPiezas()
 {
-
-	borrarContenido();
-	crearPiezas();
-
-
-
-	
 	ofstream archivo;//modo escritura
 	
 	archivo.open("Historial.txt", ios::out);//abrir archivo llamado Historial.txt, si este archivo ya existe, se reemplaza, es decir que cada vez que juguemos una partida nueva se borrará el contenido de la anterior
@@ -39,6 +32,9 @@ ListaPiezas::~ListaPiezas()
 
 void ListaPiezas::crearPiezas()
 {
+	borrarContenido();
+	proximoTurno = BLANCO;
+
 	coordenada c1("a", 2);
 	coordenada c2("b", 2);
 	coordenada c3("c", 2);
@@ -188,6 +184,7 @@ bool ListaPiezas::agregarPieza(pieza* pieza)
 void ListaPiezas::dibuja()
 {
 	for (int i = 0; i < nPiezas; i++) {
+		if(listaPiezas[i]!=0)
 		listaPiezas[i]->dibuja();
 	}
 }
@@ -1028,7 +1025,6 @@ void ListaPiezas::algoritmoIA()
 
 	for (int i = 0; i < nPiezas; i++) {
 		//Recorremos todas las piezas de la IA
-		cout << "Algoritmo IA:" << colorIA << endl;
 		if (listaPiezas[i]->getColor() == colorIA) {
 			movPosibles(listaPiezas[i]);
 			for (int j = 0; j < nPosibles; j++) {

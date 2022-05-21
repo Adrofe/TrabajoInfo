@@ -29,6 +29,7 @@ class Peon : public pieza
 
 
 public:
+	//Constructores
 	Peon();
 	Peon(color color, coordenada coord);
 

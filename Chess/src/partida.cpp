@@ -9,8 +9,7 @@ void partida::inicializa()
 	z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
- 
-    piezas.borrarContenido();
+    
     piezas.crearPiezas();
 
 }
@@ -39,9 +38,6 @@ void partida::dibuja()
 	gluLookAt(x_ojo, y_ojo, z_ojo,  // posicion del ojo
 		32.0, 0.0, 32.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
-
-	//glEnable(GL_TEXTURE_2D);
-    //glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo5.png").id);
 
 	glDisable(GL_LIGHTING);
 	glColor3ub(255, 255, 255);

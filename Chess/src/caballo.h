@@ -28,6 +28,7 @@ class caballo : public pieza {
 	};
 
 public:
+	//Constructores
 	caballo();
 	caballo(color color, coordenada coord);
 

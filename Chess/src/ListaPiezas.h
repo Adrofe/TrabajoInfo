@@ -22,10 +22,12 @@
 class ListaPiezas
 {
 private: 
+	//Lista
 	pieza* listaPiezas[MAX_PIEZAS];
 	int nPiezas;
+	int nPosibles;
 	
-
+	//Variables relacionadas con el enroque
 	bool enroqueBlanco = true;
 	bool enroqueNegro = true;
 	bool torreBlancaIzq = true;
@@ -33,67 +35,73 @@ private:
 	bool torreNegraIzq = true;
 	bool torreNegraDrc = true;
 
+	//Variables relacionadas con el jaque
 	int PosiblesJaque = 0;
-
 	bool jaqueBlanco;
 	bool jaqueNegro;
-
 	bool jaqueMateBlanco = false;
 	bool jaqueMateNegro = false;
 
+	//Color de la IA
 	color colorIA =	NEGRO;
 
-
 public:
+	//Variables para pintar las coordenadas
 	coordenada movimientosPosibles[64];
-	int nPosibles;
-
 	coordenada coordenadaPintar[64];
 	coordenada coordenadaComer[8];
-
-	color proximoTurno = BLANCO;
-
 	bool si = false;
+
+	//Turno
+	color proximoTurno = BLANCO;
 
 	//Constructores
 	ListaPiezas();
 	~ListaPiezas();
 
+	//Agregar y eliminar piezas
 	void crearPiezas();
 	bool agregarPieza(pieza* pieza);
-	void dibuja();
 	void eliminar(int index);
 	void eliminar(pieza* pieza);
 	void borrarContenido();
-	pieza* buscarPieza(int fila, int columna);
 
+	void dibuja();
 
-	void enroque(pieza* pieza, int fila, int columna);
-	void anularEnroque(pieza* pieza, int fila, int columna);
+	//Getters
+	bool getJaqueMateBlanco() { return jaqueMateBlanco; }
+	bool getJaqueMateNegro() { return jaqueMateNegro; }
 
+	//Funciones del enroque
+	void enroque(pieza* pieza, int fila, int columna);				//Realiza el enroque, moviendo la torre correspondiente
+	void anularEnroque(pieza* pieza, int fila, int columna);		//Si se mueve alguna de las piezas del enroque, impide que se realice
 
-	void moverPieza(pieza* pieza, int fila, int columna);
-	bool movimientoLegal(pieza* pieza, int fila, int columna);
-	bool movimientoLegalJaque(pieza* pieza, int fila, int columna); //esto es sin jaque posible
-	bool comprobarTurno(pieza* pieza); //Devuelve el color del proximo movimiento
-	bool comprobarColor(int index, coordenada coord);
-	void movPosibles(pieza* aux);
+	//Movimiento de las piezas
+	void moverPieza(pieza* pieza, int fila, int columna);			//Hace las comprobaciones necesarias para mover la pieza
+	bool movimientoLegal(pieza* pieza, int fila, int columna);		//Devuelve true si es un movimiento legal
+	bool movimientoLegalJaque(pieza* pieza, int fila, int columna); //Igual que movimientoLegal pero sin la comprobacion del jaquePosible
+	bool comprobarTurno(pieza* pieza);								//Devuelve el color del proximo movimiento
+	bool comprobarColor(int index, coordenada coord);				//Comprueba el color de la pieza que le pasas con el de la posible pieza de esa posicion
+	void movPosibles(pieza* aux);									//Funcion para imprimir los movimientos posibles de las piezas al clickarlas
 
+	//Funciones para la colision de piezas
 	bool comprobarAlfil(pieza* pieza, int fila, int columna);
 	bool comprobarTorre(pieza* pieza, int fila, int columna);
 	bool comprobarReina(pieza* pieza, int fila, int columna);
 	bool comprobarPeon(pieza* pieza, int fila, int columna);
 	bool comprobarRey(pieza* pieza, int fila, int columna);
 
-	bool comerPieza(pieza* pieza, int fila, int columna);
-	void jaque(color Color);
-	bool jaqueBool(color Color);
-	bool jaquePosible(pieza* pieza,int fila, int columna);
-	bool jaqueMate(color color);
+	bool comerPieza(pieza* pieza, int fila, int columna);	//Devuelve true si se puede comer una pieza
 
-	bool getJaqueMateBlanco() { return jaqueMateBlanco; }
-	bool getJaqueMateNegro() { return jaqueMateNegro; }
+	//Funciones para el jaque
+	void jaque(color Color);								//Comprueba que haya jaque al color que se pasa
+	bool jaqueBool(color Color);							//Lo mismo que jaque(color color) pero devuelve true si hay jaque en vez de modificar el atributo de la clase
+	bool jaquePosible(pieza* pieza,int fila, int columna);	//Comprueba que un movimiento no provoque jaque, para impedir movimientos
+	bool jaqueMate(color color);							//Comprueba si hay jaque mate
 
+
+	//Busqueda de piezas o de casillas
+	pieza* buscarPieza(int fila, int columna);
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);
 
@@ -105,9 +113,7 @@ public:
 	int evaluacion(int fila, int columna);
 	int evaluacionCompleta();
 
-	int alphaBetaMax(int alpha, int beta, int depthleft);
-	int alphaBetaMin(int alpha, int beta, int depthleft);
-
+	//Funciones para la IA que no funcionan
 	int maxi(pieza* pieza1,color color, int profundidad, int fila, int columna);
 	int mini(pieza* pieza1,color color, int profundidad, int fila, int columna);
 
