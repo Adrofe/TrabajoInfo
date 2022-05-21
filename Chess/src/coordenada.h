@@ -20,6 +20,7 @@ public:
 	string toLetraCol(int numero); 
 	int getFila();
 	int getColumna();
+	string getLetra() { return letra; }
 	void setCol(int columna);
 	void setFil(int fila);
 	color getColorCasilla();

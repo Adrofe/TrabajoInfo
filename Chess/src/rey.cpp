@@ -110,18 +110,15 @@ int rey::getValorPos(int fila, int columna)
 	}
 }
 
-void rey::guardarHistorial(int fila, int columna)
+void rey::guardarHistorial()
 {
 
 	ofstream archivo;
-	coordenada aux;
-	string col = aux.toLetraCol(columna);
-
 	archivo.open("Historial.txt", ios::app);
 	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
 		cout << "no se pudo abrir el archivo";
 		exit(1);
 	}
-	archivo << "K" <<fila << col << " ";
+	archivo << "K" << getCoordenada().getLetra() << getFila() << " ";
 	archivo.close();
 }

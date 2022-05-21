@@ -316,7 +316,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					eliminar(listaPiezas[indexDes]);
 	
 	
-					pieza1->guardarHistorial(fila,columna);
+					pieza1->guardarHistorial();
 	
 					jaque(BLANCO);
 					jaque(NEGRO);

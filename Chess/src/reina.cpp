@@ -88,18 +88,15 @@ int reina::getValorPos(int fila, int columna)
 	}
 }
 
-void reina::guardarHistorial(int fila, int columna)
+void reina::guardarHistorial()
 {
 
 	ofstream archivo;
-	coordenada aux;
-	string col = aux.toLetraCol(columna);
-
 	archivo.open("Historial.txt", ios::app);
 	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
 		cout << "no se pudo abrir el archivo";
 		exit(1);
 	}
-	archivo << "Q" << fila << col << " ";
+	archivo << "Q" << getCoordenada().getLetra() << getFila() << " ";
 	archivo.close();
 }

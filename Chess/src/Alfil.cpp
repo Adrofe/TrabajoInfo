@@ -79,19 +79,18 @@ int Alfil::getValorPos(int fila, int columna)
 	}
 }
 
-void Alfil::guardarHistorial(int fila, int columna)
+void Alfil::guardarHistorial()
 {
 
 	ofstream archivo;
-	coordenada aux;
-	string col = aux.toLetraCol(columna);
+	
 
 	archivo.open("Historial.txt", ios::app);
 	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
 		cout << "no se pudo abrir el archivo";
 		exit(1);
 	}
-	archivo << "B" << fila << col << " ";
+	archivo << "B" << getCoordenada().getLetra() <<getFila() << " ";
 	archivo.close();
 }
 

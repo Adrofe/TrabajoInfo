@@ -37,6 +37,16 @@ void pieza::setFila(int fila)
 	coord.setFil(fila);
 }
 
+int pieza::getColumna()
+{
+	return coord.getColumna();
+}
+
+int pieza::getFila()
+{
+	return coord.getFila();
+}
+
 void pieza::dibuja(){
 
 	if (coord.getColorCasilla() == NEGRO) {

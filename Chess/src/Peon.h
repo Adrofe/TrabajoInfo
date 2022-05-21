@@ -35,7 +35,7 @@ public:
 	void dibuja();
 	bool movimientoLegal(coordenada destino);
 	int getValorPos(int fila, int columna);
-	void guardarHistorial(int fila, int columna);
+	void guardarHistorial();
 
 
 };
