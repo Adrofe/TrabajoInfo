@@ -321,14 +321,14 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					jaque(BLANCO);
 					jaque(NEGRO);
 
-					if (jaqueBlanco&&jaqueMate(BLANCO)) {
-						cout << "Jaque mate a Blanco" << endl;
+					if (jaqueNegro&&jaqueMate(NEGRO)) {
+						cout << "Jaque mate Blanco" << endl;
 						jaqueMateBlanco = true;
 						Sleep(300);
 						ETSIDI::play("sonidos/jaqueMate.mp3");
 					}
-					if (jaqueNegro && jaqueMate(NEGRO)) {
-						cout << "Jaque mate a Negro" << endl;
+					if (jaqueBlanco && jaqueMate(BLANCO)) {
+						cout << "Jaque mate Negro" << endl;
 						jaqueMateNegro = true;
 						Sleep(300);
 						ETSIDI::play("sonidos/jaqueMate.mp3");

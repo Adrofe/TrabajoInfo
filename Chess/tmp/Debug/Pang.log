@@ -1,17 +1,5 @@
-﻿  Alfil.cpp
-  Chess.cpp
+﻿  Chess.cpp
   Coordinador.cpp
-  ListaPiezas.cpp
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(854,9): warning C4101: 'aux': variable local sin referencia
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(887,9): warning C4101: 'aux': variable local sin referencia
-  Peon.cpp
-  Torre.cpp
-  caballo.cpp
   partida.cpp
-  pieza.cpp
-  reina.cpp
-  rey.cpp
   Generando código...
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(498): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\src\ListaPiezas.cpp(1025): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
-  Pang.vcxproj -> C:\Users\Adrian\Desktop\TRABAJO_INFO\Chess\bin\Chess.exe
+  Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe
