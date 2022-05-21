@@ -142,5 +142,11 @@ void partida::getColFilMouse(int x, int y, int &fila, int &columna)
     else std::cout << "MOVIMIENTO INCORRECTO: FUERA DE RANGO" << endl;
 }
 
+void partida::setIA(bool IA, color colorIA)
+{
+    existeIA = IA;
+    piezas.setColorIA(colorIA);
+}
+
 
 

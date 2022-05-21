@@ -78,8 +78,8 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/jaqueMateBlanco.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 1); glVertex3f(-10.0f, 3.0f, -17.0f);
-		glTexCoord2d(1, 1); glVertex3f(-10.0f, 3.0f, 82.0f);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, 3.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, 3.0f, 82.0f);
 		glTexCoord2d(1, 0); glVertex3f(70.0f, 3.0f, 82.0f);
 		glTexCoord2d(0, 0); glVertex3f(70.0f, 3.0f, -17.0f);
 		glEnd();

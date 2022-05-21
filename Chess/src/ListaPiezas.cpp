@@ -29,19 +29,6 @@ ListaPiezas::ListaPiezas()
 
 }
 
-ListaPiezas::ListaPiezas(color colorIA)
-{
-	this->colorIA = colorIA;
-	crearPiezas();
-
-	for (int i = 0; i < nPiezas; i++) {
-		if (listaPiezas[i]->getColor() == colorIA) {
-
-		}
-	}
-
-}
-
 ListaPiezas::~ListaPiezas()
 {
 	for (int i = 0; i < MAX_PIEZAS; i++){
@@ -926,7 +913,9 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 	pieza1->setFila(fila);
 	pieza1->setColumna(columna);
 
-	if (jaqueBool(BLANCO)) { 
+
+
+	if (jaqueBool(BLANCO)&&(jaqueBlanco!=true)) { 
 
 		//Devolvemos la pieza que se mueve a su posicion original
 		pieza1->setFila(CoordApoyo.getFila());
@@ -942,7 +931,7 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 		jaqueBlanco = FALSE;
 		return false;
 	}
-	if (jaqueBool(NEGRO)) { 
+	if (jaqueBool(NEGRO) && (jaqueNegro != true)) {
 
 		//Devolvemos la pieza que se mueve a su posicion original
 		pieza1->setFila(CoordApoyo.getFila());
@@ -1022,6 +1011,11 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 	else if (aux->getTipo() == PEON) return comprobarPeon(aux, fila, columna);
 	else if (aux->getTipo() == REY) return comprobarRey(aux, fila, columna);
 		
+}
+
+void ListaPiezas::setColorIA(color colorIA)
+{
+	this->colorIA = colorIA;
 }
 
 void ListaPiezas::algoritmoIA()
