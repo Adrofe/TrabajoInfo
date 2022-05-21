@@ -11,7 +11,17 @@ void tablero::dibuja()
 	unsigned int r, g, b;
 	for (int i = 1; i < 9; i++) {
 		for (int j = 1; j < 9; j++) {
-			if (((i % 2 != 0) && (j % 2 != 0)) || ((i % 2 == 0) && (j % 2 == 0))) {
+/*			if (i == 1 && j == 1) {
+				r = 255;
+				g = 255;
+				b = 255;
+			}
+			else if (i == 1 || j== 1) {
+				r = 255;
+				g = 255;
+				b = 255;
+			}*/
+			 if (((i % 2 != 0) && (j % 2 != 0)) || ((i % 2 == 0) && (j % 2 == 0))) {
 
 				r = 129;
 				g = 96;
@@ -23,7 +33,7 @@ void tablero::dibuja()
 				g = 159;
 				b = 129;
 			}
-
+			
 			glDisable(GL_LIGHTING);
 			glColor3ub(r, g, b);
 			glBegin(GL_POLYGON);
@@ -33,17 +43,19 @@ void tablero::dibuja()
 			glTexCoord2d(0, 0); glVertex3f(B + 8.0f, 0.0f,A);
 			glEnd();
 			glEnable(GL_LIGHTING);
-
+			
+			//Liberar memoria de la textura
+			glBindTexture(GL_TEXTURE_2D, 0);
 			//con bordes
-			/*glDisable(GL_LIGHTING);
-			glColor3ub(r, g, b);
-			glBegin(GL_POLYGON);
-			glTexCoord2d(0, 1); glVertex3f(B+0.2f, 0.0f, A+0.2f);
-			glTexCoord2d(1, 1); glVertex3f(B+0.2f, 0.0f, A + 8.0f-0.2f);
-			glTexCoord2d(1, 0); glVertex3f(B + 8.0f-0.2, 0.0f, A + 8.0f-0.2f);
-			glTexCoord2d(0, 0); glVertex3f(B-0.2f + 8.0f, 0.0f, A+0.2f);
-			glEnd();
-			glEnable(GL_LIGHTING);*/
+			//glDisable(GL_LIGHTING);
+			//glColor3ub(r, g, b);
+			//glBegin(GL_POLYGON);
+			//glTexCoord2d(0, 1); glVertex3f(B+0.2f, 0.0f, A+0.2f);
+			//glTexCoord2d(1, 1); glVertex3f(B+0.2f, 0.0f, A + 8.0f-0.2f);
+			//glTexCoord2d(1, 0); glVertex3f(B + 8.0f-0.2, 0.0f, A + 8.0f-0.2f);
+			//glTexCoord2d(0, 0); glVertex3f(B-0.2f + 8.0f, 0.0f, A+0.2f);
+			//glEnd();
+			//glEnable(GL_LIGHTING);
 			A = A + 8.0f;
 
 		}

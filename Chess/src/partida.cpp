@@ -41,20 +41,30 @@ void partida::dibuja()
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
 	//glEnable(GL_TEXTURE_2D);
-  //  glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
+    //glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo5.png").id);
 
 	glDisable(GL_LIGHTING);
-	glColor3ub(0, 0, 0);
+	glColor3ub(255, 255, 255);
 	glBegin(GL_POLYGON);
-	glTexCoord2d(0, 1); glVertex3f(-20.0f, -1.0f, -20.0f);
-	glTexCoord2d(1, 1); glVertex3f(-20.0f, -1.0f, 80.0f);
-	glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 80.0f);
-	glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -20.0f);
+	glTexCoord2d(0, 1); glVertex3f(-25.0f, -1.0f, -25.0f);
+	glTexCoord2d(1, 1); glVertex3f(-25.0f, -1.0f, 85.0f);
+	glTexCoord2d(1, 0); glVertex3f(85.0f, -1.0f, 85.0f);
+	glTexCoord2d(0, 0); glVertex3f(85.0f, -1.0f, -25.0f);
 	glEnd();
+
 	glEnable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
+    glColor3ub(0, 0, 0);
+    glBegin(GL_POLYGON);
+    glTexCoord2d(0, 1); glVertex3f(-1.0f, -0.5f, 65.0f);
+    glTexCoord2d(1, 1); glVertex3f(65.0f, -0.5f, 65.0f);
+    glTexCoord2d(1, 0); glVertex3f(65.0f, -0.5f, -1.0f);
+    glTexCoord2d(0, 0); glVertex3f(-1.0f, -0.5f, -1.0f);
+    glEnd();
+    glEnable(GL_LIGHTING);
 
     //Liberar memoria de la textura
-   // glBindTexture(GL_TEXTURE_2D, 0);
+    //glBindTexture(GL_TEXTURE_2D, 0);
 
 	tablero.dibuja();
     piezas.dibuja();
