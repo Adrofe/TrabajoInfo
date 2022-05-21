@@ -40,6 +40,7 @@ private:
 
 	bool jaqueMateBlanco = false;
 	bool jaqueMateNegro = false;
+
 	color colorIA =	NEGRO;
 
 
@@ -56,7 +57,6 @@ public:
 
 	//Constructores
 	ListaPiezas();
-	ListaPiezas(color colorIA);
 	~ListaPiezas();
 
 	void crearPiezas();
@@ -99,6 +99,7 @@ public:
 
 
 	//IA
+	void setColorIA(color colorIA);
 	void algoritmoIA();
 	void algoritmoIAv2(int iteraciones, int profundidad=1);
 	int evaluacion(int fila, int columna);

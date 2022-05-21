@@ -29,19 +29,6 @@ ListaPiezas::ListaPiezas()
 
 }
 
-ListaPiezas::ListaPiezas(color colorIA)
-{
-	this->colorIA = colorIA;
-	crearPiezas();
-
-	for (int i = 0; i < nPiezas; i++) {
-		if (listaPiezas[i]->getColor() == colorIA) {
-
-		}
-	}
-
-}
-
 ListaPiezas::~ListaPiezas()
 {
 	for (int i = 0; i < MAX_PIEZAS; i++){
@@ -926,7 +913,9 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 	pieza1->setFila(fila);
 	pieza1->setColumna(columna);
 
-	if (jaqueBool(BLANCO)) { 
+
+
+	if (jaqueBool(BLANCO)&&(jaqueBlanco!=true)) { 
 
 		//Devolvemos la pieza que se mueve a su posicion original
 		pieza1->setFila(CoordApoyo.getFila());
@@ -942,7 +931,7 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 		jaqueBlanco = FALSE;
 		return false;
 	}
-	if (jaqueBool(NEGRO)) { 
+	if (jaqueBool(NEGRO) && (jaqueNegro != true)) {
 
 		//Devolvemos la pieza que se mueve a su posicion original
 		pieza1->setFila(CoordApoyo.getFila());
@@ -1024,6 +1013,12 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 		
 }
 
+void ListaPiezas::setColorIA(color colorIA)
+{
+	this->colorIA = colorIA;
+	cout << "ColorIA:" << this->colorIA;
+}
+
 void ListaPiezas::algoritmoIA()
 {
 	int puntuacionOptima = -999;
@@ -1033,6 +1028,7 @@ void ListaPiezas::algoritmoIA()
 
 	for (int i = 0; i < nPiezas; i++) {
 		//Recorremos todas las piezas de la IA
+		cout << "Algoritmo IA:" << colorIA << endl;
 		if (listaPiezas[i]->getColor() == colorIA) {
 			movPosibles(listaPiezas[i]);
 			for (int j = 0; j < nPosibles; j++) {
@@ -1069,7 +1065,7 @@ void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
 				for (int k = 1; k < 9; k++) {
 					if (movimientoLegal(listaPiezas[i], j, k)) {
 						int punt;
-						punt = maxi(listaPiezas[i],colorIA, 1, j, k);
+						punt = maxi(listaPiezas[i],colorIA, 0, j, k);
 						if (punt > puntuacionOptima) {
 							puntuacionOptima = punt;
 							fila = j;

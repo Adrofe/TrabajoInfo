@@ -66,6 +66,25 @@ void Coordinador::dibuja()
 		glDisable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+	else if (estado == ELECCION_IA)
+	{
+		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/eleccionIA.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, -1.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, -1.0f, 82.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 82.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -17.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 
 	else if (estado == JAQUEMATE_BLANCO)
 		{
@@ -78,8 +97,8 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/jaqueMateBlanco.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 1); glVertex3f(-10.0f, 3.0f, -17.0f);
-		glTexCoord2d(1, 1); glVertex3f(-10.0f, 3.0f, 82.0f);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, 3.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, 3.0f, 82.0f);
 		glTexCoord2d(1, 0); glVertex3f(70.0f, 3.0f, 82.0f);
 		glTexCoord2d(0, 0); glVertex3f(70.0f, 3.0f, -17.0f);
 		glEnd();
@@ -154,15 +173,6 @@ void Coordinador::mueve() //funcion a modificar para el jaque mate
 	if (estado == JUEGO)
 	{
 		partida.mover();
-		/*if (mundo.getNumEsferas() == 0)
-		{
-			if (!mundo.cargarNivel())
-				estado = FIN;
-		}
-		if (mundo.getImpacto())
-		{
-			estado = GAMEOVER;
-		}*/
 	}
 }
 
@@ -186,9 +196,25 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = JUEGO;
 			partida.inicializa();
 		}
+		if (key == '2') {
+			estado = ELECCION_IA;
+		}
 		if (key == 's' ||  key== 'S' )exit(0);
 
+		// añadir c: cargar, n nuevo etc..
 
+	}
+	if (estado == ELECCION_IA) {
+		if (key == 'B'||key=='b') {
+			estado = JUEGO;
+			partida.setIA(true, BLANCO);
+			partida.inicializa();
+		}
+		if (key == 'N'||key=='n') {
+			estado = JUEGO;
+			partida.setIA(true, NEGRO);
+			partida.inicializa();
+		}
 		// añadir c: cargar, n nuevo etc..
 
 	}
@@ -198,9 +224,7 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == 'p' || key == 'P') {
 			estado = PAUSA;
 		}
-
 		//añadir jaquemate para gameover
-
 	}
 	
 	else if (estado == FIN) {
@@ -217,6 +241,19 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = MODOS;
 		}
 
+	}
+	else if ((estado == JAQUEMATE_BLANCO)|| (estado == JAQUEMATE_NEGRO)) {
+		if (key == 't' || key == 'T') {
+			estado = INICIO;
+			//partida.limpiarTablero();
+			
+		}
+		if (key == 'r' || key == 'R') {
+			partida.limpiarTablero();
+			partida.inicializa();
+			estado = JUEGO;
+		}
+		if (key == 's' || key == 'S') exit(0);
 	}
 }
 

@@ -9,14 +9,17 @@ using namespace std;
 
 class partida
 {
+	bool existeIA = false;
+	bool calculando = false;
+	color colorIA = NEGRO;
+
 public:
 	tablero tablero;
 	ListaPiezas piezas;
 
-	bool existeIA = false;
-	bool calculando = false;
 
-	color colorIA = NEGRO;
+
+
 
 	void inicializa();
 	void mover();
@@ -26,6 +29,11 @@ public:
 
 	bool getJaqueMateBlanco() { return piezas.getJaqueMateBlanco(); }
 	bool getJaqueMateNegro() { return piezas.getJaqueMateNegro(); }
+
+	void setIA(bool IA, color colorIA);
+	void limpiarTablero() {
+		piezas.borrarContenido();
+	}
 	
 	
 
