@@ -33,6 +33,7 @@ void Coordinador::dibuja()
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 	}
 	else if (estado == JUEGO)
@@ -60,15 +61,13 @@ void Coordinador::dibuja()
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	else if (estado == JAQUEMATE_BLANCO)
 		{
+
 		partida.dibuja();
-		ETSIDI::setTextColor(1, 0, 0);
-		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
-		ETSIDI::printxy("JAQUE MATE: Has perdido", -5, 10);
-		ETSIDI::printxy("Pulsa -C- para continuar", -5, 5);
 	}
 	else if (estado == FIN)
 	{
@@ -78,21 +77,27 @@ void Coordinador::dibuja()
 		ETSIDI::printxy("Pulsa -C- para continuar", -5, 9);
 	}
 	else if (estado == PAUSA) {
+
 		
 
+		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+		glColor3f(255, 255, 255);
+
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/Modos.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
 		glDisable(GL_LIGHTING);
-		glColor3ub(0, 0, 0);
 		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 1); glVertex3f(100, 20, 100);
-		glTexCoord2d(1, 1); glVertex3f(100, 20, 400);
-		glTexCoord2d(1, 0); glVertex3f(400, 20, 400);
-		glTexCoord2d(0, 0); glVertex3f(400 , 20, 100);
+		glTexCoord2d(0, 1); glVertex3f(-10.0f, 3.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-10.0f, 3.0f, 82.0f);
+		glTexCoord2d(1, 0); glVertex3f(70.0f, 3.0f, 82.0f);
+		glTexCoord2d(0, 0); glVertex3f(70.0f, 3.0f, -17.0f);
 		glEnd();
 		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
-		//partida.dibuja();
 	}
 }
 
