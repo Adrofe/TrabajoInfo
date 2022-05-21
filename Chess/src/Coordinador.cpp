@@ -66,6 +66,25 @@ void Coordinador::dibuja()
 		glDisable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+	else if (estado == ELECCION_IA)
+	{
+		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/eleccionIA.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 1); glVertex3f(-5.0f, -1.0f, -17.0f);
+		glTexCoord2d(1, 1); glVertex3f(-5.0f, -1.0f, 82.0f);
+		glTexCoord2d(1, 0); glVertex3f(80.0f, -1.0f, 82.0f);
+		glTexCoord2d(0, 0); glVertex3f(80.0f, -1.0f, -17.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 
 	else if (estado == JAQUEMATE_BLANCO)
 		{
@@ -186,9 +205,26 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = JUEGO;
 			partida.inicializa();
 		}
+		if (key == '2') {
+			estado = ELECCION_IA;
+		}
 		if (key == 's' ||  key== 'S' )exit(0);
 
 
+		// añadir c: cargar, n nuevo etc..
+
+	}
+	if (estado == ELECCION_IA) {
+		if (key == 'B'||key=='b') {
+			estado = JUEGO;
+			partida.setIA(true, BLANCO);
+			partida.inicializa();
+		}
+		if (key == 'N'||key=='n') {
+			estado = JUEGO;
+			partida.setIA(true, NEGRO);
+			partida.inicializa();
+		}
 		// añadir c: cargar, n nuevo etc..
 
 	}

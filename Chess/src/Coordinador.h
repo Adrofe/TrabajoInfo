@@ -18,7 +18,7 @@ public:
 
 protected:
 	partida partida;
-	enum Estado { INICIO, MODOS, JUEGO, PAUSA, FIN, JAQUEMATE_BLANCO, JAQUEMATE_NEGRO };
+	enum Estado { INICIO, MODOS, JUEGO, PAUSA, FIN, JAQUEMATE_BLANCO, JAQUEMATE_NEGRO, ELECCION_IA };
 	Estado estado;
 private:
 	bool modoMusica=false;

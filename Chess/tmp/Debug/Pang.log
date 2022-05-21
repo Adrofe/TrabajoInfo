@@ -1,17 +1,6 @@
-<<<<<<< Updated upstream
-﻿  tablero.cpp
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(102,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(103,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(105,63): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(133,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(134,39): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\src\tablero.cpp(136,63): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-  Pang.vcxproj -> C:\Users\Usuario\Documents\Informatica Industrial\TrabajoInfo\Chess\bin\Chess.exe
-=======
 ﻿  ListaPiezas.cpp
 D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(841,9): warning C4101: 'aux': variable local sin referencia
 D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(874,9): warning C4101: 'aux': variable local sin referencia
 D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(485): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
 D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(1014): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
   Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe
->>>>>>> Stashed changes

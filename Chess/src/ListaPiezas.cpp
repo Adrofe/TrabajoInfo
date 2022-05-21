@@ -1016,6 +1016,7 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 void ListaPiezas::setColorIA(color colorIA)
 {
 	this->colorIA = colorIA;
+	cout << "ColorIA:" << this->colorIA;
 }
 
 void ListaPiezas::algoritmoIA()
@@ -1027,6 +1028,7 @@ void ListaPiezas::algoritmoIA()
 
 	for (int i = 0; i < nPiezas; i++) {
 		//Recorremos todas las piezas de la IA
+		cout << "Algoritmo IA:" << colorIA << endl;
 		if (listaPiezas[i]->getColor() == colorIA) {
 			movPosibles(listaPiezas[i]);
 			for (int j = 0; j < nPosibles; j++) {
@@ -1063,7 +1065,7 @@ void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
 				for (int k = 1; k < 9; k++) {
 					if (movimientoLegal(listaPiezas[i], j, k)) {
 						int punt;
-						punt = maxi(listaPiezas[i],colorIA, 1, j, k);
+						punt = maxi(listaPiezas[i],colorIA, 0, j, k);
 						if (punt > puntuacionOptima) {
 							puntuacionOptima = punt;
 							fila = j;

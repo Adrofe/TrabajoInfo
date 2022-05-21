@@ -24,7 +24,7 @@ void partida::mover()
             if (calculando == false) {
                 std::cout<<endl<<"--------------------------------------------------------------------------------"<<endl<<"Entramos al calculo" << endl;
                 calculando = true;
-                piezas.algoritmoIA();;
+                piezas.algoritmoIA();
                 
             }
         }
@@ -97,12 +97,6 @@ void partida::mouse(int button, int state, int x, int y)
         piezas.moverPieza(aux, fila, columna);
         piezas.si = false;
 
-        /*
-        if (existeIA) {
-            piezas.algoritmoIAv2(50000);
-        }
-        */
-
     }
 }
 
@@ -145,6 +139,7 @@ void partida::getColFilMouse(int x, int y, int &fila, int &columna)
 void partida::setIA(bool IA, color colorIA)
 {
     existeIA = IA;
+    this->colorIA = colorIA;
     piezas.setColorIA(colorIA);
 }
 
