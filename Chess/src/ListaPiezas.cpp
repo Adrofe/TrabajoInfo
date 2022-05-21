@@ -5,9 +5,12 @@
 ListaPiezas::ListaPiezas()
 {
 
-
+	borrarContenido();
 	crearPiezas();
 
+
+
+	
 	ofstream archivo;//modo escritura
 	
 	archivo.open("Historial.txt", ios::out);//abrir archivo llamado Historial.txt, si este archivo ya existe, se reemplaza, es decir que cada vez que juguemos una partida nueva se borrará el contenido de la anterior
@@ -23,6 +26,7 @@ ListaPiezas::ListaPiezas()
 	archivo.close();//cerramos el archivo
 
 	cout << "Score:"<<evaluacionCompleta()<< endl;
+
 }
 
 ListaPiezas::ListaPiezas(color colorIA)
@@ -129,11 +133,12 @@ void ListaPiezas::crearPiezas()
 	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
 
 
-
+	
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
 		listaPiezas[i] = 0;
 	}
+	
 
 	agregarPieza(FANTASMA_ARRIBA);
 	agregarPieza(rey1);
@@ -169,7 +174,6 @@ void ListaPiezas::crearPiezas()
 	agregarPieza(peon15);
 	agregarPieza(peon16);
 	agregarPieza(FANTASMA_ABAJO);
-
 
 	// inicializamos los booleamos de jaque a false
 	jaqueBlanco = false;
@@ -300,7 +304,6 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 				//Comprobamos si el movimiento es legal
 				
 				if (movimientoLegal(pieza1, fila, columna)) {
-					//if (comerPieza(pieza1, fila, columna)) eliminar(listaPiezas[indexDes]);	BORRAR
 
 					enroque(pieza1, fila, columna);
 					anularEnroque(pieza1, fila, columna);
@@ -311,11 +314,10 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					ETSIDI::play("sonidos/movimiento.mp3"); //sonido de movimiento de pieza
 
 					eliminar(listaPiezas[indexDes]);
-					//movimiento = pieza1->guardarHistorial(fila,columna);
-					//char fil = fila;
-					//char col = columna;
+	
+	
 					pieza1->guardarHistorial(fila,columna);
-					//archivo << movimiento << " ";
+	
 					jaque(BLANCO);
 					jaque(NEGRO);
 

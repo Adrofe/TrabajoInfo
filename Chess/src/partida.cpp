@@ -9,7 +9,9 @@ void partida::inicializa()
 	z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
-
+ 
+    piezas.borrarContenido();
+    piezas.crearPiezas();
 
 }
 
@@ -22,7 +24,7 @@ void partida::mover()
             if (calculando == false) {
                 std::cout<<endl<<"--------------------------------------------------------------------------------"<<endl<<"Entramos al calculo" << endl;
                 calculando = true;
-                piezas.algoritmoIAv2(20000);;
+                piezas.algoritmoIA();;
                 
             }
         }

@@ -43,6 +43,5 @@ public:
 	virtual tipo_pieza getTipo() { return tipo; }
 	int getValor() { return valor; }
 	virtual int getValorPos(int fila, int columna)=0;
-
 };
 

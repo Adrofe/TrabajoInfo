@@ -91,6 +91,8 @@ public:
 	bool jaquePosible(pieza* pieza,int fila, int columna);
 	bool jaqueMate(color color);
 
+	bool getJaqueMateBlanco() { return jaqueMateBlanco; }
+	bool getJaqueMateNegro() { return jaqueMateNegro; }
 
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);

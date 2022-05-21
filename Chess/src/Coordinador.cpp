@@ -16,8 +16,9 @@ Coordinador::~Coordinador()
 void Coordinador::dibuja()
 {
 	if (estado == INICIO) {
+
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
-			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+			32.0, 0.0, 32.0, // hacia que punto mira (32.0,0.0,32.0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
 
 		glEnable(GL_TEXTURE_2D);
@@ -32,6 +33,7 @@ void Coordinador::dibuja()
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
+
 	}
 	else if (estado == JUEGO)
 	{
@@ -60,7 +62,7 @@ void Coordinador::dibuja()
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	else if (estado == GAMEOVER)
+	else if (estado == JAQUEMATE_BLANCO)
 		{
 		partida.dibuja();
 		ETSIDI::setTextColor(1, 0, 0);
@@ -75,18 +77,38 @@ void Coordinador::dibuja()
 		ETSIDI::printxy("ENHORABUENA, ¡Has ganado!", -5, 10);
 		ETSIDI::printxy("Pulsa -C- para continuar", -5, 9);
 	}
+	else if (estado == PAUSA) {
+		
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/Modos.png").id);
+		glDisable(GL_LIGHTING);
+		glColor3ub(0, 0, 0);
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 1); glVertex3f(100, 20, 100);
+		glTexCoord2d(1, 1); glVertex3f(100, 20, 400);
+		glTexCoord2d(1, 0); glVertex3f(400, 20, 400);
+		glTexCoord2d(0, 0); glVertex3f(400 , 20, 100);
+		glEnd();
+		glEnable(GL_LIGHTING);
+
+		//partida.dibuja();
+	}
 }
 
 void Coordinador::mouse(int button, int state, int x, int y)
 {
-	partida.mouse(button, state, x, y);	
+	if (estado != PAUSA) {
+		partida.mouse(button, state, x, y);
+	}
+
 }
 
 void Coordinador::mueve() //funcion a modificar para el jaque mate
 {
 	if (estado == JUEGO)
 	{
-		//partida.mover();
+		partida.mover();
 		/*if (mundo.getNumEsferas() == 0)
 		{
 			if (!mundo.cargarNivel())
@@ -128,19 +150,28 @@ void Coordinador::Tecla(unsigned char key) {
 	else if (estado == JUEGO) {
 		if (key == 's' || key == 'S')exit(0);
 
-		if (key == 'p') {
-			//estado = PAUSA;
+		if (key == 'p' || key == 'P') {
+			estado = PAUSA;
 		}
 
 		//añadir jaquemate para gameover
 
 	}
 	
-	else if (estado == GAMEOVER) {
+	else if (estado == FIN) {
 		if (key == 'c')estado = INICIO;
 	}
 	else if (estado == FIN) {
 		if (key == 'c')estado = INICIO;
+	}
+	else if (estado == PAUSA) {
+		if (key == 'p' || key == 'P') {
+			estado = JUEGO;
+		}
+		if (key == 'r' || key == 'R') {
+			estado = MODOS;
+		}
+
 	}
 }
 

@@ -17,23 +17,20 @@ public:
 	bool calculando = false;
 
 	color colorIA = NEGRO;
-	
-	friend class IA;
 
-
-	void tecla(unsigned char key);
 	void inicializa();
 	void mover();
 	void dibuja();
 	void mouse(int button, int state, int x, int y);
 	void getColFilMouse(int x, int y, int &fila, int &columna);
+
+	bool getJaqueMateBlanco() { return piezas.getJaqueMateBlanco(); }
+	bool getJaqueMateNegro() { return piezas.getJaqueMateNegro(); }
 	
 	
 
 	float x_ojo;
 	float y_ojo;
 	float z_ojo;
-
-	friend class Interaccion;
 };
 
