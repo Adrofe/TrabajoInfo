@@ -31,6 +31,9 @@ public:
 	bool getJaqueMateNegro() { return piezas.getJaqueMateNegro(); }
 
 	void setIA(bool IA, color colorIA);
+	void limpiarTablero() {
+		piezas.borrarContenido();
+	}
 	
 	
 

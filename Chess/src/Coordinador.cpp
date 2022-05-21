@@ -173,15 +173,6 @@ void Coordinador::mueve() //funcion a modificar para el jaque mate
 	if (estado == JUEGO)
 	{
 		partida.mover();
-		/*if (mundo.getNumEsferas() == 0)
-		{
-			if (!mundo.cargarNivel())
-				estado = FIN;
-		}
-		if (mundo.getImpacto())
-		{
-			estado = GAMEOVER;
-		}*/
 	}
 }
 
@@ -210,7 +201,6 @@ void Coordinador::Tecla(unsigned char key) {
 		}
 		if (key == 's' ||  key== 'S' )exit(0);
 
-
 		// añadir c: cargar, n nuevo etc..
 
 	}
@@ -234,9 +224,7 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == 'p' || key == 'P') {
 			estado = PAUSA;
 		}
-
 		//añadir jaquemate para gameover
-
 	}
 	
 	else if (estado == FIN) {
@@ -253,6 +241,19 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = MODOS;
 		}
 
+	}
+	else if ((estado == JAQUEMATE_BLANCO)|| (estado == JAQUEMATE_NEGRO)) {
+		if (key == 't' || key == 'T') {
+			estado = INICIO;
+			//partida.limpiarTablero();
+			
+		}
+		if (key == 'r' || key == 'R') {
+			partida.limpiarTablero();
+			partida.inicializa();
+			estado = JUEGO;
+		}
+		if (key == 's' || key == 'S') exit(0);
 	}
 }
 
