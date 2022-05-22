@@ -201,10 +201,10 @@ void ListaPiezas::crearAjedrez960()
 		int fila = 0;
 		int columna = 0;
 		do {
-			fila = ETSIDI::lanzaDado(8);
-			columna = ETSIDI::lanzaDado(8);
+			if (color == BLANCO)fila = 1;
+			if (color == NEGRO) fila = 8;
+			columna = ETSIDI::lanzaDado(9);
 		} while ((mirarCasilla(fila, columna) == true));
-		cout << "Fila: " << fila << " Columna: " << columna << endl;
 		coordenada coord(fila, columna);
 		if (i < 2) {
 			rey* aux = new rey(color, coord);
@@ -223,10 +223,10 @@ void ListaPiezas::crearAjedrez960()
 		int fila = 0;
 		int columna = 0;
 		do {
-			fila = ETSIDI::lanzaDado(8);
-			columna = ETSIDI::lanzaDado(8);
+			if (color == BLANCO) fila = 1;
+			if (color == NEGRO) fila = 8;
+			columna = ETSIDI::lanzaDado(9);
 		} while ((mirarCasilla(fila, columna) == true));
-		cout << "Fila: " << fila << " Columna: " << columna << endl;
 		coordenada coord(fila, columna);
 		if (i < 4) {
 			Alfil* aux = new Alfil(color, coord);
