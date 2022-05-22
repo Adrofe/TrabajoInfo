@@ -12,6 +12,16 @@ void partida::inicializa()
     piezas.cargarPartida(nombreFichero);
 }
 
+void partida::inicializaAleatoriamente()
+{
+    x_ojo = 31.9f;
+    y_ojo = 100.0f;
+    z_ojo = 32.0f;
+
+    ETSIDI::play("sonidos/inicioPartida.mp3");
+    piezas.crearPiezasAleatoriamente();
+}
+
 void partida::mover()
 {
     //Si tenemos IA, si el turno es el de la IA y no está ya calculando, ejecutamos el algoritmo

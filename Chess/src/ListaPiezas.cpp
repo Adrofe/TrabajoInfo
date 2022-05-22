@@ -161,6 +161,74 @@ void ListaPiezas::crearPiezas()
 	jaqueNegro  = false;
 }
 
+void ListaPiezas::crearPiezasAleatoriamente()
+{
+	borrarContenido();
+	jaqueMateBlanco = false;
+	jaqueMateNegro = false;
+
+	coordenada fantasma("z", 100);
+	//creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma); 
+	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
+
+	coordenada coordRey1("e", 1);
+	coordenada coordRey2("e", 8);
+
+	rey* reyBlanco = new rey(BLANCO, coordRey1);
+	rey* reyNegro = new rey(NEGRO, coordRey2);
+
+	agregarPieza(FANTASMA_ARRIBA);
+	agregarPieza(reyBlanco);
+	agregarPieza(reyNegro);
+
+	color color = BLANCO;
+	int intFila = 1;
+	int intColumna = 1;
+
+
+	for (int i = 0; i < 32; i++) {
+		int random = ETSIDI::lanzaDado(5);
+		coordenada aux(intFila, intColumna);
+
+		if (((intFila == 1) && (intColumna == 5))||((intFila == 8) && (intColumna == 5))) {
+		}
+		else {
+			if (random == 1) {
+				Alfil* piezaAux = new Alfil(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (random == 2) {
+				caballo* piezaAux = new caballo(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (random == 3) {
+				Peon* piezaAux = new Peon(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (random == 4) {
+				reina* piezaAux = new reina(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (random == 5) {
+				Torre* piezaAux = new Torre(color, aux);
+				agregarPieza(piezaAux);
+			}
+		}
+		if (intColumna == 8) {
+			if ((intFila == 2) && (intColumna == 8)) color = NEGRO;
+			intFila++;
+			if (intFila == 3) {
+				intFila = 7;
+			}
+			intColumna = 0;
+		}
+		intColumna++;
+	}
+	
+	agregarPieza(FANTASMA_ABAJO);
+}
+
 bool ListaPiezas::agregarPieza(pieza* pieza)
 {
 	if (nPiezas < MAX_PIEZAS) {
@@ -288,6 +356,9 @@ void ListaPiezas::guardarHistorial()
 
 void ListaPiezas::cargarPartida(string nombreFichero)
 {
+	jaqueMateBlanco = false;
+	jaqueMateNegro = false;
+
 	borrarContenido();
 	ifstream arc;
 	string texto = nombreFichero;

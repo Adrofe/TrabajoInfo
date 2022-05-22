@@ -65,6 +65,7 @@ public:
 
 	//Agregar y eliminar piezas
 	void crearPiezas();
+	void crearPiezasAleatoriamente();
 	bool agregarPieza(pieza* pieza);
 	void eliminar(int index);
 	void eliminar(pieza* pieza);

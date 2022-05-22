@@ -25,7 +25,8 @@ public:
 	float y_ojo;
 	float z_ojo;
 
-	void inicializa();													
+	void inicializa();
+	void inicializaAleatoriamente();
 	void mover();
 	void dibuja();
 	

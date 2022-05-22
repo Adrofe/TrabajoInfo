@@ -1,1 +1,1 @@
-e4 e5 d3 d5 Nf3 Nf6 Be2 Bc5 Kg1 Kg8 Kh1 Kh8 Kg1 Kg8 Kh1 Kh8 Kg1 Kg8 
+Qa7 Qa7 Qa7 Qd2 Qd2 Qe2 Qe2 Be6 Qe6 Qe6 Qe2 Qe2 Qe2 Be5 Qe5 Be5 Qe5 Be6 Qe6 d4 e5 e5 Nh6 e6 e6 e4 e5 Nc3 

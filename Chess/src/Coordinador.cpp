@@ -212,6 +212,10 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == '2') {
 			estado = ELECCION_IA;
 		}
+		if (key == '3') {
+			estado = JUEGO;
+			partida.inicializaAleatoriamente();
+		}
 		if (key == 's' ||  key== 'S' )exit(0);
 		if (key == 'c' || key == 'C') {
 			cout << "Introduzca el nombre del fichero con la extension .txt:";
@@ -219,6 +223,7 @@ void Coordinador::Tecla(unsigned char key) {
 			cin >> nombre;
 			partida.setFichero(nombre);
 		}
+
 	}
 
 	if (estado == ELECCION_IA) {
