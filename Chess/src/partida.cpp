@@ -19,9 +19,29 @@ void partida::inicializaAleatoriamente()
     z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
-    //piezas.crearPiezasAleatoriamente();
+    piezas.crearPiezasAleatoriamente();
+}
+
+void partida::inicializaAjedrez960()
+{
+    x_ojo = 31.9f;
+    y_ojo = 100.0f;
+    z_ojo = 32.0f;
+
+    ETSIDI::play("sonidos/inicioPartida.mp3");
+    piezas.crearPiezasAleatoriamente();
     //piezas.crearMismoTipo(PEON);
     piezas.crearAjedrez960();
+}
+
+void partida::inicializaTipo(tipo_pieza tipo)
+{
+    x_ojo = 31.9f;
+    y_ojo = 100.0f;
+    z_ojo = 32.0f;
+
+    ETSIDI::play("sonidos/inicioPartida.mp3");
+    piezas.crearMismoTipo(tipo);
 }
 
 void partida::mover()

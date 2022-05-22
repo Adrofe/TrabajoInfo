@@ -55,6 +55,7 @@ public:
 	color proximoTurno = BLANCO;
 
 	tipo_pieza tipo_promocion;
+	tipo_pieza modo_loco;
 	bool promocionar;
 
 	pieza* apuntar;

@@ -27,6 +27,8 @@ public:
 
 	void inicializa();
 	void inicializaAleatoriamente();
+	void inicializaAjedrez960();
+	void inicializaTipo(tipo_pieza tipo);
 	void mover();
 	void dibuja();
 	

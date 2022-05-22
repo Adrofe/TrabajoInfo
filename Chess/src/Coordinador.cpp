@@ -173,6 +173,27 @@ void Coordinador::dibuja()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	}
+	else if (estado == MODOS_LOCO) {
+
+	gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+		32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+		0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+	glColor3f(255, 255, 255);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/loco.png").id);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glTexCoord2d(0, 1); glVertex3f(0.0f, 3.0f, -17.0f);
+	glTexCoord2d(1, 1); glVertex3f(0.0f, 3.0f, 82.0f);
+	glTexCoord2d(1, 0); glVertex3f(70.0f, 3.0f, 82.0f);
+	glTexCoord2d(0, 0); glVertex3f(70.0f, 3.0f, -17.0f);
+	glEnd();
+	glEnable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	}
 }
 
 void Coordinador::mouse(int button, int state, int x, int y)
@@ -196,7 +217,7 @@ void Coordinador::Tecla(unsigned char key) {
 		musica();
 	}
 
-	if (estado == INICIO) {
+	else if (estado == INICIO) {
 
 		if (key == 'e' ||  key== 'E') {
 			estado = MODOS;
@@ -204,7 +225,7 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == 's' ||  key== 'S' )exit(0);
 	}
 
-	if (estado == MODOS) {
+	else if (estado == MODOS) {
 		if (key == '1') {
 			estado = JUEGO;
 			partida.inicializa();
@@ -213,8 +234,7 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = ELECCION_IA;
 		}
 		if (key == '3') {
-			estado = JUEGO;
-			partida.inicializaAleatoriamente();
+			estado = MODOS_LOCO;
 		}
 		if (key == 's' ||  key== 'S' )exit(0);
 		if (key == 'c' || key == 'C') {
@@ -226,7 +246,7 @@ void Coordinador::Tecla(unsigned char key) {
 
 	}
 
-	if (estado == ELECCION_IA) {
+	else if (estado == ELECCION_IA) {
 		if (key == 'B'||key=='b') {
 			estado = JUEGO;
 			partida.setIA(true, BLANCO);
@@ -304,6 +324,39 @@ void Coordinador::Tecla(unsigned char key) {
 			partida.promocionar(TORRE);
 			estado = JUEGO;
 
+		}
+	}
+	else if (estado == MODOS_LOCO) {
+		if (key == '1') {
+			estado = JUEGO;
+			partida.inicializaAjedrez960();
+		}
+		else if (key == '2') {
+			estado = JUEGO;
+			partida.inicializaAleatoriamente();
+		}
+		else if (key == '3') {
+			estado = JUEGO;
+			partida.inicializaTipo(REINA);
+		}
+		else if (key == '4') {
+			estado = JUEGO;
+			partida.inicializaTipo(ALFIL);
+		}
+		else if (key == '5') {
+			estado = JUEGO;
+			partida.inicializaTipo(TORRE);
+		}
+		else if (key == '6') {
+			estado = JUEGO;
+			partida.inicializaTipo(PEON);
+		}
+		else if (key == '7') {
+			estado = JUEGO;
+			partida.inicializaTipo(CABALLO);
+		}
+		else if (key == 't' || key == 'T') {
+			estado = MODOS;
 		}
 	}
 }
