@@ -213,6 +213,12 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = ELECCION_IA;
 		}
 		if (key == 's' ||  key== 'S' )exit(0);
+		if (key == 'c' || key == 'C') {
+			cout << "Introduzca el nombre del fichero con la extension .txt:";
+			string nombre;
+			cin >> nombre;
+			partida.setFichero(nombre);
+		}
 	}
 
 	if (estado == ELECCION_IA) {
@@ -245,6 +251,12 @@ void Coordinador::Tecla(unsigned char key) {
 		}
 		if (key == 'g' || key == 'G') {
 			partida.guardarPartida();
+		}
+		if (key == 't' || key == 'T') {
+			estado = INICIO;
+		}
+		if (key == 's' || key == 'S') {
+			exit(0);
 		}
 	}
 

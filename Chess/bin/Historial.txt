@@ -1,1 +1,1 @@
-d4 c6 h3 Qa5 Kd2 Nf6 g3 g6 h4 Bh6 Rh2 b6 c3 Ba6 b3 c5 b4 Nc6 e3 Kc8 
+Qa5 d5 e7 Qd5 a2 Nd5 Nf6 Nf6 f5 Be3 f4 Bf4 Nc6 Kc1 Nb4 Kb1 Nc2 Kc2 Bd7 Rd7 Kd7 Kb1 Rc8 Ka1 Rc1 Bf1 Bc5 Kb1 Re8 Ka1 Re1 Kb1 Rf1 Ka1 Rc1 

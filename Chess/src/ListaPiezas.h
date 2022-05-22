@@ -72,7 +72,7 @@ public:
 
 	void guardarPartida();
 
-	void cargarPartida();
+	void cargarPartida(string nombreFichero);
 
 	void dibuja();
 

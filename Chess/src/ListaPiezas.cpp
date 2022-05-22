@@ -252,10 +252,10 @@ void ListaPiezas::guardarPartida()
 	partida.close();
 }
 
-void ListaPiezas::cargarPartida()
+void ListaPiezas::cargarPartida(string nombreFichero)
 {
 	ifstream arc;
-	string texto ="ESTANDAR.txt";
+	string texto = nombreFichero;
 	char caracter;
 	char letra;
 	int fila;
@@ -265,8 +265,12 @@ void ListaPiezas::cargarPartida()
 	color col;
 	pieza* aux;
 
-	//cout << "Introduzca nombre de la partida que desea cargar:";
-	//getline(cin, texto);
+	//Creamos las piezas fantasmas para evitar algunos bugs:
+	coordenada c("z", 100);
+	pieza* fantasma1 = new Peon(NONE, c);
+	pieza* fantasma2 = new Peon(NONE, c);
+	
+
 	arc.open(texto.c_str(), ios::in);
 
 	if (arc.fail()) {
@@ -279,6 +283,8 @@ void ListaPiezas::cargarPartida()
 
 		listaPiezas[i] = 0;
 	}
+
+	agregarPieza(fantasma1);
 
 	do{
 		arc.get(caracter);
@@ -340,6 +346,9 @@ void ListaPiezas::cargarPartida()
 
 
 	arc.close();
+
+	//Despues de que se creen todas las piezas metemos al segundo fantasma:
+	agregarPieza(fantasma2);
 
 }
 
@@ -767,7 +776,7 @@ bool ListaPiezas::comprobarReina(pieza* pieza, int fila, int columna)
 
 	//Misma columna
 	if (pieza->getCoordenada().getColumna() == destino.getColumna()) {
-		return comprobarTorre(pieza, fila, columna);;
+		return comprobarTorre(pieza, fila, columna);
 	}
 
 	return true;

@@ -10,7 +10,7 @@ void partida::inicializa()
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
     //piezas.crearPiezas();
-    piezas.cargarPartida();
+    piezas.cargarPartida(nombreFichero);
 }
 
 void partida::mover()
