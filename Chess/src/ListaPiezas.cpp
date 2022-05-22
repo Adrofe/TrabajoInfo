@@ -31,136 +31,6 @@ ListaPiezas::~ListaPiezas()
 	nPiezas = 0;
 }
 
-void ListaPiezas::crearPiezas()
-{
-
-	proximoTurno = BLANCO;
-
-	coordenada c1("a", 2);
-	coordenada c2("b", 2);
-	coordenada c3("c", 2);
-	coordenada c4("d", 2);
-	coordenada c5("e", 2);
-	coordenada c6("f", 2);
-	coordenada c7("g", 2);
-	coordenada c8("h", 2);
-	coordenada c9("a", 1);
-	coordenada c10("b", 1);
-	coordenada c11("c", 1);
-	coordenada c12("d", 1);
-	coordenada c13("e", 1);
-	coordenada c14("f", 1);
-	coordenada c15("g", 1);
-	coordenada c16("h", 1);
-
-	coordenada c17("a", 7);
-	coordenada c18("b", 7);
-	coordenada c19("c", 7);
-	coordenada c20("d", 7);
-	coordenada c21("e", 7);
-	coordenada c22("f", 7);
-	coordenada c23("g", 7);
-	coordenada c24("h", 7);
-	coordenada c25("a", 8);
-	coordenada c26("b", 8);
-	coordenada c27("c", 8);
-	coordenada c28("d", 8);
-	coordenada c29("e", 8);
-	coordenada c30("f", 8);
-	coordenada c31("g", 8);
-	coordenada c32("h", 8);
-
-	coordenada fantasma("z", 100);
-
-
-
-	rey* rey1 = new rey(BLANCO, c13);
-	rey* rey2 = new rey(NEGRO, c29);
-
-	reina* reina1 = new reina(BLANCO, c12);
-	reina* reina2 = new reina(NEGRO, c28);
-
-	caballo* caballo1 = new caballo(BLANCO, c10);
-	caballo* caballo2 = new caballo(BLANCO, c15);
-	caballo* caballo3 = new caballo(NEGRO, c26);
-	caballo* caballo4 = new caballo(NEGRO, c31);
-
-	Alfil* alfil1 = new Alfil(BLANCO, c11);
-	Alfil* alfil2 = new Alfil(BLANCO, c14);
-	Alfil* alfil3 = new Alfil(NEGRO, c27);
-	Alfil* alfil4 = new Alfil(NEGRO, c30);
-
-	Torre* torre1 = new Torre(BLANCO, c9);
-	Torre* torre2 = new Torre(BLANCO, c16);
-	Torre* torre3 = new Torre(NEGRO, c25);
-	Torre* torre4 = new Torre(NEGRO, c32);
-
-
-	Peon* peon1 = new Peon(BLANCO, c1);
-	Peon* peon2 = new Peon(BLANCO, c2);
-	Peon* peon3 = new Peon(BLANCO, c3);
-	Peon* peon4 = new Peon(BLANCO, c4);
-	Peon* peon5 = new Peon(BLANCO, c5);
-	Peon* peon6 = new Peon(BLANCO, c6);
-	Peon* peon7 = new Peon(BLANCO, c7);
-	Peon* peon8 = new Peon(BLANCO, c8);
-	Peon* peon9 = new Peon(NEGRO, c19);
-	Peon* peon10 = new Peon(NEGRO, c20);
-	Peon* peon11 = new Peon(NEGRO, c21);
-	Peon* peon12 = new Peon(NEGRO, c22);
-	Peon* peon13 = new Peon(NEGRO, c23);
-	Peon* peon14 = new Peon(NEGRO, c24);
-	Peon* peon15 = new Peon(NEGRO, c17);
-	Peon* peon16 = new Peon(NEGRO, c18);
-
-	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
-	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
-
-	for (int i = 0; i < MAX_PIEZAS; i++) {
-
-		listaPiezas[i] = 0;
-	}
-
-	agregarPieza(FANTASMA_ARRIBA);
-	agregarPieza(rey1);
-	agregarPieza(rey2);
-	agregarPieza(caballo1);
-	agregarPieza(caballo2);
-	agregarPieza(caballo3);
-	agregarPieza(caballo4);
-	agregarPieza(torre1);
-	agregarPieza(torre2);
-	agregarPieza(torre3);
-	agregarPieza(torre4);
-	agregarPieza(alfil1);
-	agregarPieza(alfil2);
-	agregarPieza(alfil3);
-	agregarPieza(alfil4);
-	agregarPieza(reina1);
-	agregarPieza(reina2);
-	agregarPieza(peon1);
-	agregarPieza(peon2);
-	agregarPieza(peon3);
-	agregarPieza(peon4);
-	agregarPieza(peon5);
-	agregarPieza(peon6);
-	agregarPieza(peon7);
-	agregarPieza(peon8);
-	agregarPieza(peon9);
-	agregarPieza(peon10);
-	agregarPieza(peon11);
-	agregarPieza(peon12);
-	agregarPieza(peon13);
-	agregarPieza(peon14);
-	agregarPieza(peon15);
-	agregarPieza(peon16);
-	agregarPieza(FANTASMA_ABAJO);
-
-	// inicializamos los booleamos de jaque a false
-	jaqueBlanco = false;
-	jaqueNegro  = false;
-}
-
 void ListaPiezas::crearPiezasAleatoriamente()
 {
 	borrarContenido();
@@ -227,6 +97,153 @@ void ListaPiezas::crearPiezasAleatoriamente()
 	}
 	
 	agregarPieza(FANTASMA_ABAJO);
+}
+
+void ListaPiezas::crearMismoTipo(tipo_pieza tipo)
+{
+	borrarContenido();
+	jaqueMateBlanco = false;
+	jaqueMateNegro = false;
+
+	coordenada fantasma("z", 100);
+	//creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma);
+	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
+
+	coordenada coordRey1("e", 1);
+	coordenada coordRey2("e", 8);
+
+	rey* reyBlanco = new rey(BLANCO, coordRey1);
+	rey* reyNegro = new rey(NEGRO, coordRey2);
+
+	agregarPieza(FANTASMA_ARRIBA);
+	agregarPieza(reyBlanco);
+	agregarPieza(reyNegro);
+
+	color color = BLANCO;
+	int intFila = 1;
+	int intColumna = 1;
+
+
+	for (int i = 0; i < 32; i++) {
+		coordenada aux(intFila, intColumna);
+
+		if (((intFila == 1) && (intColumna == 5)) || ((intFila == 8) && (intColumna == 5))) {
+		}
+		else {
+			if (tipo == ALFIL) {
+				Alfil* piezaAux = new Alfil(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (tipo == CABALLO) {
+				caballo* piezaAux = new caballo(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (tipo == PEON) {
+				Peon* piezaAux = new Peon(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (tipo == REINA) {
+				reina* piezaAux = new reina(color, aux);
+				agregarPieza(piezaAux);
+			}
+			else if (tipo == TORRE) {
+				Torre* piezaAux = new Torre(color, aux);
+				agregarPieza(piezaAux);
+			}
+		}
+		if (intColumna == 8) {
+			if ((intFila == 2) && (intColumna == 8)) color = NEGRO;
+			intFila++;
+			if (intFila == 3) {
+				intFila = 7;
+			}
+			intColumna = 0;
+		}
+		intColumna++;
+	}
+
+	agregarPieza(FANTASMA_ABAJO);
+}
+
+void ListaPiezas::crearAjedrez960()
+{
+	borrarContenido();
+	jaqueMateBlanco = false;
+	jaqueMateNegro = false;
+
+	coordenada fantasma("z", 100);
+	//creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
+	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma);
+	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
+	color color = BLANCO;
+
+	agregarPieza(FANTASMA_ARRIBA);
+
+	for (int i = 0; i < 2; i++) {
+		for (int j = 1; j < 9; j++) {
+			int fila = 1;
+			if (i == 0) { fila = 2; }
+			else fila = 7;
+			if (i == 1) color = NEGRO;
+			coordenada coord(fila, j);
+
+			Peon* peon = new Peon(color, coord);
+			agregarPieza(peon);
+		}
+	}
+	//Creamos reyes y reinas
+	for (int i = 0; i < 4; i++) {
+		if (i % 2) {
+			color = BLANCO;
+		}
+		else color = NEGRO;
+		int fila = 0;
+		int columna = 0;
+		do {
+			fila = ETSIDI::lanzaDado(8);
+			columna = ETSIDI::lanzaDado(8);
+		} while ((mirarCasilla(fila, columna) == true));
+		cout << "Fila: " << fila << " Columna: " << columna << endl;
+		coordenada coord(fila, columna);
+		if (i < 2) {
+			rey* aux = new rey(color, coord);
+			agregarPieza(aux);
+		} 
+		else {
+			reina* aux = new reina(color, coord);
+			agregarPieza(aux);
+		}
+	}
+	for (int i = 0; i < 12; i++) {
+		if (i % 2) {
+			color = BLANCO;
+		}
+		else color = NEGRO;
+		int fila = 0;
+		int columna = 0;
+		do {
+			fila = ETSIDI::lanzaDado(8);
+			columna = ETSIDI::lanzaDado(8);
+		} while ((mirarCasilla(fila, columna) == true));
+		cout << "Fila: " << fila << " Columna: " << columna << endl;
+		coordenada coord(fila, columna);
+		if (i < 4) {
+			Alfil* aux = new Alfil(color, coord);
+			agregarPieza(aux);
+		}
+		else if (i >= 4 && i < 8) {
+			caballo* aux = new caballo(color, coord);
+			agregarPieza(aux);
+		}
+		else if (i >= 8 && i < 12) {
+			Torre* aux = new Torre(color, coord);
+			agregarPieza(aux);
+		}
+	}
+	agregarPieza(FANTASMA_ABAJO);
+	jaque(BLANCO);
+	jaque(NEGRO);
 }
 
 bool ListaPiezas::agregarPieza(pieza* pieza)
@@ -369,7 +386,7 @@ void ListaPiezas::cargarPartida(string nombreFichero)
 	int i = 0;
 	tipo_pieza tipo;
 	color col;
-	pieza* aux;
+	pieza* aux=0;
 
 	//Creamos las piezas fantasmas para evitar algunos bugs:
 	coordenada c("z", 100);
@@ -1149,7 +1166,7 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 	coordenada CoordApoyo;
 	coordenada CoordApoyoFicha;
 	bool hayPieza = false;
-	pieza* piezaDestino;
+	pieza* piezaDestino=0;
 
 	//Guardamos las coordenadas de inicio de la pieza
 	CoordApoyo.setFil(pieza1->getCoordenada().getFila());

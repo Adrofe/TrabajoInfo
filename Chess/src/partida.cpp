@@ -19,7 +19,9 @@ void partida::inicializaAleatoriamente()
     z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
-    piezas.crearPiezasAleatoriamente();
+    //piezas.crearPiezasAleatoriamente();
+    //piezas.crearMismoTipo(PEON);
+    piezas.crearAjedrez960();
 }
 
 void partida::mover()

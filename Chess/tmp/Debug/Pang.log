@@ -1,5 +1,5 @@
 ﻿  ListaPiezas.cpp
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(366,7): warning C4101: 'letra': variable local sin referencia
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(722): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(1268): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(333,7): warning C4101: 'letra': variable local sin referencia
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(689): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(1235): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
   Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe

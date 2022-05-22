@@ -64,8 +64,9 @@ public:
 	~ListaPiezas();
 
 	//Agregar y eliminar piezas
-	void crearPiezas();
 	void crearPiezasAleatoriamente();
+	void crearMismoTipo(tipo_pieza tipo);
+	void crearAjedrez960();
 	bool agregarPieza(pieza* pieza);
 	void eliminar(int index);
 	void eliminar(pieza* pieza);

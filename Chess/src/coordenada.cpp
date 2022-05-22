@@ -73,7 +73,7 @@ string coordenada::toLetraCol(int numero)
 		letra2 = 'h';
 		break;
 	default:
-		letra2 = 'z';
+		letra2 = 'a';
 		break;
 	}
 	return letra2;
