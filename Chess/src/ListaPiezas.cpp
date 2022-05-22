@@ -4,22 +4,21 @@
 
 ListaPiezas::ListaPiezas()
 {
+	for (int i = 0; i < MAX_PIEZAS; i++) {
+
+		listaPiezas[i] = 0;
+	}
+
 	ofstream archivo;//modo escritura
 	
 	archivo.open("Historial.txt", ios::out);//abrir archivo llamado Historial.txt, si este archivo ya existe, se reemplaza, es decir que cada vez que juguemos una partida nueva se borrará el contenido de la anterior
-	
 
 	if (archivo.fail()) {//comprobar si el archivo se ha abierto correctamente
 		cout << "no se pudo abrir el archivo";
 		exit(1);
 	}
 
-
-
 	archivo.close();//cerramos el archivo
-
-	cout << "Score:"<<evaluacionCompleta()<< endl;
-
 }
 
 ListaPiezas::~ListaPiezas()
@@ -115,13 +114,10 @@ void ListaPiezas::crearPiezas()
 	Peon* FANTASMA_ABAJO = new Peon(NONE, fantasma); //creamos una pieza fantasma, porque nos daba un error al comer la ultima pieza del array. Esta esta pintada fuera de la vision.
 	Peon* FANTASMA_ARRIBA = new Peon(NONE, fantasma);
 
-
-	
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
 		listaPiezas[i] = 0;
 	}
-	
 
 	agregarPieza(FANTASMA_ARRIBA);
 	agregarPieza(rey1);
@@ -161,7 +157,6 @@ void ListaPiezas::crearPiezas()
 	// inicializamos los booleamos de jaque a false
 	jaqueBlanco = false;
 	jaqueNegro  = false;
-
 }
 
 bool ListaPiezas::agregarPieza(pieza* pieza)
@@ -178,7 +173,6 @@ bool ListaPiezas::agregarPieza(pieza* pieza)
 		return false;		//capacidad maxima alcanzada
 	}
 	return true;
-
 }
 
 void ListaPiezas::dibuja()
@@ -235,7 +229,9 @@ pieza* ListaPiezas::buscarPieza(int fila, int columna)
 
 void ListaPiezas::enroque(pieza* pieza, int fila, int columna)
 {
+	//Comprobamos que la pieza que llega es un rey
 	if (pieza->getTipo() == REY) {
+		//Segun donde se vaya a mover, movemos la torre correspondiente. La legalidad del movimiento se comprueba tanto en la pieza como en comprobarRey
 		if (fila == 1 && columna == 2) {
 			buscarPieza(1, 1)->setColumna(3);
 		}
@@ -254,12 +250,14 @@ void ListaPiezas::enroque(pieza* pieza, int fila, int columna)
 
 void ListaPiezas::anularEnroque(pieza* pieza, int fila, int columna)
 {
+	//Si se mueve una torre comprobamos cual se mueve y anulamos el enroque con ella
 	if (pieza->getTipo() == TORRE) {
 		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 1)) torreBlancaIzq = false;
 		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 8)) torreBlancaDrc = false;
 		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 1)) torreNegraIzq = false;
 		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 8)) torreNegraDrc = false;
 	}
+	//Si se mueve el rey anulamos su enroque
 	if (pieza->getTipo() == REY) {
 		if ((pieza->getCoordenada().getFila() == 1) && (pieza->getCoordenada().getColumna() == 5)) enroqueBlanco = false;
 		if ((pieza->getCoordenada().getFila() == 8) && (pieza->getCoordenada().getColumna() == 5)) enroqueNegro = false;
@@ -282,29 +280,36 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 			indexDes = i;
 		}
 	}
+
+	//Si existe la pieza
 	if (index != -1) {
+		//Si no es nullptr
 		if (pieza1 != nullptr) {
+			//Comprobamos que es su turno
 			if (comprobarTurno(pieza1)) {
-				//Comprobamos si el movimiento es legal
-				
+				//Comprobamos si el movimiento es legal	
 				if (movimientoLegal(pieza1, fila, columna)) {
 
+					//Comprobamos si hay enroque o si hay que anularlo
 					enroque(pieza1, fila, columna);
 					anularEnroque(pieza1, fila, columna);
 
-
+					//Movemos la pieza
 					pieza1->setFila(fila);
 					pieza1->setColumna(columna);
 					ETSIDI::play("sonidos/movimiento.mp3"); //sonido de movimiento de pieza
 
+					//Eliminamos si procede la pieza a donde nos movemos
 					eliminar(listaPiezas[indexDes]);
 	
-	
+					//Guardamos el historial
 					pieza1->guardarHistorial();
-	
+					
+					//Recalculamos los jaques
 					jaque(BLANCO);
 					jaque(NEGRO);
 
+					//Comprobamos si hay algun jaque Mate
 					if (jaqueNegro&&jaqueMate(NEGRO)) {
 						cout << "Jaque mate Blanco" << endl;
 						jaqueMateBlanco = true;
@@ -325,29 +330,16 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					}
 					else { proximoTurno = BLANCO; }
 					int n = 0;
-					for (int i = 0; i < nPiezas; i++) {
-						if (listaPiezas[i]->getColor() == proximoTurno) {
-							movPosibles(listaPiezas[i]);
-							if (nPosibles != 0) n++;
-						}
-					}
-					if (n == 0) {
-						std::cout << "jaque Mate" << endl;
-					}
 				}
 				else {
 					std::cout << "Movimiento ilegal de la pieza" << endl;
 				}
-				
 			}
 			else {
 				std::cout << "No mueve este color" << endl;
 			}
 		}
-		
 	}
-
-	
 }
 
 bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
@@ -359,7 +351,6 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 
 	//Buscamos la pieza en el array
 	int index = -1;
-
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza1) {
 			index = i;
@@ -378,37 +369,35 @@ bool ListaPiezas::movimientoLegal(pieza* pieza1, int fila, int columna)
 				}
 			}
 		}
+		//Comprobamos si es su turno
 		if (comprobarColor(index, coordDestino)) {
+			//Comprobamos si es un movimiento legal
 			if (listaPiezas[index]->movimientoLegal(coordDestino)) {
+				//Comprobamos las posibles colisiones
 				if (comprobarPieza(listaPiezas[index], fila, columna)) {
-					//if (jaqueBlanco || jaqueNegro) {
-						if (jaquePosible(listaPiezas[index], fila, columna)) {
-							PosiblesJaque++;
-							return true;
-						}
-					//}
-					//else return true;
-
+					//Comprobamos si el movimiento provoca jaque
+					if (jaquePosible(listaPiezas[index], fila, columna)) {
+						PosiblesJaque++;
+						return true;
+					}
 				}
-				
-				//else return false;
 			}
 			else {
 				return false;
 			}
 		}
 		else {
-			//std::cout << "Hay una pieza del mismo color" << endl;
 			return false;
 		}
 		
 	}
-	//else return false;
 	return false;
 }
 
 bool ListaPiezas::movimientoLegalJaque(pieza* pieza1, int fila, int columna)
 {
+	//HACE LO MISMO QUE MOVIMIENTO LEGAL PERO SIN JAQUE POSIBLE, PARA PODER USARLA EN ESA FUNCION
+
 	coordenada coordDestino(fila, columna);
 	pieza* piezaDestino;
 	piezaDestino = buscarPieza(fila, columna);
@@ -477,40 +466,46 @@ bool ListaPiezas::comprobarColor(int index, coordenada coord)
 		}
 		else return true;
 	}
-	
-	//return true;
 }
 
 void ListaPiezas::movPosibles(pieza* aux)
 {
+	/*
+	Aqui se utiliza coordenadaPintar y coordenadaComer, que utiliza la clase tablero para pintar los movientos posibles y las capturas
+	*/
+
 	nPosibles = 0;
 	int a = 1;
 	int b = 1;
 	if (aux != nullptr) {
+		//Comprobamos si es su turno
 		if (comprobarTurno(aux)) {
+			//Recorremos todos los movimientos posibles
 			for (int i = 1; i < 9; i++) {
 				for (int j = 1; j < 9; j++) {
 					
+					//Si el movimiento es legal
 					 if (movimientoLegal(aux, i, j)) {
 
 						 coordenada coord(i, j);
 						 movimientosPosibles[nPosibles++] = { i,j };
 
-
+						 //Si hay una pieza guardamos la captura para pintarla
 						 if (buscarPieza(i, j) != nullptr) {
 							 coordenadaComer[b] = { i,j };
 							 b++;
 						 }
 						 else {
+							 //Si no hay pieza es un movimiento legal y se guarda en coordenadaPintar
 							 coordenadaPintar[a] = { i,j };
-							// std::cout << i << " " << j << endl;
 							 a++;
 						 }
+						//Variable para que solo se pinte si se pulsa una pieza
 						si = true;
 					}
 				}
 			}
-
+			//Rellenamos el resto del vector con -1 -1
 			for (int c = a; c < 64; c++) {
 				coordenadaPintar[c] = { -1,-1 };
 			}
@@ -536,42 +531,42 @@ bool ListaPiezas::comprobarAlfil(pieza* pieza, int fila, int columna)
 	int s = 0;
 	int l = 0;
 	
-
-
-	if (((restaDrcha.getColumna() >= 0) && (restaDrcha.getFila()) > 0)) { // arriba derecha
+	// Comprobamos las colisiones en la diagonal arriba derecha
+	if (((restaDrcha.getColumna() >= 0) && (restaDrcha.getFila()) > 0)) { 
 		for (i = pieza->getCoordenada().getFila() + 1, j = pieza->getCoordenada().getColumna() + 1 ; (i < destino.getFila()), (j < destino.getColumna()); i++, j++) {
 			if (buscarPieza(i,j) != nullptr){
 				return false;	
-			//if (mirarCasilla(i,j)) {
-				//return false;
 			}
 		}
 	}
 
-	if (((restaIzq.getColumna() >= 0) && (restaIzq.getFila()) > 0)) {//abajo izq
+	// Comprobamos las colisiones en la diagonal abajo izquierda
+	if (((restaIzq.getColumna() >= 0) && (restaIzq.getFila()) > 0)) {
 		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() - 1; (s > destino.getFila()), (l > destino.getColumna()); s--, l--) {
 			if (mirarCasilla(s, l)) {					
 				return false;
 			}
 		}
 	}
-		
-		if (((restaIzq.getColumna() >= 0) && (restaDrcha.getFila()) > 0)) { //arriba izq
+	
+	// Comprobamos las colisiones en la diagonal arriba izq
+	if (((restaIzq.getColumna() >= 0) && (restaDrcha.getFila()) > 0)) {
 		for (i = pieza->getCoordenada().getFila() + 1, j = pieza->getCoordenada().getColumna() - 1; (i < destino.getFila()), (j > destino.getColumna()); i++, j--) {
 			if (mirarCasilla(i, j)) {
 				return false;
 			}
 		}
-		}
+	}
 
-		if (((restaDrcha.getColumna() >= 0) && (restaIzq.getFila()) > 0)) {// abajo drcha
+	// Comprobamos las colisiones en la diagonal abajo derecha
+	if (((restaDrcha.getColumna() >= 0) && (restaIzq.getFila()) > 0)) {
 		for (s = pieza->getCoordenada().getFila() - 1, l = pieza->getCoordenada().getColumna() + 1; (s > destino.getFila()), (l < destino.getColumna()); s--, l++) {
 			if (mirarCasilla(s, l)) {
 				return false;
 			}
 		}
-		}
-		return true;
+	}
+	return true;
 }
 
 bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
@@ -584,6 +579,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 	coordenada coordInicio = pieza->getCoordenada();
 	coordenada destino(fila,columna);
 
+	//Comprobamos las colisiones hacia arriba en la misma columna
 	if (destino.getFila() - coordInicio.getFila() >= 0) {
 		for (ib = coordInicio.getFila() + 1; ib < destino.getFila(); ib++) {
 			if (mirarCasilla(ib, coordInicio.getColumna())) {
@@ -592,6 +588,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 		}
 	}
 
+	//Comprobamos las colisiones hacia la derecha en la misma fila
 	if (destino.getColumna() - coordInicio.getColumna() >= 0) {
 		for (pd = coordInicio.getColumna() + 1; pd < destino.getColumna(); pd++) {
 			if (mirarCasilla(coordInicio.getFila(), pd)) {
@@ -600,6 +597,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 		}
 	}
 
+	//Comprobamos las colisiones hacia la izquierda en la misma fila
 	if (coordInicio.getColumna() - destino.getColumna() >= 0) {
 		for (fd = coordInicio.getColumna() - 1; fd > destino.getColumna(); fd--) {
 			if (mirarCasilla(coordInicio.getFila(), fd)) {
@@ -608,6 +606,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 		}
 	}
 
+	//Comprobamos las colisiones hacia abajo en la misma columna
 	if (coordInicio.getFila() - destino.getFila() >= 0) {
 		for (px = coordInicio.getFila() - 1; px > destino.getFila(); px--) {
 			if (mirarCasilla(px, coordInicio.getColumna())) {
@@ -616,10 +615,7 @@ bool ListaPiezas::comprobarTorre(pieza* pieza, int fila, int columna)
 		}
 	}
 
-
 	return true;
-	
-	
 }
 
 bool ListaPiezas::comprobarReina(pieza* pieza, int fila, int columna)
@@ -627,14 +623,18 @@ bool ListaPiezas::comprobarReina(pieza* pieza, int fila, int columna)
 	coordenada destino(fila, columna);
 	coordenada resta = destino - pieza->getCoordenada();
 
+	//Para comprobar la reina comprobamos utilizamos el comprobar alfil y comprobar torre segun que movimiento sea
+	//Diagonal
 	if (abs(destino.getColumna() - pieza->getCoordenada().getColumna()) == abs(destino.getFila() - pieza->getCoordenada().getFila())) {
 		return comprobarAlfil(pieza, fila, columna);
 	}
 
+	//Mismma fila
 	if (pieza->getCoordenada().getFila() == destino.getFila()) {
 		return comprobarTorre(pieza, fila, columna);
 	}
 
+	//Misma columna
 	if (pieza->getCoordenada().getColumna() == destino.getColumna()) {
 		return comprobarTorre(pieza, fila, columna);;
 	}
@@ -648,42 +648,37 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 	coordenada destino(fila, columna);
 	bool flag = false;
 
+	//Primero comprobamos el color del peon
 	if (pieza->getColor() == BLANCO)
 	{
-
-
+		//Comprobacion para la captura en la diagonal derecha
 		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == 1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == 1)) {
 			if (mirarCasilla(fila, columna)) return true;
 			else return false;
 		}
+		//Comprobacion para la captura en la diagonal izquierda
 		if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == -1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == 1)) {
 			if (mirarCasilla(fila, columna)) return true;
 			else return false;
 		}
 
+		//Colision en el movimiento hacia delante
 		if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
 
+		//Movimiento de dos casillas hacia delante si el peon no se ha movido
 		if ((pieza->getCoordenada().getFila()) == (2))
 		{
-
+			//Comprobamos si hay colisiones
 			if (mirarCasilla(pieza->getCoordenada().getFila() + 2, pieza->getCoordenada().getColumna())) flag = true;
 			if (mirarCasilla(pieza->getCoordenada().getFila() + 1, pieza->getCoordenada().getColumna())) return false;
 
 			if (destino.getFila() == 3) return true;
-
 			else if (flag) return false;
-
-			
 		}
-
-		
-
-		flag = false;
 		return true;
 	}
 		else {
-
-
+		//El negro tiene el mismo esquema que el del peon blanco pero cambiando las comprobaciones para ajustarse a su naturaleza simétrica
 
 			if (((destino.getColumna() - pieza->getCoordenada().getColumna()) == -1) && ((destino.getFila() - pieza->getCoordenada().getFila()) == -1)) {
 				if (mirarCasilla(fila, columna)) return true;
@@ -705,14 +700,9 @@ bool ListaPiezas::comprobarPeon(pieza* pieza, int fila, int columna)
 
 				else if (flag) return false;
 			}
-
-
 			flag = false;
 			return true;
 		}
-	
-
-	
 }
 
 bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
@@ -720,19 +710,22 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 	coordenada destino(fila, columna);
 	coordenada inicio(pieza->getCoordenada().getFila(), pieza->getCoordenada().getColumna());
 	color colorReyMov = pieza->getColor();
-	int index;
+	int index=-1;
 
+	//Buscamos al rey enemigo
 	for (int i = 0; i < nPiezas; i++) {
 		if ((listaPiezas[i]->getTipo() == REY)&&(listaPiezas[i]->getColor()!=colorReyMov)) {
 			index = i;
 		}
 	}
+	//Guardamos su coordenada
 	coordenada reyEnemigo = listaPiezas[index]->getCoordenada();
 
-
+	//Comprobamos si hay una colision
 	if (mirarCasilla(fila, columna)) {
 		if (buscarPieza(fila, columna) != nullptr)
-			if (buscarPieza(fila, columna)->getColor() !=pieza->getColor()) return TRUE;
+			//Si hay una pieza pero es de distinto color permitimos el movimiento
+			if (buscarPieza(fila, columna)->getColor() !=pieza->getColor()) return true;
 		return false;
 	}
 	else {
@@ -740,6 +733,7 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		for (int i = reyEnemigo.getFila() + 1; i >= reyEnemigo.getFila() - 1; i--) {
 			for (int j = reyEnemigo.getColumna() - 1; j <= reyEnemigo.getColumna() + 1; j++) {
 				coordenada aux(i, j);
+				//Si alguna casilla del movimiento del rey enemigo coincide con una del rey que llama a la funcion se ilegaliza el movimiento
 				if (destino == aux) return false;
 			}
 		}
@@ -747,22 +741,25 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 
 	//Enroque hacia la izquierda del blanco
 	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 2)) {
+		//Si la torre izquierda y el rey no se han movido se continuan las comprobaciones
 		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
 			//Casillas vacias a la izquierda
 			if ((mirarCasilla(1, 2) == true) || (mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
 				return false;
 			}
+			//Comprobamos que ninguna de las casillas tenga jaque
 			else if ((jaquePosible(pieza, 1, 2) == false) || (jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
 				return false;
 			}
+			//Si no hay jaque permitimos el movimiento
 			else return true;
 		}
 		else return false;
 	}
-	//Enroque hacia la izquierda del blanco
+	//Enroque hacia la izquierda del blanco, la lógica es la misma para el primer enroque
 	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 7)) {
 		if ((torreBlancaDrc == true) && (enroqueBlanco == true)) {
-			//Casillas vacias a la izquierda
+			//Casillas vacias a la derecha
 			if ((mirarCasilla(1, 6) == true) || (mirarCasilla(1, 7) == true)) {
 				return false;
 			}
@@ -773,7 +770,7 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 		else return false;
 	}
-	//Enroque hacia la izquierda del blanco
+	//Enroque hacia la izquierda del negro
 	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 2)) {
 		if ((torreNegraIzq == true) && (enroqueNegro == true)) {
 			//Casillas vacias a la izquierda
@@ -787,10 +784,10 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 		else return false;
 	}
-	//Enroque hacia la izquierda del blanco
+	//Enroque hacia la derecha del negro
 	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 7)) {
 		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
-			//Casillas vacias a la izquierda
+			//Casillas vacias a la derecha
 			if ((mirarCasilla(8, 6) == true) || (mirarCasilla(8, 7) == true)) {
 				return false;
 			}
@@ -801,7 +798,6 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 		else return false;
 	}
-
 	return true;
 }
 
@@ -823,24 +819,23 @@ bool ListaPiezas::comerPieza(pieza* pieza1, int fila, int columna) // se tiene q
 	//Comprobamos el color de la pieza de destino
 	if (mirarCasilla(fila, columna)) {
 		if (pieza1->getColor() != listaPiezas[index]->getColor()) {
+			//Comprobamos que no produzca jaque
 			if (jaquePosible(pieza1, fila, columna)) return false;
 			return true;
-
 		}
-		
 	}
 	 return false;
-
 }
 
 void ListaPiezas::jaque(color Color)
 {
-	pieza* aux;
 	coordenada CoordRey(-1,-1);
 
+	//Reiniciamos los jaque temporalmente segun el color
 	if (Color == BLANCO) { jaqueNegro = FALSE; }
 	if (Color == NEGRO) { jaqueBlanco = FALSE; }
 
+	//Buscamos al rey enemigo
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i]->getTipo() == REY && listaPiezas[i]->getColor() != Color) {
 			CoordRey.setCol(listaPiezas[i]->getCoordenada().getColumna());
@@ -848,29 +843,28 @@ void ListaPiezas::jaque(color Color)
 		}
 	}
 
+	//Para todas las piezas comprobamos si ataca al rey
 	for (int i = 0; i < nPiezas; i++) {
-		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())){
+		//Usamos movimientoLegalJaque para no caer en un bucle de llamadas de funciones
+		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())) {
 
-					if (Color == BLANCO) { 
-						jaqueNegro = TRUE;
-						ETSIDI::play("sonidos/jaque.mp3");
-					}
-					if (Color == NEGRO) { 
-						jaqueBlanco = TRUE; 
-						ETSIDI::play("sonidos/jaque.mp3");
-					}
-					std::cout << " hay jaque "<< jaqueNegro<< " " << jaqueBlanco << endl;
+			if (Color == BLANCO) {
+				jaqueNegro = TRUE;
+				ETSIDI::play("sonidos/jaque.mp3");
+			}
+			if (Color == NEGRO) {
+				jaqueBlanco = TRUE;
+				ETSIDI::play("sonidos/jaque.mp3");
+			}
+			std::cout << " hay jaque " << jaqueNegro << " " << jaqueBlanco << endl;
 		}
-
 	}
-
 }
 
 bool ListaPiezas::jaqueBool(color Color)
 {
-	pieza* aux;
+	//Hace lo mismo que jaque(color color) pero devuelve true o false en vez de modificar el atributo interno
 	coordenada CoordRey(-1, -1);
-
 
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i]->getTipo() == REY && listaPiezas[i]->getColor() != Color) {
@@ -878,28 +872,31 @@ bool ListaPiezas::jaqueBool(color Color)
 			CoordRey.setFil(listaPiezas[i]->getCoordenada().getFila());
 		}
 	}
-
 	for (int i = 0; i < nPiezas; i++) {
 		if (movimientoLegalJaque(listaPiezas[i], CoordRey.getFila(), CoordRey.getColumna())) {
 
 			return true;
 		}
-
 	}
 	return false;
 }
 
 bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna) 
 {
-	coordenada CoordApoyo;
 
+	/*
+	Esta funcion que un hipotetico movimiento provoca jaque o no
+	*/
+	coordenada CoordApoyo;
 	coordenada CoordApoyoFicha;
 	bool hayPieza = false;
 	pieza* piezaDestino;
 
+	//Guardamos las coordenadas de inicio de la pieza
 	CoordApoyo.setFil(pieza1->getCoordenada().getFila());
 	CoordApoyo.setCol(pieza1->getCoordenada().getColumna());
 
+	//Miramos la casilla de destino, si hay una pieza la movemos temporalmente fuera del tablero
 	if (mirarCasilla(fila, columna)) {
 		hayPieza = true;
 		piezaDestino = buscarPieza(fila, columna);
@@ -907,11 +904,12 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 		piezaDestino->setColumna(100);
 	}
 
+	//Movemos la pieza que realiza el movimiento a la posicion de destino
 	pieza1->setFila(fila);
 	pieza1->setColumna(columna);
 
 
-
+	//Si se produce jaque y no estamos nosotros en jaque
 	if (jaqueBool(BLANCO)&&(jaqueBlanco!=true)) { 
 
 		//Devolvemos la pieza que se mueve a su posicion original
@@ -922,12 +920,13 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 			piezaDestino->setFila(fila);
 			piezaDestino->setColumna(columna);
 		}
-
+		//Si la pieza era blanca permitimos el movimiento
 		if (pieza1->getColor() == BLANCO) return true;
 
-		jaqueBlanco = FALSE;
+		jaqueBlanco = false;
 		return false;
 	}
+	//Hacemos lo mismo con el negro
 	if (jaqueBool(NEGRO) && (jaqueNegro != true)) {
 
 		//Devolvemos la pieza que se mueve a su posicion original
@@ -942,16 +941,16 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 
 		if (pieza1->getColor() == NEGRO) return true;
 
-		jaqueNegro = FALSE;
+		jaqueNegro = false;
 		return false;
 
 	}
 
+	//Devolvemos las piezas a su sitio
 	if (hayPieza) {
 		piezaDestino->setFila(fila);
 		piezaDestino->setColumna(columna);
-	}
-				
+	}			
 	pieza1->setFila(CoordApoyo.getFila());
 	pieza1->setColumna(CoordApoyo.getColumna());
 			
@@ -961,6 +960,7 @@ bool ListaPiezas::jaquePosible(pieza* pieza1, int fila, int columna)
 
 bool ListaPiezas::jaqueMate(color color)
 {
+	//Para el jaque mate comprobamos todos los movimientos del rival y si es 0 devuelve true
 	bool movPosible = false;
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i]->getColor() == color) {
@@ -985,6 +985,7 @@ bool ListaPiezas::jaqueMate(color color)
 
 bool ListaPiezas::mirarCasilla(int fila, int columna)
 {
+	//Devuelve true si hay una pieza en la casilla o false si no
 	coordenada casilla(fila, columna);
 
 	for (int i = 0; i < nPiezas; i++) {
@@ -992,16 +993,13 @@ bool ListaPiezas::mirarCasilla(int fila, int columna)
 		if (casilla == listaPiezas[i]->getCoordenada()) {
 			return true;
 		}
-
 	}
  return false;
 }
 
 bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 {
-	//if (buscarPieza(fila, columna) != nullptr)
-	//	if (buscarPieza(fila, columna)->getTipo() == REY) return FALSE;
-
+	//Para comprobar las colisiones, segun el tipo de pieza se invoca su funcion correspondiente
 	if (aux->getTipo() == ALFIL) return comprobarAlfil(aux, fila, columna);
 	else if (aux->getTipo() == TORRE) return comprobarTorre(aux, fila, columna);
 	else if (aux->getTipo() == REINA) return comprobarReina(aux, fila, columna);
@@ -1026,11 +1024,18 @@ void ListaPiezas::algoritmoIA()
 	for (int i = 0; i < nPiezas; i++) {
 		//Recorremos todas las piezas de la IA
 		if (listaPiezas[i]->getColor() == colorIA) {
+			//Calculamos sus movmientos posibles
 			movPosibles(listaPiezas[i]);
 			for (int j = 0; j < nPosibles; j++) {
+				/*
+				Para todos los movimientos posibles calculamos una puntuacion que es la suma del valor de la pieza enemiga más el valor de su posicion, más lo que gana la IA
+				al mover su pieza a esa determinada posicion, en resumen, lo que le quita al rival más lo que gana ella
+				*/
+
 				int punt = 0;
 				punt = evaluacion(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna()) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna());
-				//std::cout << "Punt" << punt << " Movimiento de " << listaPiezas[i]->getTipo() << " a " << movimientosPosibles[j].getFila() << " " << movimientosPosibles[j].getColumna() << endl;
+				
+				//Si esa puntuacion es mayor guardamos los datos del movimiento
 				if (punt > puntuacionOptima) {
 					if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
 
@@ -1038,18 +1043,29 @@ void ListaPiezas::algoritmoIA()
 						columnaOptima = movimientosPosibles[j].getColumna();
 						filaOptima = movimientosPosibles[j].getFila();
 						indexOptimo = i;
-						std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
-						std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
+						//std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
+						//std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
 					}
 				}
 			}
 		}
 	}
 
+	//Finalmente movemos la pieza a esa posicion
 	moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
 
 }
 
+int ListaPiezas::evaluacion(int fila, int columna) {
+	//Devuelve el valor de una pieza más el valor de esa pieza en esa posicion
+	if (mirarCasilla(fila, columna)) {
+		int valor = buscarPieza(fila, columna)->getValor() + buscarPieza(fila, columna)->getValorPos(fila, columna);
+		return valor;
+	}
+	else return 0;
+}
+
+//Algoritmo que intenta implementar el metodo minimax pero que no funciona
 void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
 {
 	int puntuacionOptima = -999;
@@ -1077,17 +1093,9 @@ void ListaPiezas::algoritmoIAv2(int iteraciones, int profundidad)
 	moverPieza(listaPiezas[index], fila, columna);
 }
 
-int ListaPiezas::evaluacion(int fila, int columna){
-
-	if (mirarCasilla(fila,columna)) {
-		int valor = buscarPieza(fila, columna)->getValor()+buscarPieza(fila,columna)->getValorPos(fila,columna);
-		return valor;
-	}
-	else return 0;
-}
-
 int ListaPiezas::evaluacionCompleta()
 {
+	//Devuelve la puntuacion de un color especifico
 	int puntuacion = 0;
 
 	for (int i = 1; i < 9; i++) {

@@ -15,8 +15,8 @@ Coordinador::~Coordinador()
 }
 void Coordinador::dibuja()
 {
-	if (estado == INICIO) {
-
+	if (estado == INICIO) 
+	{
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (32.0,0.0,32.0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
@@ -128,17 +128,8 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 	}
-	else if (estado == FIN)
+	else if (estado == PAUSA) 
 	{
-		partida.dibuja();
-		ETSIDI::setFont("fuentes/arialbd.ttf", 16);
-		ETSIDI::printxy("ENHORABUENA, ¡Has ganado!", -5, 10);
-		ETSIDI::printxy("Pulsa -C- para continuar", -5, 9);
-	}
-	else if (estado == PAUSA) {
-
-		
-
 		gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
 			32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
 			0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
@@ -165,7 +156,6 @@ void Coordinador::mouse(int button, int state, int x, int y)
 	if (estado != PAUSA) {
 		partida.mouse(button, state, x, y);
 	}
-
 }
 
 void Coordinador::mueve() //funcion a modificar para el jaque mate
@@ -182,7 +172,6 @@ void Coordinador::Tecla(unsigned char key) {
 		musica();
 	}
 
-	
 	if (estado == INICIO) {
 
 		if (key == 'e' ||  key== 'E') {
@@ -200,10 +189,8 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = ELECCION_IA;
 		}
 		if (key == 's' ||  key== 'S' )exit(0);
-
-		// añadir c: cargar, n nuevo etc..
-
 	}
+
 	if (estado == ELECCION_IA) {
 		if (key == 'B'||key=='b') {
 			estado = JUEGO;
@@ -215,24 +202,14 @@ void Coordinador::Tecla(unsigned char key) {
 			partida.setIA(true, NEGRO);
 			partida.inicializa();
 		}
-		// añadir c: cargar, n nuevo etc..
-
 	}
+
 	else if (estado == JUEGO) {
 		if (key == 's' || key == 'S')exit(0);
 
 		if (key == 'p' || key == 'P') {
 			estado = PAUSA;
 		}
-		//añadir jaquemate para gameover
-	}
-	
-	else if (estado == FIN) {
-		if (key == 'c')estado = INICIO;
-	}
-
-	else if (estado == FIN) {
-		if (key == 'c')estado = INICIO;
 	}
 
 	else if (estado == PAUSA) {
@@ -242,13 +219,12 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == 'r' || key == 'R') {
 			estado = MODOS;
 		}
-
 	}
+
 	else if ((estado == JAQUEMATE_BLANCO)|| (estado == JAQUEMATE_NEGRO)) {
 		if (key == 't' || key == 'T') {
 			estado = INICIO;
 			//partida.limpiarTablero();
-			
 		}
 		if (key == 'r' || key == 'R') {
 			partida.limpiarTablero();

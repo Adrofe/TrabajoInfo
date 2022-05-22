@@ -3,7 +3,7 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 
-enum Estado { INICIO, MODOS, JUEGO, PAUSA, FIN, JAQUEMATE_BLANCO, JAQUEMATE_NEGRO, ELECCION_IA };
+enum Estado { INICIO, MODOS, JUEGO, PAUSA, JAQUEMATE_BLANCO, JAQUEMATE_NEGRO, ELECCION_IA };
 
 class Coordinador
 {

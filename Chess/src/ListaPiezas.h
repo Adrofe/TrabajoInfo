@@ -14,8 +14,6 @@
 #include <fstream>
 #include <string>
 
-
-
 #define MAX_PIEZAS 100
 
 
@@ -24,8 +22,8 @@ class ListaPiezas
 private: 
 	//Lista
 	pieza* listaPiezas[MAX_PIEZAS];
-	int nPiezas;
-	int nPosibles;
+	int nPiezas = 0;
+	int nPosibles=0;
 	
 	//Variables relacionadas con el enroque
 	bool enroqueBlanco = true;
@@ -37,8 +35,8 @@ private:
 
 	//Variables relacionadas con el jaque
 	int PosiblesJaque = 0;
-	bool jaqueBlanco;
-	bool jaqueNegro;
+	bool jaqueBlanco=false;
+	bool jaqueNegro=false;
 	bool jaqueMateBlanco = false;
 	bool jaqueMateNegro = false;
 

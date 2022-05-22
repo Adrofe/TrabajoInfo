@@ -38,18 +38,10 @@ void reina::dibuja()
 
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
-	//
-	//sin bordes
-	/*glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
-	glTexCoord2d(1, 1); glVertex3f(y, 0.1f, x + getAncho());
-	glTexCoord2d(1, 0); glVertex3f(y + getAltura(), 0.1f, x + getAncho());
-	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);*/
-	//con bordes
 	glTexCoord2d(0, 1); glVertex3f(y + 0.2f, 0.2f, x + 0.2f);
 	glTexCoord2d(1, 1); glVertex3f(y + 0.2f, 0.2f, x + getAncho() - 0.2f);
 	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2f, 0.2f, x + getAncho() - 0.2f);
 	glTexCoord2d(0, 0); glVertex3f(y - 0.2f + getAltura(), 0.2f, x + 0.2f);
-	//
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -61,20 +53,23 @@ void reina::dibuja()
 bool reina::movimientoLegal(coordenada destino)
 {
 	coordenada coordInicio = getCoordenada();
-
+	
+	//Denegamos el movimiento a la misma casilla
 	if (((destino.getColumna() - coordInicio.getColumna()) == 0) && ((destino.getFila() - coordInicio.getFila()) == 0)) { return false; }
 
+	//Movmiento diagonal
 	else if (abs(destino.getColumna() - getCoordenada().getColumna()) == abs(destino.getFila() - getCoordenada().getFila())) {
 		return true;
 	}
 
+	//Movimiento en la misma fila
 	else if (coordInicio.getFila() == destino.getFila()) {
 		return true;
 	}
+	//Movimiento en la misma columna
 	else if (coordInicio.getColumna() == destino.getColumna()) {
 		return true;
 	}
-
 	return false;
 }
 

@@ -9,15 +9,13 @@ void partida::inicializa()
 	z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
-    
     piezas.crearPiezas();
 
 }
 
 void partida::mover()
 {
-
-    
+    //Si tenemos IA, si el turno es el de la IA y no está ya calculando, ejecutamos el algoritmo
     if (existeIA) {
         if (piezas.proximoTurno == colorIA) {
             if (calculando == false) {
@@ -101,6 +99,7 @@ void partida::dibuja()
         glTexCoord2d(0, 1); glVertex3f(-9.0f, -0.5f, -1.0f + i * 8.0f);
         glEnd();
     }
+    //PONER NUMEROS EN EL TABLERO
     for (int i = 0; i < 8; i++) {
         switch (i) {
         case 0:
@@ -151,6 +150,7 @@ void partida::dibuja()
 
 	tablero.dibuja();
     piezas.dibuja();
+    //Dibujar los movmientos posibles
     if (piezas.si) {
         tablero.PintarMovPosibles(piezas.coordenadaPintar, piezas.coordenadaComer);
      
@@ -166,7 +166,7 @@ void partida::mouse(int button, int state, int x, int y)
     static int fila = 0;
     static pieza* aux;
     
-
+    //Si apretamos el boton izquierdo del raton se muestran los movimientos posibles
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN )) {
         getColFilMouse(x, y, fila, columna);
         aux = piezas.buscarPieza(fila, columna);
@@ -174,7 +174,7 @@ void partida::mouse(int button, int state, int x, int y)
 
     }
 
-    
+    //Si soltamos el raton movemos la pieza
     if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_UP)) {
         getColFilMouse(x, y, fila, columna);
         piezas.moverPieza(aux, fila, columna);

@@ -38,17 +38,10 @@ void Peon::dibuja()
 
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
-	//sin bordes
-	/*glTexCoord2d(0, 1); glVertex3f(y, 0.1f, x);
-	glTexCoord2d(1, 1); glVertex3f(y, 0.1f, x + getAncho());
-	glTexCoord2d(1, 0); glVertex3f(y + getAltura(), 0.1f, x + getAncho());
-	glTexCoord2d(0, 0); glVertex3f(y + getAltura(), 0.1f, x);*/
-	//con bordes
 	glTexCoord2d(0, 1); glVertex3f(y + 0.2f, 0.2f, x + 0.2f);
 	glTexCoord2d(1, 1); glVertex3f(y + 0.2f, 0.2f, x + getAncho() - 0.2f);
 	glTexCoord2d(1, 0); glVertex3f(y + getAltura() - 0.2f, 0.2f, x + getAncho() - 0.2f);
 	glTexCoord2d(0, 0); glVertex3f(y - 0.2f + getAltura(), 0.2f, x + 0.2f);
-	//
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -58,6 +51,8 @@ void Peon::dibuja()
 
 bool Peon::movimientoLegal(coordenada destino)
 {
+	//Comprobamos los movimientos posibles del peon, segun sea blanco o negro. Pusimos que se pueda mover hacia arriba a la izquierda, centro y derecha. Despues este
+	//abanico de movimientos se limita para que en diagonal solo pueda capturar en ListaPiezas
 	coordenada coordInicio = getCoordenada();
 	if (pieza::getColor() == BLANCO) {
 		if ((((coordInicio.getFila()) - (destino.getFila())) == (-1)) && ((coordInicio.getColumna()) == (destino.getColumna()))) {
@@ -84,8 +79,7 @@ bool Peon::movimientoLegal(coordenada destino)
 		}
 	}
 
-
-
+	//Movimiento de 2 hacia delante
 	if ((coordInicio.getFila()) == (2) || ((coordInicio.getFila()) == (7))) {
 
 		if (pieza::getColor() == BLANCO) {

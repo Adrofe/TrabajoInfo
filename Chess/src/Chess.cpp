@@ -5,8 +5,6 @@
 Coordinador juego;
 
 bool o = FALSE;
-coordenada b("a", 2);
-
 
 //los callback, funciones que seran llamadas automaticamente por la glut
 //cuando sucedan eventos
@@ -24,7 +22,7 @@ int main(int argc,char* argv[])
 	glutInit(&argc, argv);
 	glutInitWindowSize(1000,700);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
-	glutCreateWindow("Chess");
+	glutCreateWindow("Ajedrez 2");
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
@@ -57,7 +55,6 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);	
 	glLoadIdentity();
 
-	//iPartida.dibuja();
 	juego.dibuja();
 
 	
@@ -68,20 +65,23 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//poner aqui el código de teclado
 	juego.Tecla(key);
+
 	glutPostRedisplay();
 }
 
 void OnTimer(int value)
 {
-//poner aqui el código de animacion
+
 	juego.mueve();
+
 	//no borrar estas lineas
 	glutTimerFunc(25,OnTimer,0);
 	glutPostRedisplay();
 }
 void Mouse(int button, int state, int x, int y) {
 
-	//no borrar
 	juego.mouse(button, state, x, y);
+
+	//No borrar
 	glutPostRedisplay();
 }

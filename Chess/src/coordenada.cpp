@@ -13,7 +13,6 @@ coordenada::coordenada(string letra, int numero)
 {
 	this->letra = letra;
 	this->numero = numero;
-
 }
 
 coordenada::coordenada(int fila, int columna)
@@ -120,6 +119,8 @@ color coordenada::getColorCasilla()
 {
 	int columna = getColumna();
 	int fila = getFila();
+
+	//Casillas negras
 	if (((fila % 2 != 0) && (columna % 2 != 0)) || ((fila % 2 == 0) && (columna % 2 == 0))) {
 		return NEGRO;
 	}
