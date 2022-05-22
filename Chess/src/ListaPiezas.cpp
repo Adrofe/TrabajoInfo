@@ -33,7 +33,7 @@ ListaPiezas::~ListaPiezas()
 
 void ListaPiezas::crearPiezas()
 {
-	borrarContenido();
+
 	proximoTurno = BLANCO;
 
 	coordenada c1("a", 2);
@@ -288,6 +288,7 @@ void ListaPiezas::guardarHistorial()
 
 void ListaPiezas::cargarPartida(string nombreFichero)
 {
+	borrarContenido();
 	ifstream arc;
 	string texto = nombreFichero;
 	char caracter;
@@ -301,8 +302,8 @@ void ListaPiezas::cargarPartida(string nombreFichero)
 
 	//Creamos las piezas fantasmas para evitar algunos bugs:
 	coordenada c("z", 100);
-	pieza* fantasma1 = new Peon(NONE, c);
-	pieza* fantasma2 = new Peon(NONE, c);
+	Peon* fantasma1 = new Peon(NONE, c);
+	Peon* fantasma2 = new Peon(NONE, c);
 	
 
 	arc.open(texto.c_str(), ios::in);
@@ -312,6 +313,7 @@ void ListaPiezas::cargarPartida(string nombreFichero)
 		exit(1);
 	}
 	int posicion = 0;
+
 
 	for (int i = 0; i < MAX_PIEZAS; i++) {
 
@@ -473,9 +475,16 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					comprobarPromocion(pieza1);
 
 					//Eliminamos si procede la pieza a donde nos movemos
-					eliminar(listaPiezas[indexDes]);
-					//delete listaPiezas[indexDes];
-	
+					//eliminar(listaPiezas[indexDes]);
+					
+					
+					if ((indexDes > 0) || (indexDes <= nPiezas)) {
+						delete listaPiezas[indexDes];
+						coordenada coordFuera("z", 100);
+						Peon* pieza11 = new Peon(NONE, coordFuera);
+						listaPiezas[indexDes] = pieza11;
+					}
+					
 					//Guardamos el historial
 					listaPiezas[index]->guardarHistorial();
 					
@@ -1249,40 +1258,39 @@ void ListaPiezas::algoritmoIA()
 	int filaOptima = -1;
 	int columnaOptima = -1;
 	int indexOptimo = 0;
+	if (proximoTurno == colorIA) {
+		for (int i = 0; i < nPiezas; i++) {
+			//Recorremos todas las piezas de la IA
+			if (listaPiezas[i]->getColor() == colorIA) {
+				//Calculamos sus movmientos posibles
+				movPosibles(listaPiezas[i]);
+				for (int j = 0; j < nPosibles; j++) {
+					/*
+					Para todos los movimientos posibles calculamos una puntuacion que es la suma del valor de la pieza enemiga más el valor de su posicion, más lo que gana la IA
+					al mover su pieza a esa determinada posicion, en resumen, lo que le quita al rival más lo que gana ella
+					*/
 
-	for (int i = 0; i < nPiezas; i++) {
-		//Recorremos todas las piezas de la IA
-		if (listaPiezas[i]->getColor() == colorIA) {
-			//Calculamos sus movmientos posibles
-			movPosibles(listaPiezas[i]);
-			for (int j = 0; j < nPosibles; j++) {
-				/*
-				Para todos los movimientos posibles calculamos una puntuacion que es la suma del valor de la pieza enemiga más el valor de su posicion, más lo que gana la IA
-				al mover su pieza a esa determinada posicion, en resumen, lo que le quita al rival más lo que gana ella
-				*/
+					int punt = 0;
+					punt = evaluacion(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna()) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna());
 
-				int punt = 0;
-				punt = evaluacion(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna()) + listaPiezas[i]->getValorPos(movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna());
-				
-				//Si esa puntuacion es mayor guardamos los datos del movimiento
-				if (punt > puntuacionOptima) {
-					if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
+					//Si esa puntuacion es mayor guardamos los datos del movimiento
+					if (punt > puntuacionOptima) {
+						if (movimientoLegal(listaPiezas[i], movimientosPosibles[j].getFila(), movimientosPosibles[j].getColumna())) {
 
-						puntuacionOptima = punt;
-						columnaOptima = movimientosPosibles[j].getColumna();
-						filaOptima = movimientosPosibles[j].getFila();
-						indexOptimo = i;
-						//std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
-						//std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
+							puntuacionOptima = punt;
+							columnaOptima = movimientosPosibles[j].getColumna();
+							filaOptima = movimientosPosibles[j].getFila();
+							indexOptimo = i;
+							//std::cout << "Puntuacion optima: " << puntuacionOptima << " FilaOptima: " << filaOptima << " ColumnaOptima: " << columnaOptima << endl;
+							//std::cout << "Pieza: " << listaPiezas[i]->getTipo() << " coordenada: " << listaPiezas[i]->getCoordenada().getFila() << " " << listaPiezas[i]->getCoordenada().getColumna() << endl;
+						}
 					}
 				}
 			}
 		}
+		//Finalmente movemos la pieza a esa posicion
+		moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
 	}
-
-	//Finalmente movemos la pieza a esa posicion
-	moverPieza(listaPiezas[indexOptimo], filaOptima, columnaOptima);
-
 }
 
 int ListaPiezas::evaluacion(int fila, int columna) {

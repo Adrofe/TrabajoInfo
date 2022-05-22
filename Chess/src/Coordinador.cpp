@@ -266,7 +266,6 @@ void Coordinador::Tecla(unsigned char key) {
 			//partida.limpiarTablero();
 		}
 		if (key == 'r' || key == 'R') {
-			partida.limpiarTablero();
 			partida.inicializa();
 			estado = JUEGO;
 		}
