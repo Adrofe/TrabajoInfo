@@ -71,7 +71,7 @@ public:
 	void borrarContenido();
 
 	void guardarPartida();
-
+	void guardarHistorial();
 	void cargarPartida(string nombreFichero);
 
 	void dibuja();

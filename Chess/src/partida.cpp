@@ -162,6 +162,11 @@ void partida::guardarPartida()
     piezas.guardarPartida();
 }
 
+void partida::guardarHistorial()
+{
+    piezas.guardarHistorial();
+}
+
 void partida::promocionar(tipo_pieza tipo)
 {
     piezas.tipo_promocion = tipo;

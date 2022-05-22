@@ -271,6 +271,9 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = JUEGO;
 		}
 		if (key == 's' || key == 'S') exit(0);
+		if (key == 'g' || key == 'G') {
+			partida.guardarHistorial();
+		}
 	}
 
 	else if ((estado == PROMOCIONAR)) {

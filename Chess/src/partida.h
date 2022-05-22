@@ -30,7 +30,7 @@ public:
 	void dibuja();
 	
 	void guardarPartida();
-
+	void guardarHistorial();
 	void promocionar(tipo_pieza tipo);
 
 	//Mouse

@@ -252,6 +252,40 @@ void ListaPiezas::guardarPartida()
 	partida.close();
 }
 
+void ListaPiezas::guardarHistorial()
+{
+	ifstream historial;
+	ofstream guardarHistorial;
+	string texto;
+	string nombrePartida;
+
+	cout << "Introduzca nombre para guardar el historial:";
+		getline(cin, nombrePartida);
+
+	historial.open("Historial.txt", ios::in);
+	if (historial.fail()) {
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+
+	while (!historial.eof()) {
+		getline(historial, texto);
+	}
+	guardarHistorial.open(nombrePartida.c_str(), ios::out);
+	
+	if (guardarHistorial.fail()) {
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+
+	guardarHistorial << texto;
+ //guardamos los movimientos de la ultima partida en este nuevo fichero
+	
+
+	historial.close();
+	guardarHistorial.close();
+}
+
 void ListaPiezas::cargarPartida(string nombreFichero)
 {
 	ifstream arc;
