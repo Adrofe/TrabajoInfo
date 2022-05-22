@@ -29,6 +29,8 @@ public:
 	void inicializa();													
 	void mover();
 	void dibuja();
+	
+	void guardarPartida();
 
 	void promocionar(tipo_pieza tipo);
 

@@ -213,6 +213,42 @@ void ListaPiezas::borrarContenido()
 	}
 }
 
+void ListaPiezas::guardarPartida()
+{
+	ofstream partida;
+	string guardarPartida;
+
+
+	cout << "Introduzca nombre con el que desea guardar la partida:";
+	getline(cin, guardarPartida);
+
+	partida.open(guardarPartida.c_str(), ios::out);
+	if (partida.fail()) {
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+	for (int i = 0; i < nPiezas; i++) {
+
+		if (listaPiezas[i]->getColor() != NONE) {
+			if (listaPiezas[i]->getTipo() == PEON)
+				partida << "p" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+			else if (listaPiezas[i]->getTipo() == CABALLO)
+				partida << "N" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+			else if (listaPiezas[i]->getTipo() == TORRE)
+				partida << "R" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+			else if (listaPiezas[i]->getTipo() == ALFIL)
+				partida << "B" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+			else if (listaPiezas[i]->getTipo() == REINA)
+				partida << "Q" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+			else if (listaPiezas[i]->getTipo() == REY)
+				partida << "K" << listaPiezas[i]->getColor() << listaPiezas[i]->getColumna() << listaPiezas[i]->getFila() << " ";
+		}
+	}
+
+
+	partida.close();
+}
+
 pieza* ListaPiezas::buscarPieza(int fila, int columna)
 {
 	coordenada casilla(fila, columna);

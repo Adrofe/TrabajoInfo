@@ -69,6 +69,8 @@ public:
 	void eliminar(pieza* pieza);
 	void borrarContenido();
 
+	void guardarPartida();
+
 	void dibuja();
 
 	//Getters

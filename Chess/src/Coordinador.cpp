@@ -243,6 +243,9 @@ void Coordinador::Tecla(unsigned char key) {
 		if (key == 'r' || key == 'R') {
 			estado = MODOS;
 		}
+		if (key == 'g' || key == 'G') {
+			partida.guardarPartida();
+		}
 	}
 
 	else if ((estado == JAQUEMATE_BLANCO)|| (estado == JAQUEMATE_NEGRO)) {
