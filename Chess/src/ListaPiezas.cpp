@@ -34,6 +34,7 @@ ListaPiezas::~ListaPiezas()
 void ListaPiezas::crearPiezasAleatoriamente()
 {
 	borrarContenido();
+	proximoTurno = BLANCO;
 	jaqueMateBlanco = false;
 	jaqueMateNegro = false;
 
@@ -102,6 +103,7 @@ void ListaPiezas::crearPiezasAleatoriamente()
 void ListaPiezas::crearMismoTipo(tipo_pieza tipo)
 {
 	borrarContenido();
+	proximoTurno = BLANCO;
 	jaqueMateBlanco = false;
 	jaqueMateNegro = false;
 
@@ -169,6 +171,7 @@ void ListaPiezas::crearMismoTipo(tipo_pieza tipo)
 void ListaPiezas::crearAjedrez960()
 {
 	borrarContenido();
+	proximoTurno = BLANCO;
 	jaqueMateBlanco = false;
 	jaqueMateNegro = false;
 

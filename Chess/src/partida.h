@@ -47,8 +47,5 @@ public:
 	//Setters
 	void setIA(bool IA, color colorIA);
 	void setFichero(string fichero) { nombreFichero = fichero; }
-
-	void limpiarTablero() { piezas.borrarContenido(); }		//Tal vez borrar
-	
 };
 
