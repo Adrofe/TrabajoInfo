@@ -160,7 +160,7 @@ void Coordinador::dibuja()
 	glColor3f(255, 255, 255);
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/promocion.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glTexCoord2d(0, 1); glVertex3f(-10.0f, 3.0f, -17.0f);

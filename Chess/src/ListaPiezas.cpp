@@ -477,7 +477,6 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					//Eliminamos si procede la pieza a donde nos movemos
 					//eliminar(listaPiezas[indexDes]);
 					
-					
 					if ((indexDes > 0) || (indexDes <= nPiezas)) {
 						delete listaPiezas[indexDes];
 						coordenada coordFuera("z", 100);
@@ -922,65 +921,71 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		}
 	}
 
-	//Enroque hacia la izquierda del blanco
-	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 3)) {
-		//Si la torre izquierda y el rey no se han movido se continuan las comprobaciones
-		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
-			//Casillas vacias a la izquierda
-			if ((mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
-				return false;
+	if (enroqueBlanco==true){
+		//Enroque hacia la izquierda del blanco
+		if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 3)) {
+			//Si la torre izquierda y el rey no se han movido se continuan las comprobaciones
+			if ((torreBlancaIzq == true)) {
+				//Casillas vacias a la izquierda
+				if ((mirarCasilla(1, 2) == true) || (mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
+					return false;
+				}
+				//Comprobamos que ninguna de las casillas tenga jaque
+				else if ((jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
+					return false;
+				}
+				//Si no hay jaque permitimos el movimiento
+				else return true;
 			}
-			//Comprobamos que ninguna de las casillas tenga jaque
-			else if ((jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
-				return false;
-			}
-			//Si no hay jaque permitimos el movimiento
-			else return true;
+			else return false;
 		}
-		else return false;
-	}
-	//Enroque hacia la izquierda del blanco, la lógica es la misma para el primer enroque
-	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 7)) {
-		if ((torreBlancaDrc == true) && (enroqueBlanco == true)) {
-			//Casillas vacias a la derecha
-			if ((mirarCasilla(1, 6) == true) || (mirarCasilla(1, 7) == true)) {
-				return false;
+		//Enroque hacia la izquierda del blanco, la lógica es la misma para el primer enroque
+		if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 7)) {
+			if ((torreBlancaDrc == true)) {
+				//Casillas vacias a la derecha
+				if ((mirarCasilla(1, 6) == true) || (mirarCasilla(1, 7) == true)) {
+					return false;
+				}
+				else if ((jaquePosible(pieza, 1, 6) == false) || (jaquePosible(pieza, 1, 7) == false)) {
+					return false;
+				}
+				else return true;
 			}
-			else if ((jaquePosible(pieza, 1, 6) == false) || (jaquePosible(pieza, 1, 7) == false)) {
-				return false;
-			}
-			else return true;
+			else return false;
 		}
-		else return false;
 	}
-	//Enroque hacia la izquierda del negro
-	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 3)) {
-		if ((torreNegraIzq == true) && (enroqueNegro == true)) {
-			//Casillas vacias a la izquierda
-			if ((mirarCasilla(8, 3) == true) || (mirarCasilla(8, 4) == true)) {
-				return false;
+	
+	if (enroqueNegro == true) {
+		//Enroque hacia la izquierda del negro
+		if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 3)) {
+			if ((torreNegraIzq == true) && (enroqueNegro == true)) {
+				//Casillas vacias a la izquierda
+				if ((mirarCasilla(8, 2) == true) || (mirarCasilla(8, 3) == true) || (mirarCasilla(8, 4) == true)) {
+					return false;
+				}
+				else if ((jaquePosible(pieza, 8, 3) == false) || (jaquePosible(pieza, 8, 4) == false)) {
+					return false;
+				}
+				else return true;
 			}
-			else if ((jaquePosible(pieza, 8, 3) == false) || (jaquePosible(pieza, 8, 4) == false)) {
-				return false;
-			}
-			else return true;
+			else return false;
 		}
-		else return false;
-	}
-	//Enroque hacia la derecha del negro
-	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 7)) {
-		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
-			//Casillas vacias a la derecha
-			if ((mirarCasilla(8, 6) == true) || (mirarCasilla(8, 7) == true)) {
-				return false;
+		//Enroque hacia la derecha del negro
+		if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 7)) {
+			if ((torreNegraDrc == true) && (enroqueNegro == true)) {
+				//Casillas vacias a la derecha
+				if ((mirarCasilla(8, 6) == true) || (mirarCasilla(8, 7) == true)) {
+					return false;
+				}
+				else if ((jaquePosible(pieza, 8, 6) == false) || (jaquePosible(pieza, 8, 7) == false)) {
+					return false;
+				}
+				else return true;
 			}
-			else if ((jaquePosible(pieza, 8, 6) == false) || (jaquePosible(pieza, 8, 7) == false)) {
-				return false;
-			}
-			else return true;
+			else return false;
 		}
-		else return false;
 	}
+	
 	return true;
 }
 
