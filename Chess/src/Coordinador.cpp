@@ -272,12 +272,15 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = JUEGO;
 		}
 		if (key == 'r' || key == 'R') {
-			estado = MODOS;
+			partida.setFichero("ESTANDAR.txt");
+			partida.inicializa();
+			estado = JUEGO;
 		}
 		if (key == 'g' || key == 'G') {
 			partida.guardarPartida();
 		}
 		if (key == 't' || key == 'T') {
+			partida.setIA(false, BLANCO);
 			estado = INICIO;
 		}
 		if (key == 's' || key == 'S') {
@@ -287,10 +290,12 @@ void Coordinador::Tecla(unsigned char key) {
 
 	else if ((estado == JAQUEMATE_BLANCO)|| (estado == JAQUEMATE_NEGRO)) {
 		if (key == 't' || key == 'T') {
+			partida.setFichero("ESTANDAR.txt");
+			partida.setIA(false, BLANCO);
 			estado = INICIO;
-			//partida.limpiarTablero();
 		}
 		if (key == 'r' || key == 'R') {
+			partida.setFichero("ESTANDAR.txt");
 			partida.inicializa();
 			estado = JUEGO;
 		}
