@@ -2,6 +2,8 @@
 #include "ETSIDI.h"
 #include<windows.h>
 
+
+
 ListaPiezas::ListaPiezas()
 {
 	for (int i = 0; i < MAX_PIEZAS; i++) {
@@ -245,8 +247,100 @@ void ListaPiezas::guardarPartida()
 		}
 	}
 
-
+	partida<<"T"<<proximoTurno; //guarda el turno de movimiento
+	
 	partida.close();
+}
+
+void ListaPiezas::cargarPartida()
+{
+	ifstream arc;
+	string texto ="ESTANDAR.txt";
+	char caracter;
+	char letra;
+	int fila;
+	int columna;
+	int i = 0;
+	tipo_pieza tipo;
+	color col;
+	pieza* aux;
+
+	//cout << "Introduzca nombre de la partida que desea cargar:";
+	//getline(cin, texto);
+	arc.open(texto.c_str(), ios::in);
+
+	if (arc.fail()) {
+		cout << "no se pudo abrir el archivo";
+		exit(1);
+	}
+	int posicion = 0;
+
+	for (int i = 0; i < MAX_PIEZAS; i++) {
+
+		listaPiezas[i] = 0;
+	}
+
+	do{
+		arc.get(caracter);
+
+			if (caracter != ' ') {
+				if (posicion == 0) {
+					if (caracter == 'p') tipo = PEON;
+					else if (caracter == 'N') tipo = CABALLO;
+					else if (caracter == 'R') tipo = TORRE;
+					else if (caracter == 'B') tipo = ALFIL;
+					else if (caracter == 'Q') tipo = REINA;
+					else if (caracter == 'K') tipo = REY;
+				}
+				if (posicion == 1) {
+					
+					if (caracter == '0') col = NEGRO;
+					else if (caracter == '1') col = BLANCO;
+				}
+				if (posicion == 2) columna = caracter - '0'; //se pone lo del cero para pasar de char a int
+				if (posicion == 3) fila = caracter - '0';
+			}
+			
+			if (posicion == 4) {
+				cout << tipo<<col<<fila<<columna<<endl;
+				coordenada coord(fila,columna);
+				if(tipo==PEON){
+					aux = new Peon(col, coord);
+				}
+				else if (tipo == CABALLO) {
+					aux = new caballo(col,coord);
+				}
+				else if (tipo == TORRE) {
+					aux = new Torre(col,coord);
+				}
+				else if (tipo == ALFIL) {
+					aux = new Alfil(col, coord);
+				}
+				else if (tipo == REINA) {
+					aux = new reina(col, coord);
+				}
+				else if (tipo == REY) {
+					aux = new rey(col, coord);
+				}
+
+				agregarPieza(aux);
+			}
+			cout << "pos:"<<posicion<<endl;
+				posicion++;
+				posicion = posicion % 5;
+			
+	}while (caracter != 'T');
+
+
+	arc.get(caracter);
+
+	if (caracter == '1') proximoTurno = BLANCO;
+	else if(caracter == '0') proximoTurno = NEGRO;
+	
+
+
+	arc.close();
+
 }
 
 pieza* ListaPiezas::buscarPieza(int fila, int columna)

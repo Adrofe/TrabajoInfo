@@ -9,8 +9,8 @@ void partida::inicializa()
 	z_ojo = 32.0f;
 
     ETSIDI::play("sonidos/inicioPartida.mp3");
-    piezas.crearPiezas();
-
+    //piezas.crearPiezas();
+    piezas.cargarPartida();
 }
 
 void partida::mover()

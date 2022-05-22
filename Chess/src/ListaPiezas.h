@@ -14,6 +14,7 @@
 #include <fstream>
 #include <string>
 
+
 #define MAX_PIEZAS 100
 
 
@@ -70,6 +71,8 @@ public:
 	void borrarContenido();
 
 	void guardarPartida();
+
+	void cargarPartida();
 
 	void dibuja();
 
