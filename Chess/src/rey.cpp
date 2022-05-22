@@ -78,13 +78,13 @@ bool rey::movimientoLegal(coordenada destino)
 	//Movimientos para el enroque
 	if (icolor == BLANCO) {
 		if (getCoordenada().getFila() == 1 && getCoordenada().getColumna() == 5) {
-			if (destino.getFila() == 1 && destino.getColumna() == 2) return true;
+			if (destino.getFila() == 1 && destino.getColumna() == 3) return true;
 			if (destino.getFila() == 1 && destino.getColumna() == 7) return true;
 		}
 	}
 	else {
 		if (getCoordenada().getFila() == 8 && getCoordenada().getColumna() == 5) {
-			if (destino.getFila() == 8 && destino.getColumna() == 2) return true;
+			if (destino.getFila() == 8 && destino.getColumna() == 3) return true;
 			if (destino.getFila() == 8 && destino.getColumna() == 7) return true;
 		}
 	}

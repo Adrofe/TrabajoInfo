@@ -1,4 +1,4 @@
 ﻿  ListaPiezas.cpp
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(469): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
-D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(1009): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(470): warning C4715: 'ListaPiezas::comprobarColor': no todas las rutas de acceso de control devuelven un valor
+D:\GitHub\TrabajoInfo\Chess\src\ListaPiezas.cpp(1010): warning C4715: 'ListaPiezas::comprobarPieza': no todas las rutas de acceso de control devuelven un valor
   Pang.vcxproj -> D:\GitHub\TrabajoInfo\Chess\bin\Chess.exe

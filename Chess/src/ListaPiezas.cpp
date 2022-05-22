@@ -196,7 +196,6 @@ void ListaPiezas::eliminar(int index)
 
 void ListaPiezas::eliminar(pieza* pieza)
 {
-	
 	for (int i = 0; i < nPiezas; i++) {
 		if (listaPiezas[i] == pieza) {
 			ETSIDI::play("sonidos/comer.mp3");
@@ -232,20 +231,19 @@ void ListaPiezas::enroque(pieza* pieza, int fila, int columna)
 	//Comprobamos que la pieza que llega es un rey
 	if (pieza->getTipo() == REY) {
 		//Segun donde se vaya a mover, movemos la torre correspondiente. La legalidad del movimiento se comprueba tanto en la pieza como en comprobarRey
-		if (fila == 1 && columna == 2) {
-			buscarPieza(1, 1)->setColumna(3);
+		if (fila == 1 && columna == 3) {
+			buscarPieza(1, 1)->setColumna(4);
 		}
 		if (fila == 1 && columna == 7) {
 			buscarPieza(1, 8)->setColumna(6);
 		}
-		if (fila == 8 && columna == 2) {
-			buscarPieza(8, 1)->setColumna(3);
+		if (fila == 8 && columna == 3) {
+			buscarPieza(8, 1)->setColumna(4);
 		}
 		if (fila == 8 && columna == 7) {
 			buscarPieza(8, 8)->setColumna(6);
 		}
 	}
-
 }
 
 void ListaPiezas::anularEnroque(pieza* pieza, int fila, int columna)
@@ -301,6 +299,7 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 
 					//Eliminamos si procede la pieza a donde nos movemos
 					eliminar(listaPiezas[indexDes]);
+					//delete listaPiezas[indexDes];
 	
 					//Guardamos el historial
 					pieza1->guardarHistorial();
@@ -740,15 +739,15 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 	}
 
 	//Enroque hacia la izquierda del blanco
-	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 2)) {
+	if ((pieza->getColor() == BLANCO) && (fila == 1) && (columna == 3)) {
 		//Si la torre izquierda y el rey no se han movido se continuan las comprobaciones
 		if ((torreBlancaIzq == true) && (enroqueBlanco == true)) {
 			//Casillas vacias a la izquierda
-			if ((mirarCasilla(1, 2) == true) || (mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
+			if ((mirarCasilla(1, 3) == true) || (mirarCasilla(1, 4) == true)) {
 				return false;
 			}
 			//Comprobamos que ninguna de las casillas tenga jaque
-			else if ((jaquePosible(pieza, 1, 2) == false) || (jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
+			else if ((jaquePosible(pieza, 1, 3) == false) || (jaquePosible(pieza, 1, 4) == false)) {
 				return false;
 			}
 			//Si no hay jaque permitimos el movimiento
@@ -771,13 +770,13 @@ bool ListaPiezas::comprobarRey(pieza* pieza, int fila, int columna)
 		else return false;
 	}
 	//Enroque hacia la izquierda del negro
-	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 2)) {
+	if ((pieza->getColor() == NEGRO) && (fila == 8) && (columna == 3)) {
 		if ((torreNegraIzq == true) && (enroqueNegro == true)) {
 			//Casillas vacias a la izquierda
-			if ((mirarCasilla(8, 2) == true) || (mirarCasilla(8, 3) == true) || (mirarCasilla(8, 4) == true)) {
+			if ((mirarCasilla(8, 3) == true) || (mirarCasilla(8, 4) == true)) {
 				return false;
 			}
-			else if ((jaquePosible(pieza, 8, 2) == false) || (jaquePosible(pieza, 8, 3) == false) || (jaquePosible(pieza, 8, 4) == false)) {
+			else if ((jaquePosible(pieza, 8, 3) == false) || (jaquePosible(pieza, 8, 4) == false)) {
 				return false;
 			}
 			else return true;
