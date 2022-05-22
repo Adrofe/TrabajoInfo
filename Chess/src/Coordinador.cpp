@@ -46,6 +46,9 @@ void Coordinador::dibuja()
 		if (partida.getJaqueMateNegro() == true) {
 			estado = JAQUEMATE_NEGRO;
 		}
+		if (partida.piezas.promocionar) {
+			estado = PROMOCIONAR;
+		}
 	}
 	else if (estado == MODOS)
 	{
@@ -149,6 +152,27 @@ void Coordinador::dibuja()
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 	}
+	else if (estado == PROMOCIONAR) {
+
+	gluLookAt(31.9f, 100.0f, 32.0f, // posicion del ojo
+		32.0, 0.0, 32.0, // hacia que punto mira (0,7.5,0)
+		0.0, 1.0, 0.0); // definimos hacia arriba (eje Y)
+	glColor3f(255, 255, 255);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glTexCoord2d(0, 1); glVertex3f(-10.0f, 3.0f, -17.0f);
+	glTexCoord2d(1, 1); glVertex3f(-10.0f, 3.0f, 82.0f);
+	glTexCoord2d(1, 0); glVertex3f(70.0f, 3.0f, 82.0f);
+	glTexCoord2d(0, 0); glVertex3f(70.0f, 3.0f, -17.0f);
+	glEnd();
+	glEnable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	}
 }
 
 void Coordinador::mouse(int button, int state, int x, int y)
@@ -232,6 +256,33 @@ void Coordinador::Tecla(unsigned char key) {
 			estado = JUEGO;
 		}
 		if (key == 's' || key == 'S') exit(0);
+	}
+
+	else if ((estado == PROMOCIONAR)) {
+
+		if (key == 'r' || key == 'R') {
+
+			partida.promocionar(REINA);
+			estado = JUEGO;
+
+		}
+		else if (key == 'c' || key == 'C') {
+
+			partida.promocionar(CABALLO);
+			estado = JUEGO;
+
+		}
+		else if (key == 'a' || key == 'A') {
+
+			partida.promocionar(ALFIL);
+			estado = JUEGO;
+		}
+		else if (key == 't' || key == 'T') {
+
+			partida.promocionar(TORRE);
+			estado = JUEGO;
+
+		}
 	}
 }
 

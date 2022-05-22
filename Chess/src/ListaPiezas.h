@@ -53,6 +53,11 @@ public:
 	//Turno
 	color proximoTurno = BLANCO;
 
+	tipo_pieza tipo_promocion;
+	bool promocionar;
+
+	pieza* apuntar;
+
 	//Constructores
 	ListaPiezas();
 	~ListaPiezas();
@@ -103,6 +108,8 @@ public:
 	bool mirarCasilla(int fila, int columna);
 	bool comprobarPieza(pieza* aux, int fila, int columna);
 
+	void Promocion(pieza* pieza);
+	void comprobarPromocion(pieza* pieza);
 
 	//IA
 	void setColorIA(color colorIA);

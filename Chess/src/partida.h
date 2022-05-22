@@ -30,6 +30,8 @@ public:
 	void mover();
 	void dibuja();
 
+	void promocionar(tipo_pieza tipo);
+
 	//Mouse
 	void mouse(int button, int state, int x, int y);
 	void getColFilMouse(int x, int y, int &fila, int &columna);

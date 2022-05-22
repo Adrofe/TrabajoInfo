@@ -157,6 +157,12 @@ void partida::dibuja()
     }
 }
 
+void partida::promocionar(tipo_pieza tipo)
+{
+    piezas.tipo_promocion = tipo;
+    piezas.promocionar = false;
+    piezas.Promocion(piezas.apuntar);
+}
 
 void partida::mouse(int button, int state, int x, int y)
 {

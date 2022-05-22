@@ -297,12 +297,14 @@ void ListaPiezas::moverPieza(pieza* pieza1, int fila, int columna)
 					pieza1->setColumna(columna);
 					ETSIDI::play("sonidos/movimiento.mp3"); //sonido de movimiento de pieza
 
+					comprobarPromocion(pieza1);
+
 					//Eliminamos si procede la pieza a donde nos movemos
 					eliminar(listaPiezas[indexDes]);
 					//delete listaPiezas[indexDes];
 	
 					//Guardamos el historial
-					pieza1->guardarHistorial();
+					listaPiezas[index]->guardarHistorial();
 					
 					//Recalculamos los jaques
 					jaque(BLANCO);
@@ -1007,6 +1009,61 @@ bool ListaPiezas::comprobarPieza(pieza* aux, int fila, int columna)
 		
 }
 
+void ListaPiezas::Promocion(pieza* pieza)
+{
+	int index = -1;
+	coordenada Coord;
+	color Color;
+
+
+	for (int i = 0; i < nPiezas; i++) {
+		if (listaPiezas[i] == pieza) {
+			index = i;
+		}
+	}
+	Coord.setCol(listaPiezas[index]->getCoordenada().getColumna());
+	Coord.setFil(listaPiezas[index]->getCoordenada().getFila());
+	Color = listaPiezas[index]->getColor();
+	if ((index > 0) || (index <= nPiezas)) delete listaPiezas[index];
+
+	if (tipo_promocion == REINA) {
+		reina* reina11 = new reina(BLANCO, Coord);
+		listaPiezas[index] = reina11;
+	}
+	else if (tipo_promocion == TORRE) {
+		Torre* torre11 = new Torre(BLANCO, Coord);
+		listaPiezas[index] = torre11;
+	}
+	else if (tipo_promocion == ALFIL) {
+		Alfil* alfil11 = new Alfil(BLANCO, Coord);
+		listaPiezas[index] = alfil11;
+	}
+	else if (tipo_promocion == CABALLO) {
+		caballo* caballo11 = new caballo(BLANCO, Coord);
+		listaPiezas[index] = caballo11;
+	}
+
+}
+
+void ListaPiezas::comprobarPromocion(pieza* pieza)
+{
+	if (pieza->getTipo() == PEON) {
+		if (pieza->getColor() == BLANCO) {
+			if (pieza->getCoordenada().getFila() == (8)) {
+				promocionar = true;
+				apuntar = pieza;
+			}
+		}
+	}
+	if (pieza->getTipo() == PEON) {
+		if (pieza->getColor() == NEGRO) {
+			if (pieza->getCoordenada().getFila() == (1)) {
+				promocionar = true;
+				apuntar = pieza;
+			}
+		}
+	}
+}
 void ListaPiezas::setColorIA(color colorIA)
 {
 	this->colorIA = colorIA;
